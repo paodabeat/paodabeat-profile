@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React from 'react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
@@ -108,7 +103,7 @@ export default function Home() {
                             <div className="aspect-4/5 rounded-3xl overflow-hidden bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 p-4 relative group">
                                 <div className="absolute inset-0 bg-linear-to-tr from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                                 <img
-                                    src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/Meiji%20Jingu%201.png"
+                                    src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/avarta.png"
                                     alt="Phùng Trần Gia Bảo"
                                     className="w-full h-full object-cover rounded-2xl grayscale group-hover:grayscale-0 transition-all duration-700"
                                 />

@@ -47,13 +47,13 @@ const resources = {
                 title: "Kỹ Năng",
                 list: [
                     { title: "Thiết kế đồ hoạ 2D/3D", items: ["Illustrator", "Photoshop", "Indesign", "Canva", "Blender"] },
-                    { title: "Biên tập đa phương tiện", items: ["Premiere Pro", "After Effect", "Audition", "Animation", "CapCut", "Filmora"] },
+                    { title: "Biên tập đa phương tiện", items: ["Premiere Pro", "After Effect", "Audition", "Animation", "CapCut", "Wondershare Filmora"] },
                     { title: "Phân tích & Thiết kế HT", items: ["Figma", "Moodle", "Vercel", "Hostinger", "Mermaid"] },
                     { title: "Lập trình & Quản trị HT", items: ["HTML/CSS", "JavaScript/TS", "TailwindCSS", "MySQL", "Supabase", "Firebase", "Python"] },
                     { title: "Sản xuất E-learning", items: ["Active Presenter", "iSpring", "Lumi"] },
                     { title: "Thiết kế Game", items: ["GDevelop", "Rive"] },
                     { title: "AI Agent & AI Ứng dụng", items: ["Shakker", "Kling", "Hailuo", "Vbee"] },
-                    { title: "Kỹ năng đặc thù khác", items: ["Truyền hình (vMix, Resolume)", "Phân tích dữ liệu (SPSS, GA)"] }
+                    { title: "Kỹ năng đặc thù khác", items: ["Truyền hình (vMix, Resolume Arena)", "Phân tích dữ liệu (SPSS)"] }
                 ]
             },
             academic: {
@@ -97,20 +97,13 @@ const resources = {
                 contact: "LIÊN HỆ",
                 phone: "Số điện thoại:",
                 address: "Địa chỉ:",
-                address_detail: "Tương Mai - Hoàng Mai - Hà Nội",
+                address_detail: "Chung cư Viện Bỏng - Hà Đông - Hà Nội",
                 email: "Email:",
                 foreign_language: "NGOẠI NGỮ",
                 english: "Tiếng Anh",
                 chinese: "Tiếng Trung Quốc",
                 education_time: "Công nghệ Giáo dục",
-                skills: {
-                    graphic: "Thiết kế đồ họa 2D/3D",
-                    video: "Biên tập và xử lý video/audio",
-                    system: "Thiết kế hệ thống",
-                    programming: "Ngôn ngữ lập trình",
-                    others: "Các kỹ năng khác",
-                    others_list: ["Phân tích nghiệp vụ (BA)", "Xây dựng kịch bản", "Thiết kế bài giảng tương tác H5P", "Thiết kế PowerPoint", "Thiết kế và lập trình game", "Đạo diễn thu âm và ghi hình"]
-                }
+                qr_text: "Quét mã để xem Portfolio trực tuyến"
             }
         }
     },
@@ -158,13 +151,13 @@ const resources = {
                 title: "Skills",
                 list: [
                     { title: "2D/3D Graphic Design", items: ["Illustrator", "Photoshop", "Indesign", "Canva", "Blender"] },
-                    { title: "Multimedia Editing", items: ["Premiere Pro", "After Effect", "Audition", "Animation", "CapCut", "Filmora"] },
+                    { title: "Multimedia Editing", items: ["Premiere Pro", "After Effect", "Audition", "Animation", "CapCut", "Wondershare Filmora"] },
                     { title: "System Analysis & Design", items: ["Figma", "Moodle", "Vercel", "Hostinger", "Mermaid"] },
                     { title: "Programming & SysAdmin", items: ["HTML/CSS", "JavaScript/TS", "TailwindCSS", "MySQL", "Supabase", "Firebase", "Python"] },
                     { title: "E-learning Production", items: ["Active Presenter", "iSpring", "Lumi"] },
                     { title: "Game Design", items: ["GDevelop", "Rive"] },
                     { title: "AI Agent & Applied AI", items: ["Shakker", "Kling", "Hailuo", "Vbee"] },
-                    { title: "Other Specific Skills", items: ["TV Production (vMix, Resolume)", "Data Analysis (SPSS, GA)"] }
+                    { title: "Other Specific Skills", items: ["TV Production (vMix, Resolume Arena)", "Data Analysis (SPSS)"] }
                 ]
             },
             academic: {
@@ -208,20 +201,13 @@ const resources = {
                 contact: "CONTACT",
                 phone: "Phone number:",
                 address: "Address:",
-                address_detail: "Tuong Mai - Hoang Mai - Hanoi",
+                address_detail: "National Institute of Burns Apartment - Ha Dong - Hanoi",
                 email: "Email:",
                 foreign_language: "LANGUAGES",
                 english: "English",
                 chinese: "Chinese",
                 education_time: "Educational Technology",
-                skills: {
-                    graphic: "2D/3D Graphic Design",
-                    video: "Video/Audio Editing",
-                    system: "System Design",
-                    programming: "Programming Languages",
-                    others: "Other Skills",
-                    others_list: ["Business Analysis (BA)", "Scriptwriting", "H5P Interactive Lectures", "PowerPoint Design", "Game Design & Dev", "Audio & Video Directing"]
-                }
+                qr_text: "Scan code to view Portfolio online"
             }
         }
     },
@@ -269,13 +255,13 @@ const resources = {
                 title: "技能",
                 list: [
                     { title: "2D/3D图形设计", items: ["Illustrator", "Photoshop", "Indesign", "Canva", "Blender"] },
-                    { title: "多媒体编辑", items: ["Premiere Pro", "After Effect", "Audition", "Animation", "CapCut", "Filmora"] },
+                    { title: "多媒体编辑", items: ["Premiere Pro", "After Effect", "Audition", "Animation", "CapCut", "Wondershare Filmora"] },
                     { title: "系统分析与设计", items: ["Figma", "Moodle", "Vercel", "Hostinger", "Mermaid"] },
                     { title: "编程与系统管理", items: ["HTML/CSS", "JavaScript/TS", "TailwindCSS", "MySQL", "Supabase", "Firebase", "Python"] },
                     { title: "电子学习制作", items: ["Active Presenter", "iSpring", "Lumi"] },
                     { title: "游戏设计", items: ["GDevelop", "Rive"] },
                     { title: "AI代理与应用AI", items: ["Shakker", "Kling", "Hailuo", "Vbee"] },
-                    { title: "其他专业技能", items: ["电视制作 (vMix, Resolume)", "数据分析 (SPSS, GA)"] }
+                    { title: "其他专业技能", items: ["电视制作 (vMix, Resolume Arena)", "数据分析 (SPSS)"] }
                 ]
             },
             academic: {
@@ -319,20 +305,13 @@ const resources = {
                 contact: "联系方式",
                 phone: "电话号码：",
                 address: "地址：",
-                address_detail: "河内 - 黄梅 - 湘梅",
+                address_detail: "河内 - 黄梅 - 烧伤医院公寓",
                 email: "电子邮件：",
                 foreign_language: "外语",
                 english: "英语",
                 chinese: "中文",
                 education_time: "教育技术",
-                skills: {
-                    graphic: "2D/3D图形设计",
-                    video: "视频/音频编辑",
-                    system: "系统设计",
-                    programming: "编程语言",
-                    others: "其他技能",
-                    others_list: ["业务分析 (BA)", "剧本创作", "H5P互动课程", "PPT设计", "游戏设计与开发", "音视频导演"]
-                }
+                qr_text: "扫码在线查看作品集"
             }
         }
     }
