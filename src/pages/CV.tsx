@@ -21,7 +21,7 @@ export default function CV() {
     const skillsData = (t('skills.list', { returnObjects: true }) as Array<{ title: string, items: string[] }>) || [];
 
     return (
-        <div className="min-h-screen bg-neutral-200 dark:bg-neutral-900 py-8 px-4 md:py-12 font-sans relative transition-colors duration-300 print:!bg-white print:dark:bg-white print:py-0 print:px-0 print:min-h-0">
+        <div className="min-h-screen bg-neutral-200 dark:bg-neutral-900 py-8 px-4 md:py-12 font-sans relative transition-colors duration-300 print:bg-white print:dark:bg-white print:py-0 print:px-0 print:min-h-0">
 
             {/* Top Bar: Nút Quay lại & Nút Tải PDF */}
             <div className="w-full max-w-[210mm] mx-auto mb-4 flex items-center justify-between print:hidden">
@@ -59,9 +59,9 @@ export default function CV() {
                         <div className="absolute inset-0 bg-[radial-gradient(var(--color-primary)_2px,transparent_2px)] bg-size-[12px_12px] opacity-40"></div>
                         <div className="absolute top-6 bottom-6 right-6 left-6 md:left-10 print:left-10 overflow-hidden shadow-xl rounded-sm bg-neutral-200 print:shadow-md">
                             <img
-                                src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/avarta.png"
+                                src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/cover.png"
                                 alt="Phùng Trần Gia Bảo"
-                                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                className="w-full h-full"
                             />
                         </div>
                     </div>
@@ -84,7 +84,6 @@ export default function CV() {
                         </div>
                     </div>
 
-                    {/* Social Icons (Đã bỏ print:hidden để hiển thị trên PDF và có thể click) */}
                     <div className="absolute bottom-8 right-8 z-30 flex gap-2">
                         <a href="https://www.facebook.com/phungtrangiabao/" target="_blank" rel="noreferrer" className="w-8 h-8 bg-[#222] flex items-center justify-center text-white hover:bg-primary transition-all rounded-sm shadow-md print:bg-[#333] print:text-white print:shadow-none"><i className="fa-brands fa-facebook-f text-sm"></i></a>
                         <a href="https://www.linkedin.com/in/paodabeat/" target="_blank" rel="noreferrer" className="w-8 h-8 bg-[#222] flex items-center justify-center text-white hover:bg-primary transition-all rounded-sm shadow-md print:bg-[#333] print:text-white print:shadow-none"><i className="fa-brands fa-linkedin-in text-sm"></i></a>
@@ -132,7 +131,7 @@ export default function CV() {
                             {/* Trục Timeline: Padding left 28px (pl-7) */}
                             <div className="relative pl-7 space-y-4 print:space-y-3.5">
                                 {/* Đường thẳng dọc: left 6px (Tâm đường thẳng sẽ là 6 + 2/2 = 7px) */}
-                                <div className="absolute left-[6px] top-1.5 bottom-0 w-0.5 bg-gray-300"></div>
+                                <div className="absolute left-1.5 top-1.5 bottom-0 w-0.5 bg-gray-300"></div>
 
                                 {experiencesData.map((exp, index) => (
                                     <motion.div
@@ -172,7 +171,7 @@ export default function CV() {
                             {/* Badges Ngoại ngữ */}
                             <div className="flex gap-2">
                                 <span className="bg-white text-primary text-[10px] font-bold px-2 py-0.5 rounded-sm shadow-sm">
-                                    {t('cv.english')} C1
+                                    {t('cv.english')} B2
                                 </span>
                                 <span className="bg-white text-primary text-[10px] font-bold px-2 py-0.5 rounded-sm shadow-sm">
                                     {t('cv.chinese')} B1

@@ -1,3 +1,8 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -13,8 +18,8 @@ const resources = {
                 academic: "Học thuật",
             },
             hero: {
-                typewriter: ["EdTech Enthusiast", "Multimedia Content Creator", "E-learning Designer", "System Developer"],
-                desc: "Là người đam mê Công nghệ Giáo dục (EdTech), tôi kết hợp thế mạnh về tư duy sư phạm, thiết kế đa phương tiện và lập trình hệ thống để tạo ra các giải pháp học tập sáng tạo. Từng thử sức qua nhiều dự án lớn tại VTV và ĐHBK HN, tôi luôn lấy người học làm trung tâm để thiết kế nội dung. Với sự kỷ luật, tôi không ngừng học hỏi và đổi mới bản thân mỗi ngày.",
+                typewriter: ["EdTech Enthusiast", "Multimedia Content Creator", "Instructional Designer", "System Developer"],
+                desc: "Với tư duy sư phạm và kỹ năng công nghệ, tôi thiết kế các giải pháp E-learning và trải nghiệm đa phương tiện lấy người học làm trung tâm. Sự kỷ luật và tinh thần đổi mới là kim chỉ nam giúp tôi chinh phục những dự án giáo dục số phức tạp.",
                 download_cv: "Download CV",
                 view_projects: "Xem Dự Án",
                 quote: "\"Little strokes fell great oaks\""
@@ -110,15 +115,15 @@ const resources = {
     en: {
         translation: {
             nav: {
-                hero: "About",
+                hero: "About Me",
                 experience: "Experience",
                 projects: "Projects",
                 skills: "Skills",
                 academic: "Academic",
             },
             hero: {
-                typewriter: ["EdTech Enthusiast", "Multimedia Content Creator", "E-learning Designer", "System Developer"],
-                desc: "As an EdTech Enthusiast, I combine pedagogical mindset, multimedia design, and system development to create innovative learning solutions. Having participated in major projects at VTV and HUST, I always prioritize a learner-centric approach in content design. With discipline, I constantly learn and innovate myself every day.",
+                typewriter: ["EdTech Enthusiast", "Multimedia Content Creator", "Instructional Designer", "System Developer"],
+                desc: "With a pedagogical mindset and technical skills, I design learner-centric E-learning solutions and multimedia experiences. Discipline and an innovative spirit are my guiding principles in conquering complex digital education projects.",
                 download_cv: "Download CV",
                 view_projects: "View Projects",
                 quote: "\"Little strokes fell great oaks\""
@@ -221,8 +226,8 @@ const resources = {
                 academic: "学术",
             },
             hero: {
-                typewriter: ["教育科技爱好者", "多媒体内容创作者", "电子学习设计师", "系统开发员"],
-                desc: "作为一名教育科技（EdTech）爱好者，我将教学思维、多媒体设计和系统开发相结合，以创造创新的学习解决方案。在参与VTV和河内理工大学的重大项目时，我始终坚持以学习者为中心的内容设计方法。凭借自律，我每天都在不断学习和自我创新。",
+                typewriter: ["教育科技爱好者", "多媒体内容创作者", "教学设计师", "系统开发员"],
+                desc: "凭借教学思维和技术专长，我设计以学习者为中心的电子学习解决方案和多媒体体验。纪律和创新精神是我征服复杂数字教育项目的指导原则。",
                 download_cv: "下载简历",
                 view_projects: "查看项目",
                 quote: "\"滴水穿石\""
