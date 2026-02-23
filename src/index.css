@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Thêm FontAwesome để hiển thị các icon mạng xã hội trong CV */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css');
+@import "tailwindcss";
+
+/* Ép Tailwind v4 ưu tiên dùng class .dark thay vì theo hệ thống mặc định */
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-hust-red: #E31B23;
+  --color-tech-blue: #00A3FF;
+
+  /* Thêm màu sắc chủ đạo mới (Thần số học số 5) */
+  --color-primary: #0066FF;
+  --color-cv-dark: #1A1A1A;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Mặc định: Giao diện Light Mode */
+  body {
+    background-color: #fafafa;
+    /* neutral-50 */
+    color: #171717;
+    /* neutral-900 */
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Hiệu ứng chuyển màu nền mượt mà khi đổi Theme */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Kích hoạt Dark Mode thông qua class 'dark' trên thẻ html */
+  html.dark body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+  }
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
