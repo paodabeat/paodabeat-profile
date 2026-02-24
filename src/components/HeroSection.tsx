@@ -27,12 +27,12 @@ export default function HeroSection() {
                 <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8 }}>
                     <div className="flex flex-col w-max mb-2 mt-2">
                         <div className="flex justify-between w-full text-2xl md:text-[2.5rem] font-black text-neutral-800 dark:text-white/90 leading-none mb-5 tracking-widest">
-                            <span>P</span><span>H</span><span>U</span><span>N</span><span>G</span>
+                            <span>P</span><span>H</span><span>Ù</span><span>N</span><span>G</span>
                             <span>&nbsp;</span>
-                            <span>T</span><span>R</span><span>A</span><span>N</span>
+                            <span>T</span><span>R</span><span>Ầ</span><span>N</span>
                         </div>
                         <div className="text-7xl md:text-[8.5rem] font-black leading-tight bg-linear-to-r from-primary to-blue-400 bg-clip-text text-transparent drop-shadow-sm">
-                            GIA BAO
+                            GIA BẢO
                         </div>
                     </div>
 

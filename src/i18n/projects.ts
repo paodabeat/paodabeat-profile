@@ -20,12 +20,80 @@ export const projects = {
         },
         list: [
             // Gendemy
-            { id: 101, category: "gendemy", title: "Hệ sinh thái học tập số Gendemy", type: "website", url: "https://www.gendemyedu.com/", image: "https://picsum.photos/seed/gendemy/600/400", description: "Hệ sinh thái giáo dục số toàn diện nhằm mục tiêu phát triển năng lực học tập tự định hướng cho người học." },
+            { id: 101, category: "gendemy", title: "Hệ sinh thái học tập số Gendemy", type: "website", url: "https://www.gendemyedu.com/", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/gendemy.png", description: "Hệ sinh thái giáo dục số toàn diện nhằm mục tiêu phát triển năng lực học tập tự định hướng cho người học." },
 
-            // TV & Events
-            { id: 201, category: "tv", title: "Gameshow & Chương trình giải trí", type: "updating", url: "", image: "https://picsum.photos/seed/tv1/600/400", description: "Sản xuất nội dung và đồ họa cho 12 Con Giáp (2024-2026), Vang mãi khúc khải hoàn, Quán quen chính gốc..." },
-            { id: 202, category: "tv", title: "Chương trình Giáo dục & Sinh viên", type: "updating", url: "", image: "https://picsum.photos/seed/tv2/600/400", description: "Tham gia tổ chức sản xuất Sinh viên thế hệ mới 2023, Vũ trụ đồng tiền, Đường lên đỉnh Olympia." },
-            { id: 203, category: "tv", title: "Sự kiện Văn hoá - Nghệ thuật", type: "updating", url: "", image: "https://picsum.photos/seed/tv3/600/400", description: "Hỗ trợ sản xuất VTV Awards, Ngày hội văn hoá HSB - T&T, Hoà âm Ánh sáng." },
+            // TV & Events (Dạng Poster Gallery)
+            {
+                id: 201, category: "tv", title: "12 Con Giáp 2024",
+                type: "pdf", url: "",
+                image: "https://cdn-images.vtv.vn/562122370168008704/2024/2/11/poster-1707648689188656725692.jpg",
+                description: "Chương trình giải trí Tết Nguyên Đán Giáp Thìn đặc biệt trên VTV."
+            },
+            {
+                id: 202, category: "tv", title: "12 Con Giáp 2025",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/486854527_1074077004755036_856707956005061699_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEKG8ynaBsmhvyyh-t-azMTeHaI75izomJ4dojvmLOiYsC75Ae2ownNkfBwvI75n974o5xz6i8Y-ZUfik4vmk6_&_nc_ohc=10ssFeCUNawQ7kNvwE2glQ3&_nc_oc=AdmppYDAf4KlWpKYkJ_UumVjhk64TPsPWMsMMuXDnzBv3PjVX-asBhzHS4NysRHB1h4P2PBodctkCr4-asy18uvD&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=ZMZW9GJQUMGaqKQ5aYZIAw&oh=00_AfvmAL8W1k2QCi5nPs8OxSiPHdEOFZY4mEYZzxiTeJ86nA&oe=69A27D33",
+                description: "Chương trình giải trí Tết Nguyên Đán Ất Tỵ đặc biệt trên VTV."
+            },
+            {
+                id: 203, category: "tv", title: "12 Con Giáp 2026",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/638200423_1341248158037918_7253331000717129550_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeHOGEdkPfy3wsyQlnCFDArhJHvzwNlTx-wke_PA2VPH7CA-eJEDAw69NNi7jmbXXcJRHdq1ewR7WNahnIDypewM&_nc_ohc=8h1YUSt_qkcQ7kNvwEsutAJ&_nc_oc=AdkZAplGTL07ZHbol2mVjKxZMaBfQzoo6EbwHBWGxipvZ4UHRSpw-aQHFkG3thZ5W3BGlikEgGxtyDCYH-OBn6qC&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=S8QRDptgF1O6ocA0VGDZmA&oh=00_Afu7_A0ftPCo-DBbQERh5-azqO__-IUE4h57eA_Sk0PlQg&oe=69A26904",
+                description: "Chương trình giải trí Tết Nguyên Đán Bính Ngọ đặc biệt trên VTV."
+            },
+            {
+                id: 204, category: "tv", title: "Sinh viên thế hệ mới 2023",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/481683300_1056088759887194_6235910746360311038_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeF_Puxkw3AU_FX-MC3OX-ekK2Akq1kj9B4rYCSrWSP0HjtYSvDqtAaxODpymboqFKd94mUw9bIiGGeBv_AC7Wkd&_nc_ohc=_ohOa77zfAkQ7kNvwEDJuti&_nc_oc=AdnIn-c_y3-U28lkq5BWc24wR6lb6hxEuDyXrEnEvAmwv20c49t5-nnurkh2K2KKFJpAY-XJS8GFwuI8CTjrNvTn&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=yIhIhEBIwBPmVAvFdHr4RQ&oh=00_AfuyHfumhi9eO_xbPlaSvfN_wh2zAU0flH4foj2KXseSoA&oe=69A28287",
+                description: "Gameshow thực tế dành cho sinh viên các trường Đại học toàn quốc."
+            },
+            {
+                id: 205, category: "tv", title: "Quán quen chính gốc",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/486311742_1068218928674177_5831662282687836579_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeH1lmkRB33ZLiLp4-qPHVmyLXVIJUVMmtctdUglRUya16qRK7I6U3awoi_h-CjEtDW7QagfWlnF-JOqCB3B7Wy6&_nc_ohc=lR_PB8iufHcQ7kNvwHdViAL&_nc_oc=AdkppYPOTwOjqijvyoGegK5QPmzpAe_nYQXTYrqGs6cCdiGUPJjMfOQHG6hbWZK0KpuL-0_mVGYMbCohkOMKsGAs&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=_19N67vPkVoGfT0yBJlrmg&oh=00_AfvLwvYoDaCxNykBPiGv0EM509e715oBFNXTnoKQe_ydkA&oe=69A25BC8",
+                description: "Chương trình khám phá ẩm thực và văn hóa địa phương."
+            },
+            {
+                id: 206, category: "tv", title: "Dưới lá cờ quyết thắng",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/486119595_1079802994167053_3500895224808215024_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeF6VVxc0wX7_1Cvp4Cew4db-mQ_pBFymkr6ZD-kEXKaSmU2H-s2l0rI8zS9dIS9xeewFDeCmUEj6Dy5tIYWx8sz&_nc_ohc=Fqz_C9ZkSgUQ7kNvwHuSbBw&_nc_oc=Adl2GF8hgLjQv3WYH7OLnBD8_Uinm47lWdA-rfj1Qa7g7VDBoYVHzt-QTcVwnGrZ6anZaNRpIUOw-dCfMQg5X_Wv&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=drEpXA7sikkhtNOKz07_lA&oh=00_Afu6l6InbvlKyzRndDiwOow3Uq6nXFeCDFohOgBztp4H2Q&oe=69A27781",
+                description: "Chương trình kỷ niệm 70 năm chiến thắng điện biên phủ."
+            },
+            {
+                id: 207, category: "tv", title: "Vũ trụ đồng tiền",
+                type: "pdf", url: "", image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/589386857_731054210036775_4700850098539129572_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEpMlxRSd9raq63E-h-HL8Eh5TWxQmDkfeHlNbFCYOR96fYxWl98ZBzppPNiyiUpgVNWFi10X8HjCGRx7s4s6xH&_nc_ohc=8ff1h4YFRrQQ7kNvwFcry86&_nc_oc=AdmLv3MHPAkRX2lho5ymp6X4z57TYQroCA52ZlXvjTg9upArMc93n3ShAD3ngF2-3VekIJ2SPtXC_oOlkZMgJGeg&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=UYDPW31Ia5pl1WmS4YClIw&oh=00_AfsBPjzGu3EjSUimnXhGmmCn1PevaALsi6uIGKeyVfBeeA&oe=69A28937",
+                description: "The Moneyverse - Chương trình giáo dục tài chính cho giới trẻ."
+            },
+            {
+                id: 208, category: "tv", title: "Vang mãi khúc khải hoàn",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/492308426_122163295304352085_5924212382754739483_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFy7HqjPKpkOGu9rLrcdYnro4SHkgn0LgyjhIeSCfQuDHroD0gyA_gXQaRK5suMs4ysSC2FmnR7cRvb738FQlaU&_nc_ohc=fx1vNUdkOhoQ7kNvwGcLbJS&_nc_oc=Adlidnl96hmuQ1F6m_DSyA52T2ecBtOWeBBd37GdZCzSkbrkZAa7caKZCkAh_Y7U1Vt5KROZoZPQD8H7joTgksn8&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=ltZ6ZFw7YxCMByM9utU6Gg&oh=00_Afsqmcr-OpP2xILuEaS7zxUgDOPIKk45TC7wMV_mQGdOUA&oe=69A2652B",
+                description: "Chương trình nghệ thuật kỷ niệm 50 năm giải phóng miền Nam - thống nhất đất nước."
+            },
+            {
+                id: 209, category: "tv", title: "Đường lên đỉnh Olympia",
+                type: "pdf", url: "https://drive.google.com/file/d/1oT9NasKDULGbSsf3_Sb9CboDP-flC5KQ/view?usp=sharing",
+                image: "https://cdn.tienphong.vn/images/3bcb5324177179b7fadb52080c025bb7363dd804e96942fcec4c6014ca92b3d607174fb7ee2d525eda0cb9fda0c94155/olympia-25.jpg",
+                description: "Chương trình truyền hình trí tuệ dành cho học sinh THPT."
+            },
+            {
+                id: 210, category: "tv", title: "VTV Awards 2025",
+                type: "pdf", url: "",
+                image: "https://cdn-images.vtv.vn/66349b6076cb4dee98746cf1/2024/12/30/package-media-61890120700971492521428.png",
+                description: "Lễ trao giải thưởng truyền hình thường niên của VTV."
+            },
+            {
+                id: 211, category: "tv", title: "Mùa hè lấp lánh",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/502592788_1119507306882669_4007871204689701854_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEJOu1l5hpx99QJ066DC3ycoAFN27xi2ZygAU3bvGLZnK8FRGElssL217w1VuSs9bIKXZcweiVdDNbJEowTO06D&_nc_ohc=m2nzWOGLHRYQ7kNvwGTjfcY&_nc_oc=AdlRBEPoCvSTsdWktxOqhG9QbpkQOM7JL7MyXm1wceZJB8DzPBwv6kWAkuiyYrCie4LcIgvqkKZI3gIhtESxUqgQ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=LvoiAGZbRTlKMa1LE7296w&oh=00_AfvOkd_IhgLCG4EQ_9WjeZZ32FysWPfhvql27yERppXEIw&oe=69A272A6",
+                description: "Chương trình ca nhạc thiếu nhi nhân ngày lễ Quốc tế Thiếu nhi"
+            },
+            {
+                id: 212, category: "tv", title: "Ngày hội văn hoá",
+                type: "pdf", url: "",
+                image: "https://i.ytimg.com/vi/JKkhyYz2nLs/maxresdefault.jpg",
+                description: "Chương trình kỷ niệm đánh dấu hành trình 32 năm tiên phong, đổi mới và đồng hành cùng sự phát triển của đất nước.."
+            },
 
             // Game
             { id: 301, category: "game", title: "Starseed", type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba", image: "https://picsum.photos/seed/game1/600/400", description: "Trò chơi giáo dục tương tác được thiết kế và phát triển trên nền tảng GDevelop." },
@@ -66,11 +134,80 @@ export const projects = {
             pdf: "Read document"
         },
         list: [
-            { id: 101, category: "gendemy", title: "Gendemy Ecosystem", type: "website", url: "https://www.gendemyedu.com/", image: "https://picsum.photos/seed/gendemy/600/400", description: "A comprehensive digital education ecosystem aimed at developing self-directed learning skills." },
+            { id: 101, category: "gendemy", title: "Gendemy Ecosystem", type: "website", url: "https://www.gendemyedu.com/", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/gendemy.png", description: "A comprehensive digital education ecosystem aimed at developing self-directed learning skills." },
 
-            { id: 201, category: "tv", title: "Gameshows & Entertainment", type: "updating", url: "", image: "https://picsum.photos/seed/tv1/600/400", description: "Content production and graphic design for VTV's Lunar New Year special, Victory Song, etc." },
-            { id: 202, category: "tv", title: "Education & Student Shows", type: "updating", url: "", image: "https://picsum.photos/seed/tv2/600/400", description: "Co-produced New Gen Students 2023, The Moneyverse, Road to Mt. Olympia." },
-            { id: 203, category: "tv", title: "Cultural & Art Events", type: "updating", url: "", image: "https://picsum.photos/seed/tv3/600/400", description: "Supported VTV Awards, HSB Cultural Festival, Sound of Light." },
+            {
+                id: 201, category: "tv", title: "12 Zodiacs 2024",
+                type: "pdf", url: "",
+                image: "https://cdn-images.vtv.vn/562122370168008704/2024/2/11/poster-1707648689188656725692.jpg",
+                description: "Special Lunar New Year entertainment show on VTV."
+            },
+            {
+                id: 202, category: "tv", title: "12 Zodiacs 2025",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/486854527_1074077004755036_856707956005061699_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEKG8ynaBsmhvyyh-t-azMTeHaI75izomJ4dojvmLOiYsC75Ae2ownNkfBwvI75n974o5xz6i8Y-ZUfik4vmk6_&_nc_ohc=10ssFeCUNawQ7kNvwE2glQ3&_nc_oc=AdmppYDAf4KlWpKYkJ_UumVjhk64TPsPWMsMMuXDnzBv3PjVX-asBhzHS4NysRHB1h4P2PBodctkCr4-asy18uvD&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=ZMZW9GJQUMGaqKQ5aYZIAw&oh=00_AfvmAL8W1k2QCi5nPs8OxSiPHdEOFZY4mEYZzxiTeJ86nA&oe=69A27D33",
+                description: "Special Lunar New Year entertainment show on VTV."
+            },
+            {
+                id: 203, category: "tv", title: "12 Zodiacs 2026",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/638200423_1341248158037918_7253331000717129550_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeHOGEdkPfy3wsyQlnCFDArhJHvzwNlTx-wke_PA2VPH7CA-eJEDAw69NNi7jmbXXcJRHdq1ewR7WNahnIDypewM&_nc_ohc=8h1YUSt_qkcQ7kNvwEsutAJ&_nc_oc=AdkZAplGTL07ZHbol2mVjKxZMaBfQzoo6EbwHBWGxipvZ4UHRSpw-aQHFkG3thZ5W3BGlikEgGxtyDCYH-OBn6qC&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=S8QRDptgF1O6ocA0VGDZmA&oh=00_Afu7_A0ftPCo-DBbQERh5-azqO__-IUE4h57eA_Sk0PlQg&oe=69A26904",
+                description: "Special Lunar New Year entertainment show on VTV."
+            },
+            {
+                id: 204, category: "tv", title: "New Generation Students 2023",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/481683300_1056088759887194_6235910746360311038_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeF_Puxkw3AU_FX-MC3OX-ekK2Akq1kj9B4rYCSrWSP0HjtYSvDqtAaxODpymboqFKd94mUw9bIiGGeBv_AC7Wkd&_nc_ohc=_ohOa77zfAkQ7kNvwEDJuti&_nc_oc=AdnIn-c_y3-U28lkq5BWc24wR6lb6hxEuDyXrEnEvAmwv20c49t5-nnurkh2K2KKFJpAY-XJS8GFwuI8CTjrNvTn&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=yIhIhEBIwBPmVAvFdHr4RQ&oh=00_AfuyHfumhi9eO_xbPlaSvfN_wh2zAU0flH4foj2KXseSoA&oe=69A28287",
+                description: "Reality gameshow for university students nationwide."
+            },
+            {
+                id: 205, category: "tv", title: "Authentic Local Eateries",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/486311742_1068218928674177_5831662282687836579_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeH1lmkRB33ZLiLp4-qPHVmyLXVIJUVMmtctdUglRUya16qRK7I6U3awoi_h-CjEtDW7QagfWlnF-JOqCB3B7Wy6&_nc_ohc=lR_PB8iufHcQ7kNvwHdViAL&_nc_oc=AdkppYPOTwOjqijvyoGegK5QPmzpAe_nYQXTYrqGs6cCdiGUPJjMfOQHG6hbWZK0KpuL-0_mVGYMbCohkOMKsGAs&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=_19N67vPkVoGfT0yBJlrmg&oh=00_AfvLwvYoDaCxNykBPiGv0EM509e715oBFNXTnoKQe_ydkA&oe=69A25BC8",
+                description: "Program exploring local cuisine and culture."
+            },
+            {
+                id: 206, category: "tv", title: "Under the Winning Flag",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/486119595_1079802994167053_3500895224808215024_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeF6VVxc0wX7_1Cvp4Cew4db-mQ_pBFymkr6ZD-kEXKaSmU2H-s2l0rI8zS9dIS9xeewFDeCmUEj6Dy5tIYWx8sz&_nc_ohc=Fqz_C9ZkSgUQ7kNvwHuSbBw&_nc_oc=Adl2GF8hgLjQv3WYH7OLnBD8_Uinm47lWdA-rfj1Qa7g7VDBoYVHzt-QTcVwnGrZ6anZaNRpIUOw-dCfMQg5X_Wv&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=drEpXA7sikkhtNOKz07_lA&oh=00_Afu6l6InbvlKyzRndDiwOow3Uq6nXFeCDFohOgBztp4H2Q&oe=69A27781",
+                description: "Program celebrating the 70th anniversary of the Dien Bien Phu victory."
+            },
+            {
+                id: 207, category: "tv", title: "The Moneyverse",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/589386857_731054210036775_4700850098539129572_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEpMlxRSd9raq63E-h-HL8Eh5TWxQmDkfeHlNbFCYOR96fYxWl98ZBzppPNiyiUpgVNWFi10X8HjCGRx7s4s6xH&_nc_ohc=8ff1h4YFRrQQ7kNvwFcry86&_nc_oc=AdmLv3MHPAkRX2lho5ymp6X4z57TYQroCA52ZlXvjTg9upArMc93n3ShAD3ngF2-3VekIJ2SPtXC_oOlkZMgJGeg&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=UYDPW31Ia5pl1WmS4YClIw&oh=00_AfsBPjzGu3EjSUimnXhGmmCn1PevaALsi6uIGKeyVfBeeA&oe=69A28937",
+                description: "Financial education program for young people."
+            },
+            {
+                id: 208, category: "tv", title: "Echoing the Victory Song",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/492308426_122163295304352085_5924212382754739483_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFy7HqjPKpkOGu9rLrcdYnro4SHkgn0LgyjhIeSCfQuDHroD0gyA_gXQaRK5suMs4ysSC2FmnR7cRvb738FQlaU&_nc_ohc=fx1vNUdkOhoQ7kNvwGcLbJS&_nc_oc=Adlidnl96hmuQ1F6m_DSyA52T2ecBtOWeBBd37GdZCzSkbrkZAa7caKZCkAh_Y7U1Vt5KROZoZPQD8H7joTgksn8&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=ltZ6ZFw7YxCMByM9utU6Gg&oh=00_Afsqmcr-OpP2xILuEaS7zxUgDOPIKk45TC7wMV_mQGdOUA&oe=69A2652B",
+                description: "Art program celebrating the 50th anniversary of the liberation of the South and national reunification."
+            },
+            {
+                id: 209, category: "tv", title: "Road to Mt. Olympia",
+                type: "pdf", url: "https://drive.google.com/file/d/1oT9NasKDULGbSsf3_Sb9CboDP-flC5KQ/view?usp=sharing",
+                image: "https://cdn.tienphong.vn/images/3bcb5324177179b7fadb52080c025bb7363dd804e96942fcec4c6014ca92b3d607174fb7ee2d525eda0cb9fda0c94155/olympia-25.jpg",
+                description: "Intellectual television program for high school students."
+            },
+            {
+                id: 210, category: "tv", title: "VTV Awards 2025",
+                type: "pdf", url: "",
+                image: "https://cdn-images.vtv.vn/66349b6076cb4dee98746cf1/2024/12/30/package-media-61890120700971492521428.png",
+                description: "Annual television awards ceremony of VTV."
+            },
+            {
+                id: 211, category: "tv", title: "Sparkling Summer",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/502592788_1119507306882669_4007871204689701854_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEJOu1l5hpx99QJ066DC3ycoAFN27xi2ZygAU3bvGLZnK8FRGElssL217w1VuSs9bIKXZcweiVdDNbJEowTO06D&_nc_ohc=m2nzWOGLHRYQ7kNvwGTjfcY&_nc_oc=AdlRBEPoCvSTsdWktxOqhG9QbpkQOM7JL7MyXm1wceZJB8DzPBwv6kWAkuiyYrCie4LcIgvqkKZI3gIhtESxUqgQ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=LvoiAGZbRTlKMa1LE7296w&oh=00_AfvOkd_IhgLCG4EQ_9WjeZZ32FysWPfhvql27yERppXEIw&oe=69A272A6",
+                description: "Children's music program for International Children's Day."
+            },
+            {
+                id: 212, category: "tv", title: "Cultural Festival",
+                type: "pdf", url: "",
+                image: "https://i.ytimg.com/vi/JKkhyYz2nLs/maxresdefault.jpg",
+                description: "Program marking the 32-year journey of pioneering, innovation, and accompanying the country's development."
+            },
 
             { id: 301, category: "game", title: "Starseed", type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba", image: "https://picsum.photos/seed/game1/600/400", description: "Interactive educational game developed on GDevelop platform." },
             { id: 302, category: "game", title: "Danny's Day", type: "game", url: "https://games.gdevelop-app.com/game-bbb4de63-0786-4da9-bb55-4d54425c392b/index.html", image: "https://picsum.photos/seed/game2/600/400", description: "Adventure academic game addressing real-life interactive scenarios." },
@@ -107,11 +244,80 @@ export const projects = {
             pdf: "阅读文件"
         },
         list: [
-            { id: 101, category: "gendemy", title: "Gendemy 数字教育生态系统", type: "website", url: "https://www.gendemyedu.com/", image: "https://picsum.photos/seed/gendemy/600/400", description: "全面集成AI和电子学习的数字教育生态系统，旨在培养自主学习能力。" },
+            { id: 101, category: "gendemy", title: "Gendemy 数字教育生态系统", type: "website", url: "https://www.gendemyedu.com/", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/gendemy.png", description: "全面集成AI和电子学习的数字教育生态系统，旨在培养自主学习能力。" },
 
-            { id: 201, category: "tv", title: "娱乐与游戏节目", type: "updating", url: "", image: "https://picsum.photos/seed/tv1/600/400", description: "为越南国家电视台的《12生肖》、《凯旋曲永驻》等节目制作内容和视觉特效。" },
-            { id: 202, category: "tv", title: "教育与学生节目", type: "updating", url: "", image: "https://picsum.photos/seed/tv2/600/400", description: "参与制作《新一代学生2023》、《The Moneyverse》和《通往奥林匹亚峰之路》。" },
-            { id: 203, category: "tv", title: "文化与艺术活动", type: "updating", url: "", image: "https://picsum.photos/seed/tv3/600/400", description: "协助VTV Awards、HSB文化节和音乐节等大型活动制作。" },
+            {
+                id: 201, category: "tv", title: "2024年12生肖",
+                type: "pdf", url: "",
+                image: "https://cdn-images.vtv.vn/562122370168008704/2024/2/11/poster-1707648689188656725692.jpg",
+                description: "VTV 上的特别农历新年娱乐节目。"
+            },
+            {
+                id: 202, category: "tv", title: "2025年12生肖",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/486854527_1074077004755036_856707956005061699_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEKG8ynaBsmhvyyh-t-azMTeHaI75izomJ4dojvmLOiYsC75Ae2ownNkfBwvI75n974o5xz6i8Y-ZUfik4vmk6_&_nc_ohc=10ssFeCUNawQ7kNvwE2glQ3&_nc_oc=AdmppYDAf4KlWpKYkJ_UumVjhk64TPsPWMsMMuXDnzBv3PjVX-asBhzHS4NysRHB1h4P2PBodctkCr4-asy18uvD&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=ZMZW9GJQUMGaqKQ5aYZIAw&oh=00_AfvmAL8W1k2QCi5nPs8OxSiPHdEOFZY4mEYZzxiTeJ86nA&oe=69A27D33",
+                description: "VTV 上的特别农历新年娱乐节目。"
+            },
+            {
+                id: 203, category: "tv", title: "2026年12生肖",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/638200423_1341248158037918_7253331000717129550_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeHOGEdkPfy3wsyQlnCFDArhJHvzwNlTx-wke_PA2VPH7CA-eJEDAw69NNi7jmbXXcJRHdq1ewR7WNahnIDypewM&_nc_ohc=8h1YUSt_qkcQ7kNvwEsutAJ&_nc_oc=AdkZAplGTL07ZHbol2mVjKxZMaBfQzoo6EbwHBWGxipvZ4UHRSpw-aQHFkG3thZ5W3BGlikEgGxtyDCYH-OBn6qC&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=S8QRDptgF1O6ocA0VGDZmA&oh=00_Afu7_A0ftPCo-DBbQERh5-azqO__-IUE4h57eA_Sk0PlQg&oe=69A26904",
+                description: "VTV 上的特别农历新年娱乐节目。"
+            },
+            {
+                id: 204, category: "tv", title: "2023新一代学生",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/481683300_1056088759887194_6235910746360311038_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeF_Puxkw3AU_FX-MC3OX-ekK2Akq1kj9B4rYCSrWSP0HjtYSvDqtAaxODpymboqFKd94mUw9bIiGGeBv_AC7Wkd&_nc_ohc=_ohOa77zfAkQ7kNvwEDJuti&_nc_oc=AdnIn-c_y3-U28lkq5BWc24wR6lb6hxEuDyXrEnEvAmwv20c49t5-nnurkh2K2KKFJpAY-XJS8GFwuI8CTjrNvTn&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=yIhIhEBIwBPmVAvFdHr4RQ&oh=00_AfuyHfumhi9eO_xbPlaSvfN_wh2zAU0flH4foj2KXseSoA&oe=69A28287",
+                description: "面向全国大学生的真人秀游戏节目。"
+            },
+            {
+                id: 205, category: "tv", title: "地道美食店",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/486311742_1068218928674177_5831662282687836579_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeH1lmkRB33ZLiLp4-qPHVmyLXVIJUVMmtctdUglRUya16qRK7I6U3awoi_h-CjEtDW7QagfWlnF-JOqCB3B7Wy6&_nc_ohc=lR_PB8iufHcQ7kNvwHdViAL&_nc_oc=AdkppYPOTwOjqijvyoGegK5QPmzpAe_nYQXTYrqGs6cCdiGUPJjMfOQHG6hbWZK0KpuL-0_mVGYMbCohkOMKsGAs&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=_19N67vPkVoGfT0yBJlrmg&oh=00_AfvLwvYoDaCxNykBPiGv0EM509e715oBFNXTnoKQe_ydkA&oe=69A25BC8",
+                description: "探索当地美食和文化的节目。"
+            },
+            {
+                id: 206, category: "tv", title: "在决胜旗帜下",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/486119595_1079802994167053_3500895224808215024_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeF6VVxc0wX7_1Cvp4Cew4db-mQ_pBFymkr6ZD-kEXKaSmU2H-s2l0rI8zS9dIS9xeewFDeCmUEj6Dy5tIYWx8sz&_nc_ohc=Fqz_C9ZkSgUQ7kNvwHuSbBw&_nc_oc=Adl2GF8hgLjQv3WYH7OLnBD8_Uinm47lWdA-rfj1Qa7g7VDBoYVHzt-QTcVwnGrZ6anZaNRpIUOw-dCfMQg5X_Wv&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=drEpXA7sikkhtNOKz07_lA&oh=00_Afu6l6InbvlKyzRndDiwOow3Uq6nXFeCDFohOgBztp4H2Q&oe=69A27781",
+                description: "庆祝奠边府战役胜利70周年的节目。"
+            },
+            {
+                id: 207, category: "tv", title: "The Moneyverse (金钱宇宙)",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/589386857_731054210036775_4700850098539129572_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEpMlxRSd9raq63E-h-HL8Eh5TWxQmDkfeHlNbFCYOR96fYxWl98ZBzppPNiyiUpgVNWFi10X8HjCGRx7s4s6xH&_nc_ohc=8ff1h4YFRrQQ7kNvwFcry86&_nc_oc=AdmLv3MHPAkRX2lho5ymp6X4z57TYQroCA52ZlXvjTg9upArMc93n3ShAD3ngF2-3VekIJ2SPtXC_oOlkZMgJGeg&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=UYDPW31Ia5pl1WmS4YClIw&oh=00_AfsBPjzGu3EjSUimnXhGmmCn1PevaALsi6uIGKeyVfBeeA&oe=69A28937",
+                description: "面向年轻人的金融教育节目。"
+            },
+            {
+                id: 208, category: "tv", title: "凯旋曲永驻",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/492308426_122163295304352085_5924212382754739483_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFy7HqjPKpkOGu9rLrcdYnro4SHkgn0LgyjhIeSCfQuDHroD0gyA_gXQaRK5suMs4ysSC2FmnR7cRvb738FQlaU&_nc_ohc=fx1vNUdkOhoQ7kNvwGcLbJS&_nc_oc=Adlidnl96hmuQ1F6m_DSyA52T2ecBtOWeBBd37GdZCzSkbrkZAa7caKZCkAh_Y7U1Vt5KROZoZPQD8H7joTgksn8&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=ltZ6ZFw7YxCMByM9utU6Gg&oh=00_Afsqmcr-OpP2xILuEaS7zxUgDOPIKk45TC7wMV_mQGdOUA&oe=69A2652B",
+                description: "庆祝南方解放和国家统一50周年的艺术节目。"
+            },
+            {
+                id: 209, category: "tv", title: "通往奥林匹亚峰之路",
+                type: "pdf", url: "https://drive.google.com/file/d/1oT9NasKDULGbSsf3_Sb9CboDP-flC5KQ/view?usp=sharing",
+                image: "https://cdn.tienphong.vn/images/3bcb5324177179b7fadb52080c025bb7363dd804e96942fcec4c6014ca92b3d607174fb7ee2d525eda0cb9fda0c94155/olympia-25.jpg",
+                description: "面向高中生的益智电视节目。"
+            },
+            {
+                id: 210, category: "tv", title: "2025年VTV Awards",
+                type: "pdf", url: "",
+                image: "https://cdn-images.vtv.vn/66349b6076cb4dee98746cf1/2024/12/30/package-media-61890120700971492521428.png",
+                description: "VTV 的年度电视颁奖典礼。"
+            },
+            {
+                id: 211, category: "tv", title: "闪耀的夏天",
+                type: "pdf", url: "",
+                image: "https://scontent.fhan15-2.fna.fbcdn.net/v/t39.30808-6/502592788_1119507306882669_4007871204689701854_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeEJOu1l5hpx99QJ066DC3ycoAFN27xi2ZygAU3bvGLZnK8FRGElssL217w1VuSs9bIKXZcweiVdDNbJEowTO06D&_nc_ohc=m2nzWOGLHRYQ7kNvwGTjfcY&_nc_oc=AdlRBEPoCvSTsdWktxOqhG9QbpkQOM7JL7MyXm1wceZJB8DzPBwv6kWAkuiyYrCie4LcIgvqkKZI3gIhtESxUqgQ&_nc_zt=23&_nc_ht=scontent.fhan15-2.fna&_nc_gid=LvoiAGZbRTlKMa1LE7296w&oh=00_AfvOkd_IhgLCG4EQ_9WjeZZ32FysWPfhvql27yERppXEIw&oe=69A272A6",
+                description: "庆祝国际儿童节的儿童音乐节目。"
+            },
+            {
+                id: 212, category: "tv", title: "文化节",
+                type: "pdf", url: "",
+                image: "https://i.ytimg.com/vi/JKkhyYz2nLs/maxresdefault.jpg",
+                description: "纪念开拓、创新并伴随国家发展32周年历程的节目。"
+            },
 
             { id: 301, category: "game", title: "Starseed", type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba", image: "https://picsum.photos/seed/game1/600/400", description: "在GDevelop平台上开发的互动教育游戏。" },
             { id: 302, category: "game", title: "Danny's Day", type: "game", url: "https://games.gdevelop-app.com/game-bbb4de63-0786-4da9-bb55-4d54425c392b/index.html", image: "https://picsum.photos/seed/game2/600/400", description: "解决现实生活中互动场景的冒险学术游戏。" },

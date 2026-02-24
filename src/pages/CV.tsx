@@ -17,7 +17,8 @@ export default function CV() {
     // Lấy dữ liệu đầy đủ từ i18n
     const experiencesData = (t('experience.list', { returnObjects: true }) as Array<{ year: string, company: string, role: string, description: string }>) || [];
     const achievementsData = (t('academic.achievements.list', { returnObjects: true }) as string[]) || [];
-    const researchData = (t('academic.research.list', { returnObjects: true }) as Array<{ title: string, journal: string }>) || [];
+    // Cập nhật Type để nhận thêm trường url
+    const researchData = (t('academic.research.list', { returnObjects: true }) as Array<{ title: string, journal: string, url?: string }>) || [];
     const skillsData = (t('skills.list', { returnObjects: true }) as Array<{ title: string, items: string[] }>) || [];
 
     return (
@@ -230,7 +231,19 @@ export default function CV() {
                             <div className="space-y-2">
                                 {researchData.slice(0, 3).map((research, index) => (
                                     <div key={index} className="text-[11px] leading-tight">
-                                        <p className="font-bold opacity-100 line-clamp-2">"{research.title}"</p>
+                                        {/* Bọc Link vào Title */}
+                                        {research.url ? (
+                                            <a
+                                                href={research.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="font-bold opacity-100 line-clamp-2 hover:underline hover:text-white/80 transition-colors print:no-underline print:text-inherit"
+                                            >
+                                                "{research.title}"
+                                            </a>
+                                        ) : (
+                                            <p className="font-bold opacity-100 line-clamp-2">"{research.title}"</p>
+                                        )}
                                         <p className="italic opacity-80 mt-0.5">- {research.journal}</p>
                                     </div>
                                 ))}
@@ -239,13 +252,19 @@ export default function CV() {
 
                         {/* MÃ QR CODE */}
                         <section className="mt-auto pt-2 flex flex-col items-center justify-center text-center">
-                            <div className="w-28 h-28 rounded-xl overflow-hidden shadow-md mb-2">
+                            {/* Bọc toàn bộ Box QR vào Link */}
+                            <a
+                                href="https://paodabeat-profile.vercel.app/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block w-28 h-28 rounded-xl overflow-hidden shadow-md mb-2 hover:scale-105 transition-transform duration-300 print:hover:scale-100"
+                            >
                                 <img
                                     src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/qrcode.png"
                                     alt="QR Code"
                                     className="w-full h-full object-cover"
                                 />
-                            </div>
+                            </a>
                             <p className="text-[11px] font-medium opacity-90 max-w-35 italic leading-tight">
                                 {t('cv.qr_text')}
                             </p>
