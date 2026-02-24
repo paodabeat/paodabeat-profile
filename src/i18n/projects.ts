@@ -20,7 +20,7 @@ export const projects = {
         },
         list: [
             // Gendemy
-            { id: 101, category: "gendemy", title: "Hệ sinh thái học tập số Gendemy", type: "website", url: "https://www.gendemyedu.com/", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/gendemy.png", description: "Hệ sinh thái giáo dục số toàn diện nhằm mục tiêu phát triển năng lực học tập tự định hướng cho người học." },
+            { id: 101, category: "gendemy", title: "Hệ sinh thái học tập số Gendemy", type: "website", url: "https://www.gendemyedu.com/", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/gendemy.png", description: "Hệ sinh thái giáo dục số toàn diện nhằm mục tiêu phát triển năng lực học tập tự định hướng cho người học." },
 
             // TV & Events (Dạng Poster Gallery)
             {
@@ -94,11 +94,30 @@ export const projects = {
                 image: "https://i.ytimg.com/vi/JKkhyYz2nLs/maxresdefault.jpg",
                 description: "Chương trình kỷ niệm đánh dấu hành trình 32 năm tiên phong, đổi mới và đồng hành cùng sự phát triển của đất nước.."
             },
+            {
+                id: 213, category: "tv", title: "Hoà nhạc Ánh sáng",
+                type: "pdf", url: "",
+                image: "https://tayho360.vn/upload/admin/files/6775ff069985b%20(1).jpg",
+                description: "Chương trình văn hoá nghệ thuật âm thanh - ánh sáng Chào năm mới 2025"
+            },
+            {
+                id: 214, category: "tv", title: "Thời cơ vàng",
+                type: "pdf", url: "",
+                image: "https://hnm.1cdn.vn/2025/08/18/f65a255838/poster-tinh.png",
+                description: "Chương trình kỷ niệm ngày Quốc khánh Việt Nam"
+            },
+            {
+                id: 215, category: "tv", title: "Điều nhỏ bé kỳ diệu",
+                type: "pdf", url: "",
+                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/vtv/dieunhobekydieu-poster.png",
+                description: "'Điều nhỏ bé kỳ diệu' trên VTV3 là một chương trình truyền hình mang tính chất suy ngẫm, lan tỏa những giá trị nhân văn và sưởi ấm tâm hồn giữa nhịp sống hiện đại."
+            },
+
 
             // Game
-            { id: 301, category: "game", title: "Starseed", type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba", image: "https://picsum.photos/seed/game1/600/400", description: "Trò chơi giáo dục tương tác được thiết kế và phát triển trên nền tảng GDevelop." },
-            { id: 302, category: "game", title: "Danny's Day", type: "game", url: "https://games.gdevelop-app.com/game-bbb4de63-0786-4da9-bb55-4d54425c392b/index.html", image: "https://picsum.photos/seed/game2/600/400", description: "Game học thuật phiêu lưu, giải quyết tình huống tương tác thực tế." },
-            { id: 303, category: "game", title: "The Escape Game", type: "game", url: "https://games.gdevelop-app.com/game-be5ed1b7-1e8b-4467-bfdb-e01f9ab4f315/index.html", image: "https://picsum.photos/seed/game3/600/400", description: "Trò chơi giải đố, thoát hiểm lồng ghép tư duy logic và kiến thức." },
+            { id: 301, category: "game", title: "Starseed", type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/starseed.png", description: "Trò chơi giáo dục tương tác được thiết kế và phát triển trên nền tảng GDevelop." },
+            { id: 302, category: "game", title: "Danny's Day", type: "game", url: "https://games.gdevelop-app.com/game-bbb4de63-0786-4da9-bb55-4d54425c392b/index.html", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/danny'sday.png", description: "Game học thuật phiêu lưu, giải quyết tình huống tương tác thực tế." },
+            { id: 303, category: "game", title: "The Escape Game", type: "game", url: "https://games.gdevelop-app.com/game-be5ed1b7-1e8b-4467-bfdb-e01f9ab4f315/index.html", image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/theescape.png", description: "Trò chơi giải đố, thoát hiểm lồng ghép tư duy logic và kiến thức." },
 
             // E-learning
             { id: 401, category: "elearning", title: "Tiếng Anh 4 - In the city", type: "youtube", url: "https://youtu.be/flWbX_eWQBQ", image: "https://img.youtube.com/vi/flWbX_eWQBQ/maxresdefault.jpg", description: "Bài giảng H5P E-learning (Unit 17: In the city - Lesson 1)." },

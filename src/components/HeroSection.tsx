@@ -84,7 +84,7 @@ export default function HeroSection() {
                         PORTFOLIO
                     </div>
                     <img
-                        src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/hero-image.png"
+                        src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/hero-image.png"
                         alt="Paodabeat"
                         className="relative z-10 w-full max-w-130 h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.3)] dark:drop-shadow-[0_20px_50px_rgba(255,255,255,0.05)] hover:scale-[1.02] transition-transform duration-700"
                     />

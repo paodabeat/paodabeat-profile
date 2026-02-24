@@ -60,7 +60,7 @@ export default function CV() {
                         <div className="absolute inset-0 bg-[radial-gradient(var(--color-primary)_2px,transparent_2px)] bg-size-[12px_12px] opacity-40"></div>
                         <div className="absolute top-6 bottom-6 right-6 left-6 md:left-10 print:left-10 overflow-hidden shadow-xl rounded-sm bg-neutral-200 print:shadow-md">
                             <img
-                                src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/cover.png"
+                                src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/cover.png"
                                 alt="Phùng Trần Gia Bảo"
                                 className="w-full h-full"
                             />
@@ -260,7 +260,7 @@ export default function CV() {
                                 className="block w-28 h-28 rounded-xl overflow-hidden shadow-md mb-2 hover:scale-105 transition-transform duration-300 print:hover:scale-100"
                             >
                                 <img
-                                    src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat/qrcode.png"
+                                    src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Gendemy/paodabeat-portfolio/qrcode.png"
                                     alt="QR Code"
                                     className="w-full h-full object-cover"
                                 />
