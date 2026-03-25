@@ -41,7 +41,7 @@ const TVCard: React.FC<{ project: ProjectItem; projectsStatus: Record<string, st
         {/* Lớp phủ Hover: Gradient Xanh đậm ở chân nhạt dần lên trên + Backdrop Blur */}
         <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-all duration-500 pointer-events-none flex flex-col justify-end translate-y-4 group-hover/card:translate-y-0">
             {/* Lớp nền Blur & Gradient chỉ chiếm 60% chiều cao từ dưới lên */}
-            <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-primary/95 via-primary/50 to-transparent backdrop-blur-[2px]" />
+            <div className="absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-primary/95 via-primary/50 to-transparent backdrop-blur-[2px]" />
 
             {/* Nội dung tối giản ở dưới chân */}
             <div className="relative p-6 text-center pointer-events-auto z-10 flex flex-col items-center">
