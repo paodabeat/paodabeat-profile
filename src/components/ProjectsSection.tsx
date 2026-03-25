@@ -21,11 +21,15 @@ interface ProjectItem {
 
 // =========================================================================
 // SUB-COMPONENT 1: GIAO DIỆN THẺ POSTER DỌC (Dành cho TV & Events)
-// Đã fix lỗi Hover toàn cục và UI Gradient/Blur ở chân poster
+// Đã thêm isCarousel để tắt layout animation khi nằm trong slider
 // =========================================================================
-const TVCard: React.FC<{ project: ProjectItem; projectsStatus: Record<string, string> }> = ({ project, projectsStatus }) => (
+const TVCard: React.FC<{
+    project: ProjectItem;
+    projectsStatus: Record<string, string>;
+    isCarousel?: boolean;
+}> = ({ project, projectsStatus, isCarousel = false }) => (
     <motion.div
-        layout
+        layout={!isCarousel} // Tắt layout calculation nếu nằm trong thanh trượt để chống giật
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
@@ -69,19 +73,21 @@ const TVCard: React.FC<{ project: ProjectItem; projectsStatus: Record<string, st
 
 // =========================================================================
 // SUB-COMPONENT 2: GIAO DIỆN THẺ NGANG BÌNH THƯỜNG (Dành cho các loại khác)
+// Đã thêm isCarousel để tắt layout animation khi nằm trong slider
 // =========================================================================
 const NormalCard: React.FC<{
     project: ProjectItem;
     projectsCategories: Record<string, string>;
-    projectsStatus: Record<string, string>
-}> = ({ project, projectsCategories, projectsStatus }) => (
+    projectsStatus: Record<string, string>;
+    isCarousel?: boolean;
+}> = ({ project, projectsCategories, projectsStatus, isCarousel = false }) => (
     <motion.div
-        layout
+        layout={!isCarousel} // Tắt layout calculation nếu nằm trong thanh trượt để chống giật
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.3 }}
-        whileHover={{ y: -10 }}
+        whileHover={!isCarousel ? { y: -10 } : {}}
         className="bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm dark:shadow-none group/ncard hover:border-primary/50 flex flex-col transition-all duration-300 w-full h-full"
     >
         <div className="aspect-video relative overflow-hidden bg-neutral-200 dark:bg-black/50">
@@ -141,6 +147,7 @@ const NormalCard: React.FC<{
 
 // =========================================================================
 // SUB-COMPONENT 3: SLIDER TRƯỢT NGANG
+// Đã chuyển sang Native CSS Transform thay vì Framer Motion để chống giật
 // =========================================================================
 const ProjectCarousel: React.FC<{
     items: ProjectItem[];
@@ -183,7 +190,6 @@ const ProjectCarousel: React.FC<{
                 <h3 className="text-2xl font-bold uppercase tracking-wider">{projectsCategories[categoryId]}</h3>
             </div>
 
-            {/* Thay class group thành group/slider để tránh ghi đè sang các Card bên trong */}
             <div className="relative group/slider">
                 {items.length > itemsToShow && (
                     <button
@@ -195,12 +201,10 @@ const ProjectCarousel: React.FC<{
                 )}
 
                 <div className="overflow-hidden px-2 pb-6 pt-2">
-                    <motion.div
-                        className="flex gap-6"
-                        initial={false}
-                        animate={{ x: `calc(-${currentIndex * (100 / itemsToShow)}% - ${currentIndex * (1.5 / itemsToShow)}rem)` }}
-                        // Đổi từ Spring sang Tween để lướt slider mượt mà, không bị giật lùi sub-pixel
-                        transition={{ type: "tween", ease: "easeInOut", duration: 0.4 }}
+                    {/* Sử dụng div thuần và transition của Tailwind/CSS để lướt siêu mượt */}
+                    <div
+                        className="flex gap-6 transition-transform duration-500 ease-out"
+                        style={{ transform: `translateX(calc(-${currentIndex * (100 / itemsToShow)}% - ${currentIndex * (1.5 / itemsToShow)}rem))` }}
                     >
                         {items.map((project) => (
                             <div
@@ -209,11 +213,11 @@ const ProjectCarousel: React.FC<{
                                 style={{ width: `calc(${100 / itemsToShow}% - ${((itemsToShow - 1) * 1.5) / itemsToShow}rem)` }}
                             >
                                 {categoryId === 'tv'
-                                    ? <TVCard project={project} projectsStatus={projectsStatus} />
-                                    : <NormalCard project={project} projectsCategories={projectsCategories} projectsStatus={projectsStatus} />}
+                                    ? <TVCard project={project} projectsStatus={projectsStatus} isCarousel={true} />
+                                    : <NormalCard project={project} projectsCategories={projectsCategories} projectsStatus={projectsStatus} isCarousel={true} />}
                             </div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
 
                 {items.length > itemsToShow && (

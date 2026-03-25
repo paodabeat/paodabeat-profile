@@ -93,7 +93,7 @@ export const projects = {
             {
                 id: 211, category: "tv", title: "Vũ trụ đồng tiền 2025",
                 type: "pdf", url: "",
-                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/589386857_731054210036775_4700850098539129572_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEpMlxRSd9raq63E-h-HL8Eh5TWxQmDkfeHlNbFCYOR96fYxWl98ZBzppPNiyiUpgVNWFi10X8HjCGRx7s4s6xH&_nc_ohc=8ff1h4YFRrQQ7kNvwFcry86&_nc_oc=AdmLv3MHPAkRX2lho5ymp6X4z57TYQroCA52ZlXvjTg9upArMc93n3ShAD3ngF2-3VekIJ2SPtXC_oOlkZMgJGeg&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=UYDPW31Ia5pl1WmS4YClIw&oh=00_AfsBPjzGu3EjSUimnXhGmmCn1PevaALsi6uIGKeyVfBeeA&oe=69A28937",
+                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vutrudongtien.png",
                 description: "The Moneyverse - Chương trình giáo dục tài chính cho giới trẻ."
             },
             {
@@ -117,7 +117,7 @@ export const projects = {
             {
                 id: 215, category: "tv", title: "Vui khoẻ có ích",
                 type: "pdf", url: "",
-                image: "https://picsum.photos/seed/vuikhoe/600/800", // Cần thay ảnh thực tế
+                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vuikhoecoich.png",
                 description: "Chương trình truyền hình tư vấn sức khỏe và giải trí dành cho người cao tuổi."
             },
             {
@@ -286,7 +286,7 @@ export const projects = {
             {
                 id: 211, category: "tv", title: "The Moneyverse 2025",
                 type: "pdf", url: "",
-                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/589386857_731054210036775_4700850098539129572_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEpMlxRSd9raq63E-h-HL8Eh5TWxQmDkfeHlNbFCYOR96fYxWl98ZBzppPNiyiUpgVNWFi10X8HjCGRx7s4s6xH&_nc_ohc=8ff1h4YFRrQQ7kNvwFcry86&_nc_oc=AdmLv3MHPAkRX2lho5ymp6X4z57TYQroCA52ZlXvjTg9upArMc93n3ShAD3ngF2-3VekIJ2SPtXC_oOlkZMgJGeg&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=UYDPW31Ia5pl1WmS4YClIw&oh=00_AfsBPjzGu3EjSUimnXhGmmCn1PevaALsi6uIGKeyVfBeeA&oe=69A28937",
+                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vutrudongtien.png",
                 description: "Financial education program for young people."
             },
             {
@@ -310,7 +310,7 @@ export const projects = {
             {
                 id: 215, category: "tv", title: "Healthy and Happy",
                 type: "pdf", url: "",
-                image: "https://picsum.photos/seed/vuikhoe/600/800",
+                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vuikhoecoich.png",
                 description: "Health consultation and entertainment television program for the elderly."
             },
             {
@@ -475,7 +475,7 @@ export const projects = {
             {
                 id: 211, category: "tv", title: "金钱宇宙 2025",
                 type: "pdf", url: "",
-                image: "https://scontent.fhan15-1.fna.fbcdn.net/v/t39.30808-6/589386857_731054210036775_4700850098539129572_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeEpMlxRSd9raq63E-h-HL8Eh5TWxQmDkfeHlNbFCYOR96fYxWl98ZBzppPNiyiUpgVNWFi10X8HjCGRx7s4s6xH&_nc_ohc=8ff1h4YFRrQQ7kNvwFcry86&_nc_oc=AdmLv3MHPAkRX2lho5ymp6X4z57TYQroCA52ZlXvjTg9upArMc93n3ShAD3ngF2-3VekIJ2SPtXC_oOlkZMgJGeg&_nc_zt=23&_nc_ht=scontent.fhan15-1.fna&_nc_gid=UYDPW31Ia5pl1WmS4YClIw&oh=00_AfsBPjzGu3EjSUimnXhGmmCn1PevaALsi6uIGKeyVfBeeA&oe=69A28937",
+                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vutrudongtien.png",
                 description: "面向年轻人的金融教育节目。"
             },
             {
@@ -499,7 +499,7 @@ export const projects = {
             {
                 id: 215, category: "tv", title: "健康快乐",
                 type: "pdf", url: "",
-                image: "https://picsum.photos/seed/vuikhoe/600/800",
+                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vuikhoecoich.png",
                 description: "面向老年人的健康咨询与娱乐电视节目。"
             },
             {
