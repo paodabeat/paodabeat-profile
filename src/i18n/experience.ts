@@ -34,7 +34,7 @@ export const experience = {
             },
             {
                 year: "2023",
-                company: "Trung tâm Chuyển đổi số - DTC",
+                company: "Trung tâm Chuyển đổi số - CDT",
                 role: "E-learning Designer",
                 description: "• Tham gia xây dựng dự án Học liệu số của Bộ Giáo dục và Đào tạo.\n• Phát triển nội dung khoá học (B-learning) trên hệ thống LMS cho sinh viên khối kỹ thuật ĐHBKHN."
             },
@@ -87,7 +87,7 @@ export const experience = {
             },
             {
                 year: "2023",
-                company: "Digital Transformation Center - DTC",
+                company: "Digital Transformation Center - CDT",
                 role: "E-learning Designer",
                 description: "• Participated in building the digital learning resources project for the Ministry of Education and Training.\n• Developing course content (B-learning) on the LMS system for HUST engineering students."
             },
@@ -140,7 +140,7 @@ export const experience = {
             },
             {
                 year: "2023",
-                company: "数字转型中心 - DTC",
+                company: "数字转型中心 - CDT",
                 role: "电子学习 (E-learning) 设计师",
                 description: "• 参与建设教育培训部的数字教材项目。\n• 在 LMS 系统上为河内理工大学工程系学生开发课程内容 (B-learning)。"
             },

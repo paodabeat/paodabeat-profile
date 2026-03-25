@@ -1,3 +1,5 @@
+// File: components/ProjectSection.tsx
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +21,7 @@ interface ProjectItem {
 
 // =========================================================================
 // SUB-COMPONENT 1: GIAO DIỆN THẺ POSTER DỌC (Dành cho TV & Events)
-// Đã fix cảnh báo Tailwind: aspect-[3/4] -> aspect-3/4
+// Đã fix lỗi Hover toàn cục và UI Gradient/Blur ở chân poster
 // =========================================================================
 const TVCard: React.FC<{ project: ProjectItem; projectsStatus: Record<string, string> }> = ({ project, projectsStatus }) => (
     <motion.div
@@ -28,32 +30,39 @@ const TVCard: React.FC<{ project: ProjectItem; projectsStatus: Record<string, st
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.3 }}
-        className="relative rounded-2xl overflow-hidden shadow-sm group bg-neutral-200 dark:bg-black/50 aspect-3/4 w-full"
+        className="relative rounded-2xl overflow-hidden shadow-sm group/card bg-neutral-200 dark:bg-black/50 aspect-3/4 w-full"
     >
         <img
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
         />
-        {/* Lớp phủ Hover Màu Xanh */}
-        <div className="absolute inset-0 bg-primary/90 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-6 text-center translate-y-4 group-hover:translate-y-0">
-            <h3 className="text-xl font-bold text-white mb-4 drop-shadow-md">
-                {project.title}
-            </h3>
-            {project.type === 'updating' || !project.url ? (
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 rounded-full text-sm font-bold text-white backdrop-blur-sm">
-                    <Clock className="w-4 h-4" /> {projectsStatus.updating}
-                </span>
-            ) : (
-                <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary rounded-full text-sm font-bold hover:scale-105 transition-transform shadow-lg"
-                >
-                    {projectsStatus.pdf} <FileText className="w-4 h-4" />
-                </a>
-            )}
+
+        {/* Lớp phủ Hover: Gradient Xanh đậm ở chân nhạt dần lên trên + Backdrop Blur */}
+        <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-all duration-500 pointer-events-none flex flex-col justify-end translate-y-4 group-hover/card:translate-y-0">
+            {/* Lớp nền Blur & Gradient chỉ chiếm 60% chiều cao từ dưới lên */}
+            <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-primary/95 via-primary/50 to-transparent backdrop-blur-[2px]" />
+
+            {/* Nội dung tối giản ở dưới chân */}
+            <div className="relative p-6 text-center pointer-events-auto z-10 flex flex-col items-center">
+                <h3 className="text-xl font-bold text-white mb-2 drop-shadow-md">
+                    {project.title}
+                </h3>
+                {project.type === 'updating' || !project.url ? (
+                    <span className="text-sm font-medium text-white/90 drop-shadow">
+                        {projectsStatus.updating}
+                    </span>
+                ) : (
+                    <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium text-white hover:text-white/70 transition-colors uppercase tracking-widest drop-shadow"
+                    >
+                        {projectsStatus.pdf}
+                    </a>
+                )}
+            </div>
         </div>
     </motion.div>
 );
@@ -73,20 +82,20 @@ const NormalCard: React.FC<{
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.3 }}
         whileHover={{ y: -10 }}
-        className="bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm dark:shadow-none group hover:border-primary/50 flex flex-col transition-all duration-300 w-full h-full"
+        className="bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm dark:shadow-none group/ncard hover:border-primary/50 flex flex-col transition-all duration-300 w-full h-full"
     >
         <div className="aspect-video relative overflow-hidden bg-neutral-200 dark:bg-black/50">
             <img
                 src={project.image}
                 alt={project.title}
-                className={`w-full h-full object-cover transition-all duration-700 ${project.type === 'updating' ? 'grayscale opacity-50 blur-sm' : 'opacity-90 dark:opacity-70 group-hover:opacity-100 group-hover:scale-110'}`}
+                className={`w-full h-full object-cover transition-all duration-700 ${project.type === 'updating' ? 'grayscale opacity-50 blur-sm' : 'opacity-90 dark:opacity-70 group-hover/ncard:opacity-100 group-hover/ncard:scale-110'}`}
             />
             <div className="absolute top-4 right-4 p-3 bg-white/90 dark:bg-black/60 backdrop-blur rounded-xl text-primary dark:text-white shadow-sm">
                 {PROJECT_ICONS[project.category] || <ExternalLink className="w-6 h-6" />}
             </div>
             {project.type === 'youtube' && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <PlayCircle className="w-16 h-16 text-white opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 drop-shadow-lg" />
+                    <PlayCircle className="w-16 h-16 text-white opacity-70 group-hover/ncard:opacity-100 group-hover/ncard:scale-110 transition-all duration-300 drop-shadow-lg" />
                 </div>
             )}
         </div>
@@ -131,7 +140,7 @@ const NormalCard: React.FC<{
 );
 
 // =========================================================================
-// SUB-COMPONENT 3: SLIDER TRƯỢT NGANG (Đã khai báo React.FC để fix lỗi key)
+// SUB-COMPONENT 3: SLIDER TRƯỢT NGANG
 // =========================================================================
 const ProjectCarousel: React.FC<{
     items: ProjectItem[];
@@ -174,11 +183,12 @@ const ProjectCarousel: React.FC<{
                 <h3 className="text-2xl font-bold uppercase tracking-wider">{projectsCategories[categoryId]}</h3>
             </div>
 
-            <div className="relative group">
+            {/* Thay class group thành group/slider để tránh ghi đè sang các Card bên trong */}
+            <div className="relative group/slider">
                 {items.length > itemsToShow && (
                     <button
                         onClick={handlePrev}
-                        className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white dark:bg-[#1a1a1a] shadow-lg rounded-full text-neutral-600 dark:text-white/80 hover:text-primary transition-all md:opacity-0 md:group-hover:opacity-100 hover:scale-110 border border-black/5 dark:border-white/10"
+                        className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white dark:bg-[#1a1a1a] shadow-lg rounded-full text-neutral-600 dark:text-white/80 hover:text-primary transition-all md:opacity-0 md:group-hover/slider:opacity-100 hover:scale-110 border border-black/5 dark:border-white/10"
                     >
                         <ChevronLeft className="w-6 h-6" />
                     </button>
@@ -189,7 +199,8 @@ const ProjectCarousel: React.FC<{
                         className="flex gap-6"
                         initial={false}
                         animate={{ x: `calc(-${currentIndex * (100 / itemsToShow)}% - ${currentIndex * (1.5 / itemsToShow)}rem)` }}
-                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        // Đổi từ Spring sang Tween để lướt slider mượt mà, không bị giật lùi sub-pixel
+                        transition={{ type: "tween", ease: "easeInOut", duration: 0.4 }}
                     >
                         {items.map((project) => (
                             <div
@@ -208,7 +219,7 @@ const ProjectCarousel: React.FC<{
                 {items.length > itemsToShow && (
                     <button
                         onClick={handleNext}
-                        className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white dark:bg-[#1a1a1a] shadow-lg rounded-full text-neutral-600 dark:text-white/80 hover:text-primary transition-all md:opacity-0 md:group-hover:opacity-100 hover:scale-110 border border-black/5 dark:border-white/10"
+                        className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white dark:bg-[#1a1a1a] shadow-lg rounded-full text-neutral-600 dark:text-white/80 hover:text-primary transition-all md:opacity-0 md:group-hover/slider:opacity-100 hover:scale-110 border border-black/5 dark:border-white/10"
                     >
                         <ChevronRight className="w-6 h-6" />
                     </button>
@@ -242,7 +253,6 @@ export default function ProjectsSection() {
     const projectsStatus = (t('projects.status', { returnObjects: true }) as Record<string, string>) || {};
     const projectsData = (t('projects.list', { returnObjects: true }) as ProjectItem[]) || [];
 
-    // Đã fix lỗi biến filteredProjects bị thiếu định nghĩa ở bản trước
     const filteredProjects = activeCategory === 'all'
         ? projectsData
         : projectsData.filter(project => project.category === activeCategory);
