@@ -1,8 +1,8 @@
-import React from 'react';
-import { motion } from "motion/react";
+import React, { useRef } from 'react';
 import { Link } from "react-router-dom";
-import { ChevronLeft, Printer } from "lucide-react";
+import { ChevronLeft, Printer, Image as ImageIcon } from "lucide-react";
 import { useTranslation } from 'react-i18next';
+import { toPng } from 'html-to-image'; // Đã thay thế html2canvas bằng html-to-image
 
 // Component Tiêu đề khối cho cột phải
 const RightColumnSectionTitle = ({ children }: { children: React.ReactNode }) => (
@@ -13,18 +13,48 @@ const RightColumnSectionTitle = ({ children }: { children: React.ReactNode }) =>
 
 export default function CV() {
     const { t } = useTranslation();
+    const cvRef = useRef<HTMLDivElement>(null);
 
     // Lấy dữ liệu đầy đủ từ i18n
     const experiencesData = (t('experience.list', { returnObjects: true }) as Array<{ year: string, company: string, role: string, description: string }>) || [];
     const achievementsData = (t('academic.achievements.list', { returnObjects: true }) as string[]) || [];
-    // Cập nhật Type để nhận thêm trường url
     const researchData = (t('academic.research.list', { returnObjects: true }) as Array<{ title: string, journal: string, url?: string }>) || [];
     const skillsData = (t('skills.list', { returnObjects: true }) as Array<{ title: string, items: string[] }>) || [];
+
+    // Hàm xử lý xuất ảnh PNG bằng thư viện mới (hỗ trợ oklch, tailwind v4, flexbox chuẩn)
+    const handleDownloadImage = async () => {
+        if (!cvRef.current) return;
+        try {
+            // Dùng html-to-image để chụp ảnh DOM
+            const dataUrl = await toPng(cvRef.current, {
+                cacheBust: true, // Xoá cache để tránh lỗi tải ảnh CORS từ Supabase
+                backgroundColor: '#ffffff', // Ép nền trắng
+                pixelRatio: 2, // Thay cho scale: 2 của html2canvas để tăng độ nét
+                // FIX: Ép cứng kích thước lúc chụp theo đúng thẻ div, bỏ qua viewport của trình duyệt
+                width: cvRef.current.offsetWidth,
+                height: cvRef.current.offsetHeight,
+                style: {
+                    // FIX: Xoá margin (mx-auto) trên bản clone ảo lúc chụp để không bị lệch sang phải
+                    margin: '0',
+                    transform: 'none',
+                }
+            });
+
+            // Tạo thẻ a ẩn để tải file
+            const link = document.createElement("a");
+            link.href = dataUrl;
+            link.download = "Phung_Tran_Gia_Bao_CV.png";
+            link.click();
+        } catch (error) {
+            console.error("Lỗi khi tạo ảnh CV:", error);
+            alert("Có lỗi xảy ra khi tạo ảnh. Vui lòng thử lại!");
+        }
+    };
 
     return (
         <div className="min-h-screen bg-neutral-200 dark:bg-neutral-900 py-8 px-4 md:py-12 font-sans relative transition-colors duration-300 print:bg-white print:dark:bg-white print:py-0 print:px-0 print:min-h-0">
 
-            {/* Top Bar: Nút Quay lại & Nút Tải PDF */}
+            {/* Top Bar: Nút Quay lại & Nút Tải */}
             <div className="w-full max-w-[210mm] mx-auto mb-4 flex items-center justify-between print:hidden">
                 <Link
                     to="/"
@@ -34,18 +64,29 @@ export default function CV() {
                     {t('cv.back')}
                 </Link>
 
-                <button
-                    onClick={() => window.print()}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-md hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300"
-                >
-                    <Printer className="w-5 h-5" />
-                    {t('cv.download_pdf')}
-                </button>
+                <div className="flex gap-3">
+                    <button
+                        onClick={handleDownloadImage}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg shadow-md hover:bg-emerald-700 hover:-translate-y-0.5 transition-all duration-300"
+                    >
+                        <ImageIcon className="w-5 h-5" />
+                        Tải Ảnh (PNG)
+                    </button>
+
+                    <button
+                        onClick={() => window.print()}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-md hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300"
+                    >
+                        <Printer className="w-5 h-5" />
+                        {t('cv.download_pdf')}
+                    </button>
+                </div>
             </div>
 
-            {/* Vùng chứa CV bản A4 */}
+            {/* Vùng chứa CV - Đã gỡ print:min-h-[297mm] để CV rớt trang tự nhiên như ban đầu */}
             <div
-                className="w-full max-w-[210mm] mx-auto bg-white shadow-2xl overflow-hidden flex flex-col relative text-neutral-900 print:shadow-none print:w-[210mm] print:m-0"
+                ref={cvRef}
+                className="w-full max-w-[210mm] mx-auto bg-white shadow-2xl overflow-hidden flex flex-col relative text-neutral-900 print:shadow-none print:w-[210mm] print:m-0 print:overflow-visible"
                 style={{ printColorAdjust: 'exact', WebkitPrintColorAdjust: 'exact' }}
             >
 
@@ -53,7 +94,7 @@ export default function CV() {
                 <div className="absolute top-0 left-0 w-64 h-64 bg-[radial-gradient(var(--color-primary)_2px,transparent_2px)] bg-size-[16px_16px] opacity-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full"></div>
 
                 {/* --- HEADER --- */}
-                <header className="relative flex flex-col md:flex-row justify-between items-end p-6 md:p-10 border-b-4 border-cv-dark z-10 overflow-hidden min-h-64 print:flex-row print:min-h-55 print:p-8">
+                <header className="relative flex flex-col md:flex-row justify-between items-end p-6 md:p-10 border-b-4 border-cv-dark z-10 overflow-hidden min-h-64 print:flex-row print:min-h-55 print:p-8 print:overflow-visible">
 
                     {/* Vùng chứa Ảnh */}
                     <div className="absolute top-0 right-0 w-full md:w-[60%] h-full z-0 print:w-[60%]">
@@ -62,24 +103,25 @@ export default function CV() {
                             <img
                                 src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/cover.png"
                                 alt="Phùng Trần Gia Bảo"
-                                className="w-full h-full"
+                                className="w-full h-full object-cover"
+                                crossOrigin="anonymous"
                             />
                         </div>
                     </div>
 
                     {/* Vùng Text */}
                     <div className="text-center md:text-left mb-16 md:mb-0 print:mb-0 w-full relative z-20 pointer-events-none flex flex-col justify-end print:text-left">
-                        <div className="inline-block bg-white/70 md:bg-transparent print:bg-transparent backdrop-blur-sm md:backdrop-blur-none p-4 md:p-0 print:p-0 rounded-lg w-fit">
-                            <h2 className="text-primary font-black text-lg tracking-widest leading-none mb-1.5 pointer-events-auto">
+                        <div className="inline-block bg-white/70 md:bg-transparent print:bg-transparent backdrop-blur-sm md:backdrop-blur-none p-4 md:p-0 print:py-2 print:pr-2 rounded-lg w-fit">
+                            <h2 className="text-primary font-black text-lg tracking-widest leading-none print:leading-tight mb-1.5 pointer-events-auto">
                                 CURRICULUM <br /> VITAE
                             </h2>
                             <div className="w-12 h-1.5 bg-primary mb-4 mt-2 pointer-events-auto"></div>
 
-                            <h1 className="text-2xl md:text-3xl font-black leading-none text-cv-dark tracking-tighter drop-shadow-sm pointer-events-auto print:text-3xl">
+                            <h1 className="text-2xl md:text-3xl font-black leading-none print:leading-tight text-cv-dark tracking-tighter drop-shadow-sm pointer-events-auto print:text-3xl">
                                 PHÙNG TRẦN
                             </h1>
 
-                            <h1 className="text-6xl md:text-[4.5rem] font-black leading-none text-primary tracking-tighter mt-1 drop-shadow-md pointer-events-auto print:text-[4.5rem]">
+                            <h1 className="text-6xl md:text-[4.5rem] font-black leading-none print:leading-normal text-primary tracking-tighter mt-1 drop-shadow-md pointer-events-auto print:text-[4.5rem] print:pb-2 print:pt-1">
                                 GIA BẢO
                             </h1>
                         </div>
@@ -129,20 +171,11 @@ export default function CV() {
 
                         <section className="grow">
                             <h2 className="text-lg font-black text-cv-dark mb-5 tracking-widest uppercase">{t('experience.title')}</h2>
-                            {/* Trục Timeline: Padding left 28px (pl-7) */}
                             <div className="relative pl-7 space-y-4 print:space-y-3.5">
-                                {/* Đường thẳng dọc: left 6px (Tâm đường thẳng sẽ là 6 + 2/2 = 7px) */}
                                 <div className="absolute left-1.5 top-1.5 bottom-0 w-0.5 bg-gray-300"></div>
 
                                 {experiencesData.map((exp, index) => (
-                                    <motion.div
-                                        key={index}
-                                        initial={{ opacity: 0, x: -10 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true }}
-                                        className="relative group cursor-default"
-                                    >
-                                        {/* Chấm tròn: -left-7 (kích thước 14px, Tâm chấm tròn sẽ là 0 + 14/2 = 7px => Thẳng hàng tuyệt đối) */}
+                                    <div key={index} className="relative group cursor-default">
                                         <div className="absolute -left-7 top-1.5 w-3.5 h-3.5 rounded-full bg-cv-dark print:bg-cv-dark"></div>
                                         <div>
                                             <h3 className="font-bold text-[13px] text-cv-dark leading-tight mb-0.5">{exp.company}</h3>
@@ -153,7 +186,7 @@ export default function CV() {
                                                 {exp.description}
                                             </p>
                                         </div>
-                                    </motion.div>
+                                    </div>
                                 ))}
                             </div>
                         </section>
@@ -162,14 +195,12 @@ export default function CV() {
                     {/* CỘT PHẢI */}
                     <div className="w-full md:w-[44%] bg-primary text-white p-6 md:p-8 flex flex-col gap-5 print:bg-primary print:text-white print:w-[44%] print:p-6 print:pl-5">
 
-                        {/* HỌC VẤN & NGOẠI NGỮ GỘP CHUNG */}
                         <section>
                             <RightColumnSectionTitle>{t('academic.education.title')}</RightColumnSectionTitle>
                             <div className="text-left mb-3">
                                 <p className="font-bold text-[15px] mb-0.5 leading-tight">{t('academic.education.degree')}</p>
                                 <p className="text-xs font-medium opacity-90">{t('academic.education.university')}</p>
                             </div>
-                            {/* Badges Ngoại ngữ */}
                             <div className="flex gap-2">
                                 <span className="bg-white text-primary text-[10px] font-bold px-2 py-0.5 rounded-sm shadow-sm">
                                     {t('cv.english')} B2
@@ -180,7 +211,6 @@ export default function CV() {
                             </div>
                         </section>
 
-                        {/* KỸ NĂNG */}
                         <section>
                             <RightColumnSectionTitle>{t('skills.title')}</RightColumnSectionTitle>
                             <div className="relative pl-5 space-y-3">
@@ -188,21 +218,16 @@ export default function CV() {
 
                                 {skillsData.map((skillGroup, index) => {
                                     const isLastItem = index === skillsData.length - 1;
-
                                     return (
                                         <div key={index} className="relative">
                                             <div className="absolute -left-4 top-1 w-2.5 h-2.5 rounded-full border-2 border-white bg-primary print:border-white"></div>
                                             <p className="font-bold text-[12px] mb-0.5">{skillGroup.title}</p>
                                             <div className="text-[10px] opacity-90 leading-tight">
                                                 {isLastItem ? (
-                                                    // Nếu là item cuối (Kỹ năng đặc thù), tách thành từng block riêng
                                                     skillGroup.items.map((item, idx) => (
-                                                        <span key={idx} className="block mb-0.5">
-                                                            • {item}
-                                                        </span>
+                                                        <span key={idx} className="block mb-0.5">• {item}</span>
                                                     ))
                                                 ) : (
-                                                    // Nếu không phải item cuối, in ra chuỗi cách nhau bởi dấu phẩy và thêm ', ...'
                                                     <span>{skillGroup.items.join(', ')}, ...</span>
                                                 )}
                                             </div>
@@ -212,7 +237,6 @@ export default function CV() {
                             </div>
                         </section>
 
-                        {/* THÀNH TỰU */}
                         <section>
                             <RightColumnSectionTitle>{t('academic.achievements.title')}</RightColumnSectionTitle>
                             <ul className="space-y-1.5 text-[11px] leading-tight opacity-95">
@@ -225,13 +249,11 @@ export default function CV() {
                             </ul>
                         </section>
 
-                        {/* NGHIÊN CỨU KHOA HỌC */}
                         <section>
                             <RightColumnSectionTitle>{t('academic.research.title')}</RightColumnSectionTitle>
                             <div className="space-y-2">
                                 {researchData.slice(0, 3).map((research, index) => (
                                     <div key={index} className="text-[11px] leading-tight">
-                                        {/* Bọc Link vào Title */}
                                         {research.url ? (
                                             <a
                                                 href={research.url}
@@ -250,9 +272,7 @@ export default function CV() {
                             </div>
                         </section>
 
-                        {/* MÃ QR CODE */}
                         <section className="mt-auto pt-2 flex flex-col items-center justify-center text-center">
-                            {/* Bọc toàn bộ Box QR vào Link */}
                             <a
                                 href="https://paodabeat-profile.vercel.app/"
                                 target="_blank"
@@ -263,6 +283,7 @@ export default function CV() {
                                     src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/qrcode.png"
                                     alt="QR Code"
                                     className="w-full h-full object-cover"
+                                    crossOrigin="anonymous"
                                 />
                             </a>
                             <p className="text-[11px] font-medium opacity-90 max-w-35 italic leading-tight">
