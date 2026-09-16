@@ -3,6 +3,12 @@ export const experience = {
         title: "Kinh Nghiệm",
         list: [
             {
+                year: "2025 - 2026",
+                company: "Hệ sinh thái học tập số Gendemy",
+                role: "Nhà sáng lập",
+                description: "• Sáng lập và dẫn dắt hệ sinh thái giáo dục số toàn diện, phát triển năng lực học tập tự định hướng cho người học.\n• Xây dựng định hướng sản phẩm, nền tảng học tập trực tuyến và hệ thống nhận diện thương hiệu Gendemy."
+            },
+            {
                 year: "2023 - 2026",
                 company: "Đài Truyền hình Việt Nam (VTV)",
                 role: "Sản xuất chương trình truyền hình",
@@ -56,6 +62,12 @@ export const experience = {
         title: "Experience",
         list: [
             {
+                year: "2025 - 2026",
+                company: "Gendemy Digital Learning Ecosystem",
+                role: "Founder",
+                description: "• Founded and led a comprehensive digital education ecosystem developing self-directed learning skills.\n• Defined the product vision, built the online learning platform and the Gendemy brand identity system."
+            },
+            {
                 year: "2023 - 2026",
                 company: "Vietnam Television (VTV)",
                 role: "TV Program Production",
@@ -108,6 +120,12 @@ export const experience = {
     zh: {
         title: "经验",
         list: [
+            {
+                year: "2025 - 2026",
+                company: "Gendemy 数字教育生态系统",
+                role: "创始人",
+                description: "• 创办并领导全面的数字教育生态系统，致力于培养学习者的自主学习能力。\n• 制定产品方向，搭建在线学习平台并建立 Gendemy 品牌识别系统。"
+            },
             {
                 year: "2023 - 2026",
                 company: "越南国家电视台 (VTV)",

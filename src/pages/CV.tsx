@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link } from "react-router-dom";
-import { ChevronLeft, Printer, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, FileDown, Image as ImageIcon, Loader2 } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 import { toPng } from 'html-to-image'; // Đã thay thế html2canvas bằng html-to-image
+import { jsPDF } from 'jspdf';
 
 // Component Tiêu đề khối cho cột phải
 const RightColumnSectionTitle = ({ children }: { children: React.ReactNode }) => (
@@ -14,6 +15,7 @@ const RightColumnSectionTitle = ({ children }: { children: React.ReactNode }) =>
 export default function CV() {
     const { t } = useTranslation();
     const cvRef = useRef<HTMLDivElement>(null);
+    const [isExporting, setIsExporting] = useState(false);
 
     // Lấy dữ liệu đầy đủ từ i18n
     const experiencesData = (t('experience.list', { returnObjects: true }) as Array<{ year: string, company: string, role: string, description: string }>) || [];
@@ -21,24 +23,33 @@ export default function CV() {
     const researchData = (t('academic.research.list', { returnObjects: true }) as Array<{ title: string, journal: string, url?: string }>) || [];
     const skillsData = (t('skills.list', { returnObjects: true }) as Array<{ title: string, items: string[] }>) || [];
 
-    // Hàm xử lý xuất ảnh PNG bằng thư viện mới (hỗ trợ oklch, tailwind v4, flexbox chuẩn)
+    // Chụp toàn bộ thẻ CV thành ảnh (dùng chung cho xuất PNG và PDF)
+    const captureCv = async (pixelRatio: number) => {
+        const node = cvRef.current;
+        if (!node) return null;
+
+        return await toPng(node, {
+            cacheBust: true, // Xoá cache để tránh lỗi tải ảnh CORS từ Supabase
+            backgroundColor: '#ffffff', // Ép nền trắng
+            pixelRatio, // Thay cho scale của html2canvas để tăng độ nét
+            // FIX: Ép cứng kích thước lúc chụp theo đúng thẻ div, bỏ qua viewport của trình duyệt
+            width: node.offsetWidth,
+            height: node.offsetHeight,
+            style: {
+                // FIX: Xoá margin (mx-auto) trên bản clone ảo lúc chụp để không bị lệch sang phải
+                margin: '0',
+                transform: 'none',
+            }
+        });
+    };
+
+    // Xuất ảnh PNG
     const handleDownloadImage = async () => {
-        if (!cvRef.current) return;
+        if (isExporting) return;
+        setIsExporting(true);
         try {
-            // Dùng html-to-image để chụp ảnh DOM
-            const dataUrl = await toPng(cvRef.current, {
-                cacheBust: true, // Xoá cache để tránh lỗi tải ảnh CORS từ Supabase
-                backgroundColor: '#ffffff', // Ép nền trắng
-                pixelRatio: 2, // Thay cho scale: 2 của html2canvas để tăng độ nét
-                // FIX: Ép cứng kích thước lúc chụp theo đúng thẻ div, bỏ qua viewport của trình duyệt
-                width: cvRef.current.offsetWidth,
-                height: cvRef.current.offsetHeight,
-                style: {
-                    // FIX: Xoá margin (mx-auto) trên bản clone ảo lúc chụp để không bị lệch sang phải
-                    margin: '0',
-                    transform: 'none',
-                }
-            });
+            const dataUrl = await captureCv(2);
+            if (!dataUrl) return;
 
             // Tạo thẻ a ẩn để tải file
             const link = document.createElement("a");
@@ -48,6 +59,59 @@ export default function CV() {
         } catch (error) {
             console.error("Lỗi khi tạo ảnh CV:", error);
             alert("Có lỗi xảy ra khi tạo ảnh. Vui lòng thử lại!");
+        } finally {
+            setIsExporting(false);
+        }
+    };
+
+    // Xuất PDF: tự dựng file thay vì dùng window.print() để CV nằm gọn trên MỘT trang, không bị ngắt trang
+    const handleDownloadPdf = async () => {
+        const node = cvRef.current;
+        if (!node || isExporting) return;
+        setIsExporting(true);
+        try {
+            const dataUrl = await captureCv(3); // ~288dpi cho chữ sắc nét khi in
+            if (!dataUrl) return;
+
+            // Khổ trang PDF: rộng đúng A4, cao đúng theo tỉ lệ thật của CV -> một trang liền mạch
+            const pageWidth = 210;
+            const pageHeight = (node.offsetHeight / node.offsetWidth) * pageWidth;
+
+            const pdf = new jsPDF({
+                orientation: pageHeight >= pageWidth ? 'portrait' : 'landscape',
+                unit: 'mm',
+                format: [pageWidth, pageHeight],
+                compress: true
+            });
+            pdf.addImage(dataUrl, 'PNG', 0, 0, pageWidth, pageHeight, undefined, 'FAST');
+
+            // Ảnh chụp không giữ được link, nên phủ thêm vùng link thật lên đúng toạ độ từng thẻ <a>
+            // (nút mạng xã hội, bài nghiên cứu khoa học, mã QR) để nhà tuyển dụng bấm mở được từ file PDF
+            const cvRect = node.getBoundingClientRect();
+            const pxToMm = pageWidth / cvRect.width;
+
+            node.querySelectorAll<HTMLAnchorElement>('a[href]').forEach((anchor) => {
+                const url = anchor.href;
+                if (!url || url.startsWith('javascript:')) return;
+
+                const rect = anchor.getBoundingClientRect();
+                if (rect.width === 0 || rect.height === 0) return; // bỏ qua thẻ đang ẩn
+
+                pdf.link(
+                    (rect.left - cvRect.left) * pxToMm,
+                    (rect.top - cvRect.top) * pxToMm,
+                    rect.width * pxToMm,
+                    rect.height * pxToMm,
+                    { url }
+                );
+            });
+
+            pdf.save("Phung_Tran_Gia_Bao_CV.pdf");
+        } catch (error) {
+            console.error("Lỗi khi tạo PDF CV:", error);
+            alert("Có lỗi xảy ra khi tạo PDF. Vui lòng thử lại!");
+        } finally {
+            setIsExporting(false);
         }
     };
 
@@ -67,17 +131,21 @@ export default function CV() {
                 <div className="flex gap-3">
                     <button
                         onClick={handleDownloadImage}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg shadow-md hover:bg-emerald-700 hover:-translate-y-0.5 transition-all duration-300"
+                        disabled={isExporting}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg shadow-md hover:bg-emerald-700 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
                     >
                         <ImageIcon className="w-5 h-5" />
                         Tải Ảnh (PNG)
                     </button>
 
                     <button
-                        onClick={() => window.print()}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-md hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300"
+                        onClick={handleDownloadPdf}
+                        disabled={isExporting}
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-md hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
                     >
-                        <Printer className="w-5 h-5" />
+                        {isExporting
+                            ? <Loader2 className="w-5 h-5 animate-spin" />
+                            : <FileDown className="w-5 h-5" />}
                         {t('cv.download_pdf')}
                     </button>
                 </div>
@@ -148,7 +216,7 @@ export default function CV() {
                                         <i className="fa-solid fa-phone text-[10px]"></i>
                                     </div>
                                     <p className="text-xs font-bold text-cv-dark min-w-22.5">{t('cv.phone')}</p>
-                                    <p className="text-xs text-gray-700">0327842261</p>
+                                    <p className="text-xs text-gray-700">+84 327842261</p>
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <div className="w-6 h-6 rounded-full bg-cv-dark flex items-center justify-center text-white print:bg-cv-dark print:text-white shrink-0">
@@ -175,7 +243,7 @@ export default function CV() {
                                 <div className="absolute left-1.5 top-1.5 bottom-0 w-0.5 bg-gray-300"></div>
 
                                 {experiencesData.map((exp, index) => (
-                                    <div key={index} className="relative group cursor-default">
+                                    <div key={index} className="relative group cursor-default print:break-inside-avoid">
                                         <div className="absolute -left-7 top-1.5 w-3.5 h-3.5 rounded-full bg-cv-dark print:bg-cv-dark"></div>
                                         <div>
                                             <h3 className="font-bold text-[13px] text-cv-dark leading-tight mb-0.5">{exp.company}</h3>

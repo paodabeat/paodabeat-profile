@@ -13,7 +13,7 @@ const Footer = () => {
                 <h2 className="text-3xl font-bold mb-8">{t('footer.connect')}</h2>
                 <div className="flex flex-wrap justify-center gap-8 mb-8 text-white/80">
                     <span className="flex items-center gap-2">
-                        <Phone className="w-5 h-5 text-primary" /> 0327842261
+                        <Phone className="w-5 h-5 text-primary" /> +84 327842261
                     </span>
                     <span className="flex items-center gap-2">
                         <Mail className="w-5 h-5 text-primary" /> giabao.hust@gmail.com
