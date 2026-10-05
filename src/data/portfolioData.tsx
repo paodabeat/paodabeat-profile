@@ -25,6 +25,25 @@ export const CERTIFICATE_THUMBS: Record<string, string> = mapByFileName(
     import.meta.glob('../../assets/certificate/thumb/*.webp', { eager: true, import: 'default' })
 );
 
+// Album ảnh cho các sản phẩm Đào tạo, đọc từ assets/training/<album>/
+// - TRAINING_ALBUMS: { "lai-chau-7-12-2025": [url 01, url 02, ...] } sắp xếp theo số thứ tự tên file
+// - TRAINING_COVERS: { "lai-chau-7-12-2025": url cover.webp } (ảnh ghép, tạo bằng: python scripts/optimize_images.py)
+const trainingImages = Object.entries(
+    import.meta.glob('../../assets/training/*/*.{webp,jpg,jpeg,png}', { eager: true, import: 'default' }) as Record<string, string>
+)
+    .map(([path, url]) => {
+        const [album, file] = path.split('/').slice(-2);
+        return { album, name: file.replace(/\.[^.]+$/, ''), url };
+    })
+    .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+
+export const TRAINING_ALBUMS: Record<string, string[]> = {};
+export const TRAINING_COVERS: Record<string, string> = {};
+for (const { album, name, url } of trainingImages) {
+    if (name === 'cover') TRAINING_COVERS[album] = url;
+    else (TRAINING_ALBUMS[album] ??= []).push(url);
+}
+
 // Ảnh trang đầu tiên của bài nghiên cứu cho gallery Nghiên cứu khoa học, khớp theo id trong i18n/academic.ts
 export const RESEARCH_IMAGES: Record<string, string> = mapByFileName(
     import.meta.glob('../../assets/research/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' })

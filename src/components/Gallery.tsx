@@ -81,7 +81,7 @@ const Placeholder: React.FC<{ item: GalleryItem; variant: Variant; compact?: boo
 // =========================================================================
 // LIGHTBOX: xem ảnh toàn màn hình, điều hướng bằng phím mũi tên / Esc
 // =========================================================================
-const Lightbox: React.FC<{
+export const Lightbox: React.FC<{
     item: GalleryItem;
     position: string;
     onClose: () => void;

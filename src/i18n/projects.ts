@@ -25,7 +25,7 @@ export const projects = {
         detail_btn: "Chi tiết",
         categories: {
             all: "Tất cả",
-            gendemy: "Gendemy",
+            project: "Dự án",
             tv: "Truyền hình",
             game: "Game & Tương tác",
             elearning: "E-learning",
@@ -37,15 +37,22 @@ export const projects = {
             play: "Xem Video",
             visit: "Truy cập",
             play_game: "Chơi ngay",
-            pdf: "Đọc tài liệu"
+            pdf: "Đọc tài liệu",
+            gallery: "Xem ảnh"
         },
         list: [
             // Gendemy
             {
-                id: 101, category: "gendemy", title: "Hệ sinh thái học tập số Gendemy",
+                id: 101, category: "project", title: "Hệ sinh thái học tập số Gendemy",
                 type: "website", url: "https://www.gendemyedu.com/",
                 image: gendemyProject,
                 description: "Hệ sinh thái giáo dục số toàn diện nhằm mục tiêu phát triển năng lực học tập tự định hướng cho người học."
+            },
+            {
+                id: 102, category: "project", title: "Dự án sản xuất học liệu số tương tác FED x IDEAS",
+                type: "updating", url: "",
+                image: "",
+                description: "Quản lý dự án sản xuất học liệu số tương tác cho khối K12, hợp tác giữa Khoa Khoa học và Công nghệ Giáo dục (FED) và IDEAS."
             },
 
             // TV & Events (Dạng Poster Gallery)
@@ -206,12 +213,34 @@ export const projects = {
                 description: "Xây dựng nội dung truyền thông cho ấn phẩm nghiên cứu khoa học."
             },
 
-            // Training
+            // Training (album ảnh trong assets/training/<album>, ảnh bìa là ảnh ghép cover.webp)
             {
-                id: 601, category: "training", title: "AI Animation in Education",
-                type: "updating", url: "",
-                image: "https://picsum.photos/seed/train1/600/400",
-                description: "Chương trình đào tạo ứng dụng AI tạo hiệu ứng hoạt hình cho giáo viên."
+                id: 601, category: "training", title: "Kỹ năng số, AI & an toàn thông tin mạng – Phường Hà Đông",
+                type: "album", url: "", album: "ha-dong-24-8-2026",
+                image: "",
+                meta: "08/2026 · UBND phường Hà Đông",
+                description: "Hội nghị tập huấn nghiệp vụ cho cán bộ, công chức, viên chức phường trong Chiến dịch 100 ngày thúc đẩy chuyển đổi số, do Khoa KH&CN Giáo dục – ĐHBK Hà Nội đồng hành."
+            },
+            {
+                id: 602, category: "training", title: "Ứng dụng AI trong quản lý và giảng dạy – Xã Quốc Oai",
+                type: "album", url: "", album: "quoc-oai-22-8-2026",
+                image: "",
+                meta: "08/2026 · 4 lớp · 837 cán bộ quản lý, giáo viên",
+                description: "Bồi dưỡng giáo viên mầm non, tiểu học, THCS dùng ChatGPT, Gemini, Copilot, Canva AI để soạn giáo án, tạo học liệu số, sản xuất video hoạt hình bằng AI và hỗ trợ quản trị nhà trường."
+            },
+            {
+                id: 603, category: "training", title: "Chắp Cánh Bích Hào – Ứng dụng AI trong dạy và học",
+                type: "album", url: "", album: "bich-hao-1-8-2026",
+                image: "",
+                meta: "01 - 02/08/2026 · Bích Hào, Nghệ An · 150 giáo viên",
+                description: "Tập huấn cầm tay chỉ việc: thiết kế bài giảng và video hoạt hình bằng AI, khai thác Gemini Notebook để tạo bản đồ tư duy, podcast, tóm tắt tài liệu và chấm điểm tự động."
+            },
+            {
+                id: 604, category: "training", title: "Chắp Cánh Lai Châu 2 – Ứng dụng CNTT & AI trong dạy học và quản lý giáo dục",
+                type: "album", url: "", album: "lai-chau-7-12-2025",
+                image: "",
+                meta: "12/2024 · TP Lai Châu · gần 150 giáo viên",
+                description: "Khoá tập huấn thuộc dự án Chắp Cánh STEM & E-learning (Khoa KH&CN Giáo dục tổ chức, Quỹ Chắp Cánh tài trợ), hướng dẫn giáo viên mầm non, tiểu học, THCS ứng dụng CNTT và AI để tạo bài giảng."
             }
         ]
     },
@@ -220,7 +249,7 @@ export const projects = {
         detail_btn: "Details",
         categories: {
             all: "All",
-            gendemy: "Gendemy",
+            project: "Projects",
             tv: "TV & Events",
             game: "Game & Interaction",
             elearning: "E-learning",
@@ -232,14 +261,21 @@ export const projects = {
             play: "Watch Video",
             visit: "Visit site",
             play_game: "Play now",
-            pdf: "Read document"
+            pdf: "Read document",
+            gallery: "View photos"
         },
         list: [
             {
-                id: 101, category: "gendemy", title: "Gendemy Ecosystem",
+                id: 101, category: "project", title: "Gendemy Ecosystem",
                 type: "website", url: "https://www.gendemyedu.com/",
                 image: gendemyProject,
                 description: "A comprehensive digital education ecosystem aimed at developing self-directed learning skills."
+            },
+            {
+                id: 102, category: "project", title: "FED x IDEAS Interactive Digital Learning Materials",
+                type: "updating", url: "",
+                image: "",
+                description: "Managing the production of interactive digital learning materials for K-12, a collaboration between the School of Educational Science and Technology (FED) and IDEAS."
             },
 
             {
@@ -396,11 +432,34 @@ export const projects = {
                 description: "Developed media content for scientific research publications."
             },
 
+            // Training (album ảnh trong assets/training/<album>, ảnh bìa là ảnh ghép cover.webp)
             {
-                id: 601, category: "training", title: "AI Animation in Education",
-                type: "updating", url: "",
-                image: "https://picsum.photos/seed/train1/600/400",
-                description: "Training program on applying AI for educational animation tailored for teachers."
+                id: 601, category: "training", title: "Digital Skills, AI & Cybersecurity – Ha Dong Ward",
+                type: "album", url: "", album: "ha-dong-24-8-2026",
+                image: "",
+                meta: "08/2026 · Ha Dong Ward People's Committee",
+                description: "Professional training for ward officials and civil servants during the 100-Day Digital Transformation Campaign, delivered with the School of Educational Science and Technology, HUST."
+            },
+            {
+                id: 602, category: "training", title: "AI in School Management and Teaching – Quoc Oai Commune",
+                type: "album", url: "", album: "quoc-oai-22-8-2026",
+                image: "",
+                meta: "08/2026 · 4 classes · 837 school leaders & teachers",
+                description: "Trained preschool, primary and lower-secondary teachers to use ChatGPT, Gemini, Copilot and Canva AI for lesson planning, digital learning materials, AI animated videos and school administration."
+            },
+            {
+                id: 603, category: "training", title: "Chap Canh Bich Hao – AI in Teaching and Learning",
+                type: "album", url: "", album: "bich-hao-1-8-2026",
+                image: "",
+                meta: "Aug 1 - 2, 2026 · Bich Hao, Nghe An · 150 teachers",
+                description: "Hands-on training in AI-assisted lesson and animated video design, plus Gemini Notebook for mind maps, podcasts, document summaries and automated grading."
+            },
+            {
+                id: 604, category: "training", title: "Chap Canh Lai Chau 2 – IT & AI in Teaching and Education Management",
+                type: "album", url: "", album: "lai-chau-7-12-2025",
+                image: "",
+                meta: "12/2024 · Lai Chau City · nearly 150 teachers",
+                description: "Training under the Chap Canh STEM & E-learning project (organised by the School of Educational Science and Technology, funded by CC Foundation) helping preschool to lower-secondary teachers build lessons with IT and AI."
             }
         ]
     },
@@ -409,7 +468,7 @@ export const projects = {
         detail_btn: "详情",
         categories: {
             all: "全部",
-            gendemy: "Gendemy生态",
+            project: "项目",
             tv: "电视与活动",
             game: "游戏与交互",
             elearning: "电子学习",
@@ -421,14 +480,21 @@ export const projects = {
             play: "观看视频",
             visit: "访问网站",
             play_game: "立即游玩",
-            pdf: "阅读文件"
+            pdf: "阅读文件",
+            gallery: "查看照片"
         },
         list: [
             {
-                id: 101, category: "gendemy", title: "Gendemy 数字教育生态系统",
+                id: 101, category: "project", title: "Gendemy 数字教育生态系统",
                 type: "website", url: "https://www.gendemyedu.com/",
                 image: gendemyProject,
                 description: "全面集成AI和电子学习的数字教育生态系统，旨在培养自主学习能力。"
+            },
+            {
+                id: 102, category: "project", title: "FED x IDEAS 互动数字学习资源制作项目",
+                type: "updating", url: "",
+                image: "",
+                description: "管理面向 K12 的互动数字学习资源制作，由教育科学与技术学院 (FED) 与 IDEAS 合作开展。"
             },
 
             {
@@ -585,11 +651,34 @@ export const projects = {
                 description: "为科学研究出版物开发媒体内容。"
             },
 
+            // Training (album ảnh trong assets/training/<album>, ảnh bìa là ảnh ghép cover.webp)
             {
-                id: 601, category: "training", title: "教育中的 AI 动画",
-                type: "updating", url: "",
-                image: "https://picsum.photos/seed/train1/600/400",
-                description: "针对教师应用AI制作教育动画特效的培训项目。"
+                id: 601, category: "training", title: "数字技能、人工智能与网络安全培训 – 河东坊",
+                type: "album", url: "", album: "ha-dong-24-8-2026",
+                image: "",
+                meta: "08/2026 · 河东坊人民委员会",
+                description: "在“推动数字化转型100天行动”中，与河内理工大学教育科学与技术学院一起为坊干部、公务员开展业务培训。"
+            },
+            {
+                id: 602, category: "training", title: "人工智能在学校管理与教学中的应用 – 国威社",
+                type: "album", url: "", album: "quoc-oai-22-8-2026",
+                image: "",
+                meta: "08/2026 · 4 个班 · 837 名管理人员与教师",
+                description: "培训幼儿园、小学、初中教师使用 ChatGPT、Gemini、Copilot、Canva AI 编写教案、制作数字学习资源、用 AI 制作动画视频并辅助学校管理。"
+            },
+            {
+                id: 603, category: "training", title: "Chap Canh Bich Hao – 人工智能在教学中的应用",
+                type: "album", url: "", album: "bich-hao-1-8-2026",
+                image: "",
+                meta: "2026年8月1日 - 2日 · 义安省 Bich Hao · 150 名教师",
+                description: "手把手培训：用 AI 设计课件与动画视频，并使用 Gemini Notebook 制作思维导图、播客、文档摘要和自动评分。"
+            },
+            {
+                id: 604, category: "training", title: "Chap Canh Lai Chau 2 – 信息技术与人工智能在教学和教育管理中的应用",
+                type: "album", url: "", album: "lai-chau-7-12-2025",
+                image: "",
+                meta: "12/2024 · 莱州市 · 近 150 名教师",
+                description: "Chap Canh STEM & E-learning 项目（教育科学与技术学院主办、CC Foundation 资助）的培训课程，帮助幼儿园至初中教师运用信息技术和 AI 制作课件。"
             }
         ]
     }

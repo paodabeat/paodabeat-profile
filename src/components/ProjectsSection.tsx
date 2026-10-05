@@ -1,11 +1,13 @@
 // File: components/ProjectSection.tsx
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useCallback, createContext, useContext } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Images } from 'lucide-react';
 
 import SectionHeader from './SectionHeader';
+import { Lightbox } from './Gallery';
+import { TRAINING_ALBUMS, TRAINING_COVERS } from '../data/portfolioData';
 
 // 1. Định nghĩa kiểu dữ liệu Project (TypeScript Interface)
 interface ProjectItem {
@@ -16,9 +18,19 @@ interface ProjectItem {
     url: string;
     image: string;
     description: string;
+    album?: string;  // Tên thư mục album trong assets/training (dành cho mục Đào tạo)
+    meta?: string;   // Thời gian · địa điểm · quy mô
 }
 
 const pad = (n: number) => String(n).padStart(2, '0');
+
+// Ảnh của album (theo thứ tự 01, 02, ...) và ảnh bìa ghép cover.webp
+const albumOf = (project: ProjectItem) => (project.album && TRAINING_ALBUMS[project.album]) || [];
+const imageOf = (project: ProjectItem) =>
+    project.image || (project.album && (TRAINING_COVERS[project.album] || albumOf(project)[0])) || '';
+
+// Mở album ảnh ở chế độ xem toàn màn hình (khai báo ở ProjectsSection)
+const AlbumContext = createContext<(project: ProjectItem) => void>(() => {});
 
 // Nhãn hành động theo loại sản phẩm
 const actionLabel = (project: ProjectItem, status: Record<string, string>) =>
@@ -27,34 +39,64 @@ const actionLabel = (project: ProjectItem, status: Record<string, string>) =>
             project.type === 'pdf' ? status.pdf :
                 status.visit;
 
-const isUnavailable = (project: ProjectItem) => project.type === 'updating' || !project.url;
+const isAlbum = (project: ProjectItem) => project.type === 'album' && albumOf(project).length > 0;
+const isUnavailable = (project: ProjectItem) => !isAlbum(project) && (project.type === 'updating' || !project.url);
 
-// Khung ảnh: có link thì bấm được, chưa có thì chỉ hiển thị
+// Khung ảnh: có link thì bấm được, album thì mở xem ảnh, chưa có ảnh thì hiện placeholder
 const ImageFrame: React.FC<{ project: ProjectItem; aspect: string }> = ({ project, aspect }) => {
+    const { t } = useTranslation();
+    const openAlbum = useContext(AlbumContext);
+    const src = imageOf(project);
+
     const img = (
-        <div className={`${aspect} bg-panel overflow-hidden`}>
-            <img
-                src={project.image}
-                alt={project.title}
-                loading="lazy"
-                className={`w-full h-full object-cover transition-transform duration-700 ${isUnavailable(project) && project.category !== 'tv' ? 'grayscale opacity-50' : 'group-hover:scale-[1.03]'}`}
-            />
+        <div className={`relative ${aspect} bg-panel overflow-hidden`}>
+            {src ? (
+                <img
+                    src={src}
+                    alt={project.title}
+                    loading="lazy"
+                    className={`w-full h-full object-cover transition-transform duration-700 ${isUnavailable(project) && project.category !== 'tv' ? 'grayscale opacity-50' : 'group-hover:scale-[1.03]'}`}
+                />
+            ) : (
+                <div className="absolute inset-3 border border-rule flex items-center justify-center text-center px-4">
+                    <span className="label">{t('common.placeholder')}</span>
+                </div>
+            )}
+            {isAlbum(project) && (
+                <span className="absolute left-3 bottom-3 flex items-center gap-1.5 bg-paper text-ink px-2 py-1 text-[11px] tabular-nums">
+                    <Images className="w-3.5 h-3.5" strokeWidth={1.5} /> {albumOf(project).length}
+                </span>
+            )}
         </div>
     );
+
+    if (isAlbum(project)) {
+        return <button onClick={() => openAlbum(project)} className="block w-full text-left cursor-zoom-in" aria-label={project.title}>{img}</button>;
+    }
     return isUnavailable(project)
         ? img
         : <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={project.title}>{img}</a>;
 };
 
 // Dòng hành động ở chân mỗi sản phẩm
-const ActionLine: React.FC<{ project: ProjectItem; status: Record<string, string> }> = ({ project, status }) =>
-    isUnavailable(project) ? (
+const ActionLine: React.FC<{ project: ProjectItem; status: Record<string, string> }> = ({ project, status }) => {
+    const openAlbum = useContext(AlbumContext);
+
+    if (isAlbum(project)) {
+        return (
+            <button onClick={() => openAlbum(project)} className="text-link text-sm">
+                {status.gallery} ({albumOf(project).length}) <Images className="w-3.5 h-3.5" strokeWidth={1.5} />
+            </button>
+        );
+    }
+    return isUnavailable(project) ? (
         <span className="text-sm text-muted italic">{status.updating}</span>
     ) : (
         <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-link text-sm">
             {actionLabel(project, status)} <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
         </a>
     );
+};
 
 // =========================================================================
 // SUB-COMPONENT 1: POSTER DỌC (Dành cho TV & Events) - chú thích nằm dưới ảnh
@@ -81,6 +123,7 @@ const NormalItem: React.FC<{ project: ProjectItem; index: number; status: Record
             <h4 className={`text-xl font-medium leading-snug tracking-tight mt-1.5 mb-2 ${isUnavailable(project) ? 'text-muted' : ''}`}>
                 {project.title}
             </h4>
+            {project.meta && <p className="text-[13px] text-ink/80 mb-2">{project.meta}</p>}
             <p className="text-sm leading-relaxed text-muted mb-5 grow">{project.description}</p>
             <div><ActionLine project={project} status={status} /></div>
         </div>
@@ -183,7 +226,21 @@ export default function ProjectsSection() {
 
     const isTVGrid = activeCategory === 'tv';
 
+    // Album ảnh đang mở (mục Đào tạo)
+    const [albumView, setAlbumView] = useState<{ project: ProjectItem; index: number } | null>(null);
+    const openAlbum = useCallback((project: ProjectItem) => setAlbumView({ project, index: 0 }), []);
+    const closeAlbum = useCallback(() => setAlbumView(null), []);
+    const stepAlbum = useCallback((direction: 1 | -1) => setAlbumView((view) => {
+        if (!view) return view;
+        const total = albumOf(view.project).length;
+        return { ...view, index: (view.index + direction + total) % total };
+    }), []);
+    const prevPhoto = useCallback(() => stepAlbum(-1), [stepAlbum]);
+    const nextPhoto = useCallback(() => stepAlbum(1), [stepAlbum]);
+    const albumPhotos = albumView ? albumOf(albumView.project) : [];
+
     return (
+        <AlbumContext.Provider value={openAlbum}>
         <section id="projects" className="py-20 md:py-32 px-5 md:px-10">
             <div className="max-w-[90rem] mx-auto">
                 <SectionHeader index="02" title={t('projects.title')} aside={t('common.items', { count: projectsData.length })} />
@@ -238,6 +295,25 @@ export default function ProjectsSection() {
                     </div>
                 )}
             </div>
+
+            <AnimatePresence>
+                {albumView && (
+                    <Lightbox
+                        item={{
+                            id: `${albumView.project.id}-${albumView.index}`,
+                            title: albumView.project.title,
+                            meta: albumView.project.meta,
+                            image: albumPhotos[albumView.index]
+                        }}
+                        position={`${pad(albumView.index + 1)} / ${pad(albumPhotos.length)}`}
+                        onClose={closeAlbum}
+                        onPrev={prevPhoto}
+                        onNext={nextPhoto}
+                        hasMany={albumPhotos.length > 1}
+                    />
+                )}
+            </AnimatePresence>
         </section>
+        </AlbumContext.Provider>
     );
 }

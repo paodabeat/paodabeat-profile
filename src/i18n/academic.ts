@@ -64,7 +64,7 @@ export const academic = {
                 status: "Đang theo học"
             },
             degree: "Cử nhân Công nghệ Giáo dục",
-            university: "Đại học Bách khoa Hà Nội",
+            university: "Khoa Khoa học và Công nghệ Giáo dục, Đại học Bách khoa Hà Nội",
             honor_label: "Xếp loại",
             honor: "Bằng Giỏi"
         },
@@ -102,7 +102,7 @@ export const academic = {
                 status: "In progress"
             },
             degree: "Bachelor of Educational Technology",
-            university: "Hanoi University of Science and Technology",
+            university: "School of Educational Science and Technology, Hanoi University of Science and Technology",
             honor_label: "Classification",
             honor: "Very Good Degree"
         },
@@ -140,7 +140,7 @@ export const academic = {
                 status: "在读"
             },
             degree: "教育科技学士",
-            university: "河内理工大学",
+            university: "河内理工大学 教育科学与技术学院",
             honor_label: "学位等级",
             honor: "优良"
         },
