@@ -22,7 +22,7 @@ const Typewriter = ({ texts }: { texts: string[] }) => {
     }, [subIndex, index, reverse, texts]);
 
     return (
-        <span className="text-blue-400 font-mono tracking-tight">
+        <span className="text-accent">
             {`${texts[index].substring(0, subIndex)}|`}
         </span>
     );

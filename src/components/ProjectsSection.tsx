@@ -1,12 +1,11 @@
 // File: components/ProjectSection.tsx
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { ExternalLink, PlayCircle, Gamepad2, FileText, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 
-// Import Dữ liệu Icon
-import { PROJECT_ICONS } from '../data/portfolioData';
+import SectionHeader from './SectionHeader';
 
 // 1. Định nghĩa kiểu dữ liệu Project (TypeScript Interface)
 interface ProjectItem {
@@ -19,229 +18,148 @@ interface ProjectItem {
     description: string;
 }
 
-// =========================================================================
-// SUB-COMPONENT 1: GIAO DIỆN THẺ POSTER DỌC (Dành cho TV & Events)
-// Đã thêm isCarousel để tắt layout animation khi nằm trong slider
-// =========================================================================
-const TVCard: React.FC<{
-    project: ProjectItem;
-    projectsStatus: Record<string, string>;
-    isCarousel?: boolean;
-}> = ({ project, projectsStatus, isCarousel = false }) => (
-    <motion.div
-        layout={!isCarousel} // Tắt layout calculation nếu nằm trong thanh trượt để chống giật
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.3 }}
-        className="relative rounded-2xl overflow-hidden shadow-sm group/card bg-neutral-200 dark:bg-black/50 aspect-3/4 w-full"
-    >
-        <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
-        />
+const pad = (n: number) => String(n).padStart(2, '0');
 
-        {/* Lớp phủ Hover: Gradient Xanh đậm ở chân nhạt dần lên trên + Backdrop Blur */}
-        <div className="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-all duration-500 pointer-events-none flex flex-col justify-end translate-y-4 group-hover/card:translate-y-0">
-            {/* Lớp nền Blur & Gradient chỉ chiếm 60% chiều cao từ dưới lên */}
-            <div className="absolute inset-x-0 bottom-0 h-3/5 bg-linear-to-t from-primary/95 via-primary/50 to-transparent backdrop-blur-[2px]" />
+// Nhãn hành động theo loại sản phẩm
+const actionLabel = (project: ProjectItem, status: Record<string, string>) =>
+    project.type === 'youtube' ? status.play :
+        project.type === 'game' ? status.play_game :
+            project.type === 'pdf' ? status.pdf :
+                status.visit;
 
-            {/* Nội dung tối giản ở dưới chân */}
-            <div className="relative p-6 text-center pointer-events-auto z-10 flex flex-col items-center">
-                <h3 className="text-xl font-bold text-white mb-2 drop-shadow-md">
-                    {project.title}
-                </h3>
-                {project.type === 'updating' || !project.url ? (
-                    <span className="text-sm font-medium text-white/90 drop-shadow">
-                        {projectsStatus.updating}
-                    </span>
-                ) : (
-                    <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm font-medium text-white hover:text-white/70 transition-colors uppercase tracking-widest drop-shadow"
-                    >
-                        {projectsStatus.pdf}
-                    </a>
-                )}
-            </div>
-        </div>
-    </motion.div>
-);
+const isUnavailable = (project: ProjectItem) => project.type === 'updating' || !project.url;
 
-// =========================================================================
-// SUB-COMPONENT 2: GIAO DIỆN THẺ NGANG BÌNH THƯỜNG (Dành cho các loại khác)
-// Đã thêm isCarousel để tắt layout animation khi nằm trong slider
-// =========================================================================
-const NormalCard: React.FC<{
-    project: ProjectItem;
-    projectsCategories: Record<string, string>;
-    projectsStatus: Record<string, string>;
-    isCarousel?: boolean;
-}> = ({ project, projectsCategories, projectsStatus, isCarousel = false }) => (
-    <motion.div
-        layout={!isCarousel} // Tắt layout calculation nếu nằm trong thanh trượt để chống giật
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.9 }}
-        transition={{ duration: 0.3 }}
-        whileHover={!isCarousel ? { y: -10 } : {}}
-        className="bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl overflow-hidden shadow-sm dark:shadow-none group/ncard hover:border-primary/50 flex flex-col transition-all duration-300 w-full h-full"
-    >
-        <div className="aspect-video relative overflow-hidden bg-neutral-200 dark:bg-black/50">
+// Khung ảnh: có link thì bấm được, chưa có thì chỉ hiển thị
+const ImageFrame: React.FC<{ project: ProjectItem; aspect: string }> = ({ project, aspect }) => {
+    const img = (
+        <div className={`${aspect} bg-panel overflow-hidden`}>
             <img
                 src={project.image}
                 alt={project.title}
-                className={`w-full h-full object-cover transition-all duration-700 ${project.type === 'updating' ? 'grayscale opacity-50 blur-sm' : 'opacity-90 dark:opacity-70 group-hover/ncard:opacity-100 group-hover/ncard:scale-110'}`}
+                loading="lazy"
+                className={`w-full h-full object-cover transition-transform duration-700 ${isUnavailable(project) && project.category !== 'tv' ? 'grayscale opacity-50' : 'group-hover:scale-[1.03]'}`}
             />
-            <div className="absolute top-4 right-4 p-3 bg-white/90 dark:bg-black/60 backdrop-blur rounded-xl text-primary dark:text-white shadow-sm">
-                {PROJECT_ICONS[project.category] || <ExternalLink className="w-6 h-6" />}
-            </div>
-            {project.type === 'youtube' && (
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <PlayCircle className="w-16 h-16 text-white opacity-70 group-hover/ncard:opacity-100 group-hover/ncard:scale-110 transition-all duration-300 drop-shadow-lg" />
-                </div>
-            )}
         </div>
+    );
+    return isUnavailable(project)
+        ? img
+        : <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={project.title}>{img}</a>;
+};
 
-        <div className="p-6 flex flex-col grow">
-            <span className="text-xs font-bold text-primary uppercase tracking-widest mb-2 block">
-                {projectsCategories[project.category]}
-            </span>
-            <h3 className={`text-xl font-bold mb-3 ${project.type === 'updating' ? 'text-neutral-400 dark:text-white/50' : ''}`}>
-                {project.title}
-            </h3>
-            <p className={`text-sm leading-relaxed mb-6 grow ${project.type === 'updating' ? 'text-neutral-400 dark:text-white/30' : 'text-neutral-600 dark:text-white/60'}`}>
-                {project.description}
-            </p>
+// Dòng hành động ở chân mỗi sản phẩm
+const ActionLine: React.FC<{ project: ProjectItem; status: Record<string, string> }> = ({ project, status }) =>
+    isUnavailable(project) ? (
+        <span className="text-sm text-muted italic">{status.updating}</span>
+    ) : (
+        <a href={project.url} target="_blank" rel="noopener noreferrer" className="text-link text-sm">
+            {actionLabel(project, status)} <ArrowUpRight className="w-3.5 h-3.5" strokeWidth={1.5} />
+        </a>
+    );
 
-            <div className="mt-auto pt-4 border-t border-black/5 dark:border-white/5">
-                {project.type === 'updating' || !project.url ? (
-                    <span className="flex items-center gap-2 text-sm font-bold text-neutral-400 dark:text-white/30 cursor-not-allowed">
-                        <Clock className="w-4 h-4" /> {projectsStatus.updating}
-                    </span>
-                ) : (
-                    <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-bold text-neutral-900 dark:text-white hover:text-primary dark:hover:text-primary transition-colors"
-                    >
-                        {project.type === 'youtube' ? projectsStatus.play :
-                            project.type === 'game' ? projectsStatus.play_game :
-                                project.type === 'pdf' ? projectsStatus.pdf :
-                                    projectsStatus.visit}
-
-                        {project.type === 'youtube' ? <PlayCircle className="w-4 h-4" /> :
-                            project.type === 'game' ? <Gamepad2 className="w-4 h-4" /> :
-                                project.type === 'pdf' ? <FileText className="w-4 h-4" /> :
-                                    <ExternalLink className="w-4 h-4" />}
-                    </a>
-                )}
-            </div>
+// =========================================================================
+// SUB-COMPONENT 1: POSTER DỌC (Dành cho TV & Events) - chú thích nằm dưới ảnh
+// =========================================================================
+const TVItem: React.FC<{ project: ProjectItem; index: number; status: Record<string, string> }> = ({ project, index, status }) => (
+    <article className="group">
+        <ImageFrame project={project} aspect="aspect-3/4" />
+        <div className="pt-4">
+            <span className="label tabular-nums">No. {pad(index + 1)}</span>
+            <h4 className="text-lg font-medium leading-snug tracking-tight mt-1.5 mb-3">{project.title}</h4>
+            <ActionLine project={project} status={status} />
         </div>
-    </motion.div>
+    </article>
 );
 
 // =========================================================================
-// SUB-COMPONENT 3: SLIDER TRƯỢT NGANG
-// Đã chuyển sang Native CSS Transform thay vì Framer Motion để chống giật
+// SUB-COMPONENT 2: SẢN PHẨM NGANG (Dành cho các loại khác)
 // =========================================================================
-const ProjectCarousel: React.FC<{
+const NormalItem: React.FC<{ project: ProjectItem; index: number; status: Record<string, string> }> = ({ project, index, status }) => (
+    <article className="group flex flex-col h-full">
+        <ImageFrame project={project} aspect="aspect-video" />
+        <div className="pt-4 flex flex-col grow">
+            <span className="label tabular-nums">No. {pad(index + 1)}</span>
+            <h4 className={`text-xl font-medium leading-snug tracking-tight mt-1.5 mb-2 ${isUnavailable(project) ? 'text-muted' : ''}`}>
+                {project.title}
+            </h4>
+            <p className="text-sm leading-relaxed text-muted mb-5 grow">{project.description}</p>
+            <div><ActionLine project={project} status={status} /></div>
+        </div>
+    </article>
+);
+
+const ProjectEntry: React.FC<{ project: ProjectItem; index: number; status: Record<string, string> }> = (props) =>
+    props.project.category === 'tv' ? <TVItem {...props} /> : <NormalItem {...props} />;
+
+// =========================================================================
+// SUB-COMPONENT 3: DẢI TRƯỢT NGANG CHO MỖI DANH MỤC
+// Dùng cuộn gốc của trình duyệt (scroll-snap) để vuốt mượt trên điện thoại
+// =========================================================================
+const ProjectRow: React.FC<{
     items: ProjectItem[];
     categoryId: string;
-    projectsCategories: Record<string, string>;
-    projectsStatus: Record<string, string>;
-}> = ({ items, categoryId, projectsCategories, projectsStatus }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [itemsToShow, setItemsToShow] = useState(3);
+    categoryLabel: string;
+    status: Record<string, string>;
+}> = ({ items, categoryId, categoryLabel, status }) => {
+    const { t } = useTranslation();
+    const trackRef = useRef<HTMLDivElement>(null);
+    const [canPrev, setCanPrev] = useState(false);
+    const [canNext, setCanNext] = useState(false);
+
+    const updateArrows = useCallback(() => {
+        const el = trackRef.current;
+        if (!el) return;
+        setCanPrev(el.scrollLeft > 4);
+        setCanNext(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+    }, []);
 
     useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth < 768) setItemsToShow(1); // Mobile
-            else if (window.innerWidth < 1024) setItemsToShow(2); // Tablet
-            else setItemsToShow(categoryId === 'tv' ? 4 : 3); // Desktop (TV hiện 4 poster dọc)
-        };
-        handleResize();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [categoryId]);
+        updateArrows();
+        window.addEventListener('resize', updateArrows);
+        return () => window.removeEventListener('resize', updateArrows);
+    }, [updateArrows, items.length]);
 
-    const maxIndex = Math.max(0, items.length - itemsToShow);
-
-    const handlePrev = () => {
-        setCurrentIndex((prev) => (prev > 0 ? prev - 1 : maxIndex));
-    };
-
-    const handleNext = () => {
-        setCurrentIndex((prev) => (prev < maxIndex ? prev + 1 : 0));
+    const scrollByPage = (direction: 1 | -1) => {
+        const el = trackRef.current;
+        if (el) el.scrollBy({ left: direction * el.clientWidth * 0.85, behavior: 'smooth' });
     };
 
     if (items.length === 0) return null;
 
+    const isTV = categoryId === 'tv';
+    const itemWidth = isTV
+        ? 'w-[68%] sm:w-[42%] lg:w-[calc((100%-6rem)/4)]'
+        : 'w-[85%] sm:w-[60%] lg:w-[calc((100%-4rem)/3)]';
+
     return (
-        <div className="mb-20">
-            <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 bg-primary/10 text-primary rounded-lg">
-                    {PROJECT_ICONS[categoryId] || <ExternalLink className="w-5 h-5" />}
-                </div>
-                <h3 className="text-2xl font-bold uppercase tracking-wider">{projectsCategories[categoryId]}</h3>
-            </div>
-
-            <div className="relative group/slider">
-                {items.length > itemsToShow && (
-                    <button
-                        onClick={handlePrev}
-                        className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white dark:bg-[#1a1a1a] shadow-lg rounded-full text-neutral-600 dark:text-white/80 hover:text-primary transition-all md:opacity-0 md:group-hover/slider:opacity-100 hover:scale-110 border border-black/5 dark:border-white/10"
-                    >
-                        <ChevronLeft className="w-6 h-6" />
-                    </button>
-                )}
-
-                <div className="overflow-hidden px-2 pb-6 pt-2">
-                    {/* Sử dụng div thuần và transition của Tailwind/CSS để lướt siêu mượt */}
-                    <div
-                        className="flex gap-6 transition-transform duration-500 ease-out"
-                        style={{ transform: `translateX(calc(-${currentIndex * (100 / itemsToShow)}% - ${currentIndex * (1.5 / itemsToShow)}rem))` }}
-                    >
-                        {items.map((project) => (
-                            <div
-                                key={project.id}
-                                className="shrink-0"
-                                style={{ width: `calc(${100 / itemsToShow}% - ${((itemsToShow - 1) * 1.5) / itemsToShow}rem)` }}
-                            >
-                                {categoryId === 'tv'
-                                    ? <TVCard project={project} projectsStatus={projectsStatus} isCarousel={true} />
-                                    : <NormalCard project={project} projectsCategories={projectsCategories} projectsStatus={projectsStatus} isCarousel={true} />}
-                            </div>
-                        ))}
+        <div className="border-t border-rule pt-6">
+            <div className="flex items-end justify-between gap-6 mb-8">
+                <h3 className="text-2xl md:text-3xl font-medium tracking-tight">
+                    {categoryLabel}
+                    <sup className="label ml-2 align-super">{pad(items.length)}</sup>
+                </h3>
+                {(canPrev || canNext) && (
+                    <div className="flex items-center gap-5 text-sm">
+                        <button onClick={() => scrollByPage(-1)} disabled={!canPrev} aria-label={t('common.prev')} className="disabled:opacity-25 hover:text-accent transition-colors">
+                            <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
+                        </button>
+                        <button onClick={() => scrollByPage(1)} disabled={!canNext} aria-label={t('common.next')} className="disabled:opacity-25 hover:text-accent transition-colors">
+                            <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
+                        </button>
                     </div>
-                </div>
-
-                {items.length > itemsToShow && (
-                    <button
-                        onClick={handleNext}
-                        className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-white dark:bg-[#1a1a1a] shadow-lg rounded-full text-neutral-600 dark:text-white/80 hover:text-primary transition-all md:opacity-0 md:group-hover/slider:opacity-100 hover:scale-110 border border-black/5 dark:border-white/10"
-                    >
-                        <ChevronRight className="w-6 h-6" />
-                    </button>
                 )}
             </div>
 
-            {items.length > itemsToShow && (
-                <div className="flex justify-center gap-2 mt-4">
-                    {Array.from({ length: maxIndex + 1 }).map((_, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => setCurrentIndex(idx)}
-                            className={`h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'w-8 bg-primary' : 'w-2 bg-neutral-300 dark:bg-white/20 hover:bg-primary/50'
-                                }`}
-                        />
-                    ))}
-                </div>
-            )}
+            <div
+                ref={trackRef}
+                onScroll={updateArrows}
+                className="flex gap-8 overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-5 px-5 md:mx-0 md:px-0 scroll-px-5 md:scroll-px-0"
+            >
+                {items.map((project, index) => (
+                    <div key={project.id} className={`shrink-0 snap-start ${itemWidth}`}>
+                        <ProjectEntry project={project} index={index} status={status} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
@@ -257,6 +175,8 @@ export default function ProjectsSection() {
     const projectsStatus = (t('projects.status', { returnObjects: true }) as Record<string, string>) || {};
     const projectsData = (t('projects.list', { returnObjects: true }) as ProjectItem[]) || [];
 
+    const countOf = (key: string) => key === 'all' ? projectsData.length : projectsData.filter(p => p.category === key).length;
+
     const filteredProjects = activeCategory === 'all'
         ? projectsData
         : projectsData.filter(project => project.category === activeCategory);
@@ -264,58 +184,58 @@ export default function ProjectsSection() {
     const isTVGrid = activeCategory === 'tv';
 
     return (
-        <section id="projects" className="py-24 px-6">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col items-center mb-12 text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wider">{t('projects.title')}</h2>
-                    <div className="w-20 h-1 bg-primary rounded-full" />
-                </div>
+        <section id="projects" className="py-20 md:py-32 px-5 md:px-10">
+            <div className="max-w-[90rem] mx-auto">
+                <SectionHeader index="02" title={t('projects.title')} aside={t('common.items', { count: projectsData.length })} />
 
-                <div className="flex flex-wrap justify-center gap-3 mb-16">
+                {/* Bộ lọc danh mục dạng chữ, gạch chân mục đang chọn */}
+                <div className="flex gap-x-8 overflow-x-auto no-scrollbar border-b border-rule mb-14 -mx-5 px-5 md:mx-0 md:px-0">
                     {Object.entries(projectsCategories).map(([key, label]) => (
                         <button
                             key={key}
                             onClick={() => setActiveCategory(key)}
-                            className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${activeCategory === key
-                                ? 'bg-primary text-white shadow-md scale-105'
-                                : 'bg-black/5 dark:bg-white/5 text-neutral-600 dark:text-white/70 hover:bg-black/10 dark:hover:bg-white/10 hover:text-primary dark:hover:text-primary'
+                            className={`shrink-0 pb-3 -mb-px border-b text-sm transition-colors ${activeCategory === key
+                                ? 'border-accent text-ink font-medium'
+                                : 'border-transparent text-muted hover:text-ink'
                                 }`}
                         >
                             {label as string}
+                            <sup className="ml-1 text-[10px] tabular-nums">{countOf(key)}</sup>
                         </button>
                     ))}
                 </div>
 
                 {activeCategory === 'all' ? (
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-20">
                         {Object.keys(projectsCategories)
                             .filter(key => key !== 'all')
-                            .map(categoryKey => {
-                                const itemsInCategory = projectsData.filter(p => p.category === categoryKey);
-                                return (
-                                    <ProjectCarousel
-                                        key={categoryKey}
-                                        items={itemsInCategory}
-                                        categoryId={categoryKey}
-                                        projectsCategories={projectsCategories}
-                                        projectsStatus={projectsStatus}
-                                    />
-                                );
-                            })
+                            .map(categoryKey => (
+                                <ProjectRow
+                                    key={categoryKey}
+                                    items={projectsData.filter(p => p.category === categoryKey)}
+                                    categoryId={categoryKey}
+                                    categoryLabel={projectsCategories[categoryKey]}
+                                    status={projectsStatus}
+                                />
+                            ))
                         }
                     </div>
                 ) : (
-                    <motion.div layout className={`grid grid-cols-1 md:grid-cols-2 gap-8 ${isTVGrid ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
-                        <AnimatePresence>
-                            {filteredProjects.map((project) => (
-                                <React.Fragment key={project.id}>
-                                    {project.category === 'tv'
-                                        ? <TVCard project={project} projectsStatus={projectsStatus} />
-                                        : <NormalCard project={project} projectsCategories={projectsCategories} projectsStatus={projectsStatus} />}
-                                </React.Fragment>
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-14 ${isTVGrid ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
+                        <AnimatePresence mode="popLayout">
+                            {filteredProjects.map((project, index) => (
+                                <motion.div
+                                    key={project.id}
+                                    initial={{ opacity: 0, y: 16 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.35, delay: Math.min(index, 8) * 0.03 }}
+                                >
+                                    <ProjectEntry project={project} index={index} status={projectsStatus} />
+                                </motion.div>
                             ))}
                         </AnimatePresence>
-                    </motion.div>
+                    </div>
                 )}
             </div>
         </section>

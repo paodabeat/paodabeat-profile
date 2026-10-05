@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { useTranslation } from 'react-i18next';
-import { Cpu } from 'lucide-react';
+
+import SectionHeader from './SectionHeader';
 
 export default function SkillsSection() {
     const { t } = useTranslation();
@@ -10,36 +11,31 @@ export default function SkillsSection() {
     const skillsData = (t('skills.list', { returnObjects: true }) as Array<{ title: string, items: string[] }>) || [];
 
     return (
-        <section id="skills" className="py-24 px-6 bg-black/5 dark:bg-white/2">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex flex-col items-center mb-16 text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wider">{t('skills.title')}</h2>
-                    <div className="w-20 h-1 bg-primary rounded-full" />
-                </div>
+        <section id="skills" className="py-20 md:py-32 px-5 md:px-10 bg-panel/50">
+            <div className="max-w-[90rem] mx-auto">
+                <SectionHeader index="03" title={t('skills.title')} aside={t('common.items', { count: skillsData.length })} />
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* Mỗi nhóm kỹ năng là một dòng: số thứ tự | tên nhóm | danh sách công cụ */}
+                <div className="border-t border-rule">
                     {skillsData.map((cat, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 16 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 rounded-2xl p-6 shadow-sm dark:shadow-none hover:bg-neutral-50 dark:hover:bg-white/10 transition-colors"
+                            viewport={{ once: true, margin: "-40px" }}
+                            transition={{ duration: 0.4, delay: (i % 4) * 0.05 }}
+                            className="grid grid-cols-[2.5rem_1fr] md:grid-cols-12 gap-x-4 md:gap-x-6 gap-y-2 py-6 md:py-7 border-b border-rule"
                         >
-                            <h3 className="text-[16px] font-bold mb-4 flex items-center gap-2 text-primary">
-                                <Cpu className="w-5 h-5" /> {cat.title}
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
+                            <span className="md:col-span-1 label tabular-nums pt-1.5">{String(i + 1).padStart(2, '0')}</span>
+                            <h3 className="md:col-span-4 text-lg md:text-xl font-medium tracking-tight">{cat.title}</h3>
+                            <p className="min-w-0 col-start-2 md:col-span-7 md:col-start-auto text-[15px] leading-relaxed text-muted md:pt-1">
                                 {cat.items.map((skill, si) => (
-                                    <span
-                                        key={si}
-                                        className="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-black/40 border border-black/5 dark:border-white/5 text-xs font-medium text-neutral-700 dark:text-white/90 hover:border-primary/50 transition-colors cursor-default"
-                                    >
-                                        {skill}
-                                    </span>
+                                    <React.Fragment key={si}>
+                                        {si > 0 && <> <span className="mx-1 text-muted/50" aria-hidden>/</span> </>}
+                                        <span className="text-ink">{skill}</span>
+                                    </React.Fragment>
                                 ))}
-                            </div>
+                            </p>
                         </motion.div>
                     ))}
                 </div>

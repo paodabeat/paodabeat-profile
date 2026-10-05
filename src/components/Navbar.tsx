@@ -1,192 +1,149 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { Sun, Moon } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import { useLanguage, LanguageCode } from '../hooks/useLanguage';
 import { useTranslation } from 'react-i18next';
 
+const SECTION_IDS = ['hero', 'experience', 'projects', 'skills', 'academic'];
+
+const languages: { code: LanguageCode; label: string }[] = [
+    { code: 'vi', label: 'VN' },
+    { code: 'en', label: 'EN' },
+    { code: 'zh', label: 'ZH' },
+];
+
+// Bộ chọn ngôn ngữ dạng chữ: VN / EN / ZH
+export const LanguageSwitch = ({ current, onChange }: { current: LanguageCode; onChange: (code: LanguageCode) => void }) => (
+    <div className="flex items-center gap-2 text-xs font-medium tracking-[0.12em]">
+        {languages.map((lang, i) => (
+            <React.Fragment key={lang.code}>
+                {i > 0 && <span className="text-muted/50">/</span>}
+                <button
+                    onClick={() => onChange(lang.code)}
+                    aria-pressed={current === lang.code}
+                    className={`transition-colors ${current === lang.code ? 'text-ink underline underline-offset-4 decoration-accent' : 'text-muted hover:text-ink'}`}
+                >
+                    {lang.label}
+                </button>
+            </React.Fragment>
+        ))}
+    </div>
+);
+
 const Navbar = () => {
     const [activeSection, setActiveSection] = useState('hero');
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isLangMenuOpen, setIsLangMenuOpen] = useState(false);
 
     const { theme, toggleTheme } = useTheme();
     const { currentLanguage, setLanguage } = useLanguage();
     const { t } = useTranslation();
-    const langMenuRef = useRef<HTMLDivElement>(null);
 
-    const navItems = [
-        { id: 'hero', label: t('nav.hero') },
-        { id: 'experience', label: t('nav.experience') },
-        { id: 'projects', label: t('nav.projects') },
-        { id: 'skills', label: t('nav.skills') },
-        { id: 'academic', label: t('nav.academic') },
-    ];
-
-    const languages: { code: LanguageCode; label: string }[] = [
-        { code: 'vi', label: 'VN' },
-        { code: 'en', label: 'EN' },
-        { code: 'zh', label: 'ZH' },
-    ];
+    const navItems = SECTION_IDS.map((id) => ({ id, label: t(`nav.${id}`) }));
 
     useEffect(() => {
         const handleScroll = () => {
-            const sections = navItems.map(item => document.getElementById(item.id));
-            const scrollPosition = window.scrollY + 100;
-            sections.forEach(section => {
+            const scrollPosition = window.scrollY + 120;
+            SECTION_IDS.forEach((id) => {
+                const section = document.getElementById(id);
                 if (section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight) {
-                    setActiveSection(section.id);
+                    setActiveSection(id);
                 }
             });
         };
+        handleScroll();
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [navItems]);
-
-    // Đóng dropdown ngôn ngữ khi click ra ngoài
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
-                setIsLangMenuOpen(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    const handleLanguageChange = (code: LanguageCode) => {
-        setLanguage(code);
-        setIsLangMenuOpen(false);
-    };
+    // Khoá cuộn trang khi mở menu mobile
+    useEffect(() => {
+        document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+        return () => { document.body.style.overflow = ''; };
+    }, [isMenuOpen]);
+
+    const ThemeButton = (
+        <button
+            onClick={toggleTheme}
+            className="text-muted hover:text-ink transition-colors"
+            aria-label="Toggle Theme"
+        >
+            {theme === 'dark' ? <Sun className="w-4 h-4" strokeWidth={1.5} /> : <Moon className="w-4 h-4" strokeWidth={1.5} />}
+        </button>
+    );
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-[#0a0a0a]/80 backdrop-blur-lg border-b border-black/5 dark:border-white/5 transition-colors duration-300">
-            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <nav className="fixed top-0 left-0 w-full z-50 bg-paper border-b border-rule transition-colors duration-300">
+            <div className="max-w-[90rem] mx-auto px-5 md:px-10 h-16 flex items-center justify-between">
 
                 {/* LOGO */}
-                <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="text-xl font-black tracking-widest text-neutral-900 dark:text-white cursor-pointer"
-                    onClick={() => window.scrollTo(0, 0)}
-                >
-                    PAODABEAT<span className="text-primary">.</span>
-                </motion.div>
+                <a href="#hero" className="text-[13px] font-semibold tracking-[0.22em] uppercase">
+                    Paodabeat
+                </a>
 
                 {/* DESKTOP MENU */}
-                <div className="hidden md:flex items-center gap-8">
-                    {navItems.map((item) => (
-                        <a
-                            key={item.id}
-                            href={`#${item.id}`}
-                            className={`text-sm font-bold uppercase tracking-wider transition-colors hover:text-primary ${activeSection === item.id
-                                ? 'text-primary'
-                                : 'text-neutral-600 dark:text-white/60'
-                                }`}
-                        >
-                            {item.label}
-                        </a>
-                    ))}
+                <div className="hidden md:flex items-center gap-10">
+                    <ul className="flex items-center gap-7">
+                        {navItems.map((item, i) => (
+                            <li key={item.id}>
+                                <a
+                                    href={`#${item.id}`}
+                                    className={`group flex items-baseline gap-1.5 text-[13px] transition-colors ${activeSection === item.id ? 'text-ink' : 'text-muted hover:text-ink'}`}
+                                >
+                                    <span className="text-[10px] tabular-nums text-muted">0{i + 1}</span>
+                                    <span className={`border-b pb-0.5 ${activeSection === item.id ? 'border-accent' : 'border-transparent'}`}>
+                                        {item.label}
+                                    </span>
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
 
-                    <div className="flex items-center gap-3 border-l border-neutral-300 dark:border-white/20 pl-6 ml-2">
-                        {/* LANGUAGE SELECTOR */}
-                        <div className="relative" ref={langMenuRef}>
-                            <button
-                                onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-                                className="flex items-center gap-1 p-2 rounded-full bg-neutral-100 dark:bg-white/10 text-neutral-600 dark:text-white/80 hover:text-primary dark:hover:text-primary transition-colors"
-                            >
-                                <Globe className="w-5 h-5" />
-                                <span className="text-xs font-bold uppercase w-5">{currentLanguage}</span>
-                            </button>
-
-                            <AnimatePresence>
-                                {isLangMenuOpen && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: 10 }}
-                                        className="absolute right-0 mt-2 w-20 bg-white dark:bg-[#1a1a1a] rounded-lg shadow-xl border border-black/5 dark:border-white/10 overflow-hidden"
-                                    >
-                                        {languages.map((lang) => (
-                                            <button
-                                                key={lang.code}
-                                                onClick={() => handleLanguageChange(lang.code)}
-                                                className={`w-full text-center py-2 text-sm font-bold transition-colors ${currentLanguage === lang.code
-                                                    ? 'bg-primary text-white'
-                                                    : 'text-neutral-600 dark:text-white/80 hover:bg-neutral-100 dark:hover:bg-white/5'
-                                                    }`}
-                                            >
-                                                {lang.label}
-                                            </button>
-                                        ))}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        {/* TOGGLE THEME BUTTON */}
-                        <button
-                            onClick={toggleTheme}
-                            className="p-2 rounded-full bg-neutral-100 dark:bg-white/10 text-neutral-600 dark:text-white/80 hover:text-primary dark:hover:text-primary transition-colors"
-                            aria-label="Toggle Theme"
-                        >
-                            {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                        </button>
+                    <div className="flex items-center gap-6 border-l border-rule pl-6">
+                        <LanguageSwitch current={currentLanguage} onChange={setLanguage} />
+                        {ThemeButton}
                     </div>
                 </div>
 
                 {/* MOBILE BUTTONS */}
-                <div className="flex items-center gap-4 md:hidden">
+                <div className="flex items-center gap-5 md:hidden">
+                    {ThemeButton}
                     <button
-                        onClick={() => {
-                            const nextIndex = (languages.findIndex(l => l.code === currentLanguage) + 1) % languages.length;
-                            handleLanguageChange(languages[nextIndex].code);
-                        }}
-                        className="flex items-center gap-1 p-2 rounded-full bg-neutral-100 dark:bg-white/10 text-neutral-600 dark:text-white/80 transition-colors"
-                    >
-                        <span className="text-xs font-bold uppercase">{currentLanguage}</span>
-                    </button>
-
-                    <button
-                        onClick={toggleTheme}
-                        className="p-2 rounded-full bg-neutral-100 dark:bg-white/10 text-neutral-600 dark:text-white/80 hover:text-primary dark:hover:text-primary transition-colors"
-                        aria-label="Toggle Theme"
-                    >
-                        {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-                    </button>
-
-                    <button
-                        className="text-neutral-900 dark:text-white"
+                        className="text-[13px] font-medium tracking-[0.12em] uppercase"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-expanded={isMenuOpen}
                     >
-                        {isMenuOpen ? <X /> : <Menu />}
+                        {isMenuOpen ? t('common.close') : 'Menu'}
                     </button>
                 </div>
             </div>
 
-            {/* MOBILE MENU DROPDOWN */}
+            {/* MOBILE MENU: danh mục toàn màn hình, đánh số như mục lục tạp chí */}
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="md:hidden bg-white dark:bg-[#0a0a0a] border-t border-black/5 dark:border-white/5 overflow-hidden transition-colors duration-300"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="md:hidden fixed inset-x-0 top-16 bottom-0 bg-paper px-5 pt-6 pb-10 flex flex-col overflow-y-auto"
                     >
-                        <div className="flex flex-col p-6 gap-6">
-                            {navItems.map((item) => (
-                                <a
-                                    key={item.id}
-                                    href={`#${item.id}`}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className={`text-lg font-bold uppercase tracking-wider ${activeSection === item.id
-                                        ? 'text-primary'
-                                        : 'text-neutral-600 dark:text-white/60'
-                                        }`}
-                                >
-                                    {item.label}
-                                </a>
+                        <ul className="border-t border-rule">
+                            {navItems.map((item, i) => (
+                                <li key={item.id} className="border-b border-rule">
+                                    <a
+                                        href={`#${item.id}`}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className={`flex items-baseline gap-4 py-4 text-3xl font-medium tracking-tight ${activeSection === item.id ? 'text-accent' : 'text-ink'}`}
+                                    >
+                                        <span className="label tabular-nums">0{i + 1}</span>
+                                        {item.label}
+                                    </a>
+                                </li>
                             ))}
+                        </ul>
+                        <div className="mt-auto pt-8">
+                            <LanguageSwitch current={currentLanguage} onChange={setLanguage} />
                         </div>
                     </motion.div>
                 )}

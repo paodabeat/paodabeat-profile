@@ -1,9 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { Link } from "react-router-dom";
-import { ChevronLeft, FileDown, Image as ImageIcon, Loader2 } from "lucide-react";
+import { ArrowLeft, FileDown, Image as ImageIcon, Loader2, Sun, Moon } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 import { toPng } from 'html-to-image'; // Đã thay thế html2canvas bằng html-to-image
 import { jsPDF } from 'jspdf';
+import coverImage from '../../assets/cover.webp';
+import qrCodeImage from '../../assets/qrcode.webp';
+import { LanguageSwitch } from '../components/Navbar';
+import ScrollToTop from '../components/ScrollToTop';
+import { useTheme } from '../hooks/useTheme';
+import { useLanguage } from '../hooks/useLanguage';
 
 // Component Tiêu đề khối cho cột phải
 const RightColumnSectionTitle = ({ children }: { children: React.ReactNode }) => (
@@ -14,12 +20,14 @@ const RightColumnSectionTitle = ({ children }: { children: React.ReactNode }) =>
 
 export default function CV() {
     const { t } = useTranslation();
+    const { theme, toggleTheme } = useTheme();
+    const { currentLanguage, setLanguage } = useLanguage();
     const cvRef = useRef<HTMLDivElement>(null);
     const [isExporting, setIsExporting] = useState(false);
 
     // Lấy dữ liệu đầy đủ từ i18n
     const experiencesData = (t('experience.list', { returnObjects: true }) as Array<{ year: string, company: string, role: string, description: string }>) || [];
-    const achievementsData = (t('academic.achievements.list', { returnObjects: true }) as string[]) || [];
+    const achievementsData = ((t('academic.achievements.list', { returnObjects: true }) as Array<{ title: string, year: string, cv?: boolean }>) || []).filter((item) => item.cv);
     const researchData = (t('academic.research.list', { returnObjects: true }) as Array<{ title: string, journal: string, url?: string }>) || [];
     const skillsData = (t('skills.list', { returnObjects: true }) as Array<{ title: string, items: string[] }>) || [];
 
@@ -29,7 +37,7 @@ export default function CV() {
         if (!node) return null;
 
         return await toPng(node, {
-            cacheBust: true, // Xoá cache để tránh lỗi tải ảnh CORS từ Supabase
+            cacheBust: true, // Xoá cache để luôn lấy ảnh mới nhất khi chụp
             backgroundColor: '#ffffff', // Ép nền trắng
             pixelRatio, // Thay cho scale của html2canvas để tăng độ nét
             // FIX: Ép cứng kích thước lúc chụp theo đúng thẻ div, bỏ qua viewport của trình duyệt
@@ -116,45 +124,64 @@ export default function CV() {
     };
 
     return (
-        <div className="min-h-screen bg-neutral-200 dark:bg-neutral-900 py-8 px-4 md:py-12 font-sans relative transition-colors duration-300 print:bg-white print:dark:bg-white print:py-0 print:px-0 print:min-h-0">
+        <div className="min-h-screen bg-paper text-ink font-sans relative transition-colors duration-300 print:bg-white print:min-h-0">
 
-            {/* Top Bar: Nút Quay lại & Nút Tải */}
-            <div className="w-full max-w-[210mm] mx-auto mb-4 flex items-center justify-between print:hidden">
-                <Link
-                    to="/"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-[#1a1a1a] text-cv-dark dark:text-white font-bold rounded-lg shadow hover:bg-primary hover:text-white dark:hover:bg-primary transition-colors duration-300"
-                >
-                    <ChevronLeft className="w-5 h-5" />
-                    {t('cv.back')}
-                </Link>
+            {/* Thanh điều hướng: cùng phong cách với trang Portfolio */}
+            <header className="sticky top-0 z-40 bg-paper border-b border-rule print:hidden">
+                <div className="max-w-[90rem] mx-auto px-5 md:px-10 h-16 flex items-center justify-between gap-6">
+                    <Link to="/" className="flex items-center gap-2 text-[13px] text-muted hover:text-ink transition-colors">
+                        <ArrowLeft className="w-4 h-4" strokeWidth={1.5} />
+                        {t('cv.back')}
+                    </Link>
+                    <Link to="/" className="hidden md:block text-[13px] font-semibold tracking-[0.22em] uppercase">
+                        Paodabeat
+                    </Link>
+                    <div className="flex items-center gap-6">
+                        <LanguageSwitch current={currentLanguage} onChange={setLanguage} />
+                        <button onClick={toggleTheme} className="text-muted hover:text-ink transition-colors" aria-label="Toggle Theme">
+                            {theme === 'dark' ? <Sun className="w-4 h-4" strokeWidth={1.5} /> : <Moon className="w-4 h-4" strokeWidth={1.5} />}
+                        </button>
+                    </div>
+                </div>
+            </header>
 
-                <div className="flex gap-3">
+            <main className="px-5 md:px-10 pt-10 md:pt-14 pb-20 print:p-0">
+            {/* Tiêu đề trang & nút tải */}
+            <div className="w-full max-w-[210mm] mx-auto mb-8 border-t border-ink pt-4 flex flex-wrap items-end justify-between gap-6 print:hidden">
+                <div>
+                    <p className="label mb-3">Curriculum Vitae</p>
+                    <h1 className="text-4xl md:text-5xl font-medium tracking-[-0.03em] leading-none">{t('profile.full')}</h1>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
                     <button
                         onClick={handleDownloadImage}
                         disabled={isExporting}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white font-bold rounded-lg shadow-md hover:bg-emerald-700 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
+                        className="h-11 px-4 inline-flex items-center gap-2 text-sm font-medium border border-ink hover:bg-ink hover:text-paper transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
-                        <ImageIcon className="w-5 h-5" />
-                        Tải Ảnh (PNG)
+                        <ImageIcon className="w-4 h-4" strokeWidth={1.5} />
+                        {t('cv.download_png')}
                     </button>
 
                     <button
                         onClick={handleDownloadPdf}
                         disabled={isExporting}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-md hover:bg-blue-700 hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-60 disabled:hover:translate-y-0 disabled:cursor-not-allowed"
+                        className="h-11 px-4 inline-flex items-center gap-2 text-sm font-medium bg-ink text-paper border border-ink hover:bg-accent hover:border-accent hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                         {isExporting
-                            ? <Loader2 className="w-5 h-5 animate-spin" />
-                            : <FileDown className="w-5 h-5" />}
+                            ? <Loader2 className="w-4 h-4 animate-spin" strokeWidth={1.5} />
+                            : <FileDown className="w-4 h-4" strokeWidth={1.5} />}
                         {t('cv.download_pdf')}
                     </button>
                 </div>
             </div>
 
+            {/* Khung viền mảnh bao ngoài tờ CV (nằm ngoài vùng chụp nên không lọt vào file PNG/PDF) */}
+            <div className="w-full max-w-[210mm] mx-auto border border-rule print:border-0 print:max-w-none">
             {/* Vùng chứa CV - Đã gỡ print:min-h-[297mm] để CV rớt trang tự nhiên như ban đầu */}
             <div
                 ref={cvRef}
-                className="w-full max-w-[210mm] mx-auto bg-white shadow-2xl overflow-hidden flex flex-col relative text-neutral-900 print:shadow-none print:w-[210mm] print:m-0 print:overflow-visible"
+                className="w-full bg-white overflow-hidden flex flex-col relative text-neutral-900 print:w-[210mm] print:m-0 print:overflow-visible"
                 style={{ printColorAdjust: 'exact', WebkitPrintColorAdjust: 'exact' }}
             >
 
@@ -169,8 +196,8 @@ export default function CV() {
                         <div className="absolute inset-0 bg-[radial-gradient(var(--color-primary)_2px,transparent_2px)] bg-size-[12px_12px] opacity-40"></div>
                         <div className="absolute top-6 bottom-6 right-6 left-6 md:left-10 print:left-10 overflow-hidden shadow-xl rounded-sm bg-neutral-200 print:shadow-md">
                             <img
-                                src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/cover.png"
-                                alt="Phùng Trần Gia Bảo"
+                                src={coverImage}
+                                alt={t('profile.full')}
                                 className="w-full h-full object-cover"
                                 crossOrigin="anonymous"
                             />
@@ -186,11 +213,11 @@ export default function CV() {
                             <div className="w-12 h-1.5 bg-primary mb-4 mt-2 pointer-events-auto"></div>
 
                             <h1 className="text-2xl md:text-3xl font-black leading-none print:leading-tight text-cv-dark tracking-tighter drop-shadow-sm pointer-events-auto print:text-3xl">
-                                PHÙNG TRẦN
+                                {t('profile.family').toUpperCase()}
                             </h1>
 
                             <h1 className="text-6xl md:text-[4.5rem] font-black leading-none print:leading-normal text-primary tracking-tighter mt-1 drop-shadow-md pointer-events-auto print:text-[4.5rem] print:pb-2 print:pt-1">
-                                GIA BẢO
+                                {t('profile.given').toUpperCase()}
                             </h1>
                         </div>
                     </div>
@@ -266,6 +293,11 @@ export default function CV() {
                         <section>
                             <RightColumnSectionTitle>{t('academic.education.title')}</RightColumnSectionTitle>
                             <div className="text-left mb-3">
+                                <p className="font-bold text-[15px] mb-0.5 leading-tight">{t('academic.education.master.degree')}</p>
+                                <p className="text-xs font-medium opacity-90">{t('academic.education.master.track_label')}: {t('academic.education.master.track')}</p>
+                                <p className="text-xs font-medium opacity-90">{t('academic.education.master.school')}</p>
+                            </div>
+                            <div className="text-left mb-3">
                                 <p className="font-bold text-[15px] mb-0.5 leading-tight">{t('academic.education.degree')}</p>
                                 <p className="text-xs font-medium opacity-90">{t('academic.education.university')}</p>
                             </div>
@@ -311,7 +343,7 @@ export default function CV() {
                                 {achievementsData.map((achievement, index) => (
                                     <li key={index} className="flex gap-1.5 items-start">
                                         <span className="mt-0.5 text-[8px]">●</span>
-                                        <span>{achievement}</span>
+                                        <span>{achievement.title}{achievement.year ? ` (${achievement.year})` : ''}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -348,7 +380,7 @@ export default function CV() {
                                 className="block w-28 h-28 rounded-xl overflow-hidden shadow-md mb-2 hover:scale-105 transition-transform duration-300 print:hover:scale-100"
                             >
                                 <img
-                                    src="https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/qrcode.png"
+                                    src={qrCodeImage}
                                     alt="QR Code"
                                     className="w-full h-full object-cover"
                                     crossOrigin="anonymous"
@@ -362,6 +394,10 @@ export default function CV() {
                     </div>
                 </div>
             </div>
+            </div>
+            </main>
+
+            <ScrollToTop />
         </div>
     );
 }

@@ -4,6 +4,7 @@ import { motion, useScroll, useSpring } from 'motion/react';
 // Import Layout Components
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ScrollToTop from '../components/ScrollToTop';
 
 // Import Section Components đã tách
 import HeroSection from '../components/HeroSection';
@@ -22,11 +23,11 @@ export default function Home() {
     });
 
     return (
-        <div className="relative min-h-screen overflow-x-hidden bg-neutral-50 dark:bg-[#0a0a0a] text-neutral-900 dark:text-white font-sans selection:bg-primary/30 transition-colors duration-300">
+        <div className="relative min-h-screen overflow-x-hidden bg-paper text-ink font-sans transition-colors duration-300">
 
             {/* Thanh tiến trình Scroll */}
             <motion.div
-                className="fixed top-0 left-0 right-0 h-1 bg-primary z-60 origin-left"
+                className="fixed top-0 left-0 right-0 h-0.5 bg-accent z-60 origin-left"
                 style={{ scaleX }}
             />
 
@@ -41,6 +42,8 @@ export default function Home() {
             </main>
 
             <Footer />
+
+            <ScrollToTop />
         </div>
     );
 }

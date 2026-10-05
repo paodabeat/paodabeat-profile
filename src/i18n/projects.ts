@@ -1,5 +1,24 @@
 // File: i18n/project.ts
 
+import gendemyProject from "../../assets/project/gendemy.webp";
+import sinhvienthehemoiProgram from "../../assets/program/sinhvienthehemoi.webp";
+import congiapgiapthinProgram from "../../assets/program/12congiapgiapthin.webp";
+import duoilacoquyetthangProgram from "../../assets/program/duoilacoquyetthang.webp";
+import quanquenchinhgocProgram from "../../assets/program/quanquenchinhgoc.webp";
+import vtvawardsProgram from "../../assets/program/vtvawards.webp";
+import congiapattyProgram from "../../assets/program/12congiapatty.webp";
+import vangmaikhuckhaihoanProgram from "../../assets/program/vangmaikhuckhaihoan.webp";
+import muahelaplanhProgram from "../../assets/program/muahelaplanh.webp";
+import vutrudongtienProgram from "../../assets/program/vutrudongtien.webp";
+import duonglendinholympiaProgram from "../../assets/program/duonglendinholympia.webp";
+import thoicovangProgram from "../../assets/program/thoicovang.webp";
+import dieunhobekydieuProgram from "../../assets/program/dieunhobekydieu.webp";
+import vuikhoecoichProgram from "../../assets/program/vuikhoecoich.webp";
+import congiapbinhngoProgram from "../../assets/program/12congiapbinhngo.webp";
+import starseedProject from "../../assets/project/starseed.webp";
+import dannysdayProject from "../../assets/project/danny'sday.webp";
+import theescapeProject from "../../assets/project/theescape.webp";
+
 export const projects = {
     vi: {
         title: "Sản Phẩm & Dự Án",
@@ -25,45 +44,45 @@ export const projects = {
             {
                 id: 101, category: "gendemy", title: "Hệ sinh thái học tập số Gendemy",
                 type: "website", url: "https://www.gendemyedu.com/",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/gendemy.png",
+                image: gendemyProject,
                 description: "Hệ sinh thái giáo dục số toàn diện nhằm mục tiêu phát triển năng lực học tập tự định hướng cho người học."
             },
 
-            // TV & Events (Dạng Poster Gallery) - Đã sắp xếp lại thứ tự và cập nhật link Supabase
+            // TV & Events (Dạng Poster Gallery)
             {
                 id: 201, category: "tv", title: "Sinh viên thế hệ mới 2023",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/sinhvienthehemoi.jpg",
+                image: sinhvienthehemoiProgram,
                 description: "Gameshow thực tế dành cho sinh viên các trường Đại học toàn quốc."
             },
             {
                 id: 202, category: "tv", title: "12 Con Giáp 2024",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapgiapthin.JPG",
+                image: congiapgiapthinProgram,
                 description: "Chương trình giải trí Tết Nguyên Đán Giáp Thìn đặc biệt trên VTV."
             },
             {
                 id: 203, category: "tv", title: "Dưới lá cờ quyết thắng",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/duoilacoquyetthang.jpg",
+                image: duoilacoquyetthangProgram,
                 description: "Chương trình kỷ niệm 70 năm chiến thắng điện biên phủ."
             },
             {
                 id: 204, category: "tv", title: "Quán quen chính gốc",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/quanquenchinhgoc.jpg",
+                image: quanquenchinhgocProgram,
                 description: "Chương trình khám phá ẩm thực và văn hóa địa phương."
             },
             {
                 id: 205, category: "tv", title: "VTV Awards 2025",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vtvawards.jpg",
+                image: vtvawardsProgram,
                 description: "Lễ trao giải thưởng truyền hình thường niên của VTV."
             },
             {
                 id: 206, category: "tv", title: "12 Con Giáp 2025",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapatty.jpg",
+                image: congiapattyProgram,
                 description: "Chương trình giải trí Tết Nguyên Đán Ất Tỵ đặc biệt trên VTV."
             },
             {
@@ -81,49 +100,49 @@ export const projects = {
             {
                 id: 209, category: "tv", title: "Vang mãi khúc khải hoàn",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vangmaikhuckhaihoan.jpg",
+                image: vangmaikhuckhaihoanProgram,
                 description: "Chương trình nghệ thuật kỷ niệm 50 năm giải phóng miền Nam - thống nhất đất nước."
             },
             {
                 id: 210, category: "tv", title: "Mùa hè lấp lánh",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/muahelaplanh.jpg",
+                image: muahelaplanhProgram,
                 description: "Chương trình ca nhạc thiếu nhi nhân ngày lễ Quốc tế Thiếu nhi"
             },
             {
                 id: 211, category: "tv", title: "Vũ trụ đồng tiền 2025",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vutrudongtien.png",
+                image: vutrudongtienProgram,
                 description: "The Moneyverse - Chương trình giáo dục tài chính cho giới trẻ."
             },
             {
                 id: 212, category: "tv", title: "Đường lên đỉnh Olympia",
                 type: "pdf", url: "https://drive.google.com/file/d/1oT9NasKDULGbSsf3_Sb9CboDP-flC5KQ/view?usp=sharing",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/duonglendinholympia.jpg",
+                image: duonglendinholympiaProgram,
                 description: "Chương trình truyền hình trí tuệ dành cho học sinh THPT."
             },
             {
                 id: 213, category: "tv", title: "Thời cơ vàng",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/thoicovang.jpg",
+                image: thoicovangProgram,
                 description: "Chương trình kỷ niệm ngày Quốc khánh Việt Nam"
             },
             {
                 id: 214, category: "tv", title: "Điều nhỏ bé kỳ diệu",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/dieunhobekydieu.png",
+                image: dieunhobekydieuProgram,
                 description: "'Điều nhỏ bé kỳ diệu' trên VTV3 là một chương trình truyền hình mang tính chất suy ngẫm, lan tỏa những giá trị nhân văn và sưởi ấm tâm hồn giữa nhịp sống hiện đại."
             },
             {
                 id: 215, category: "tv", title: "Vui khoẻ có ích",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vuikhoecoich.png",
+                image: vuikhoecoichProgram,
                 description: "Chương trình truyền hình tư vấn sức khỏe và giải trí dành cho người cao tuổi."
             },
             {
                 id: 216, category: "tv", title: "12 Con Giáp 2026",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapbinhngo.jpg",
+                image: congiapbinhngoProgram,
                 description: "Chương trình giải trí Tết Nguyên Đán Bính Ngọ đặc biệt trên VTV."
             },
 
@@ -131,19 +150,19 @@ export const projects = {
             {
                 id: 301, category: "game", title: "Starseed",
                 type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/starseed.png",
+                image: starseedProject,
                 description: "Trò chơi giáo dục tương tác được thiết kế và phát triển trên nền tảng GDevelop."
             },
             {
                 id: 302, category: "game", title: "Danny's Day",
                 type: "game", url: "https://games.gdevelop-app.com/game-bbb4de63-0786-4da9-bb55-4d54425c392b/index.html",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/danny'sday.png",
+                image: dannysdayProject,
                 description: "Game học thuật phiêu lưu, giải quyết tình huống tương tác thực tế."
             },
             {
                 id: 303, category: "game", title: "The Escape Game",
                 type: "game", url: "https://games.gdevelop-app.com/game-be5ed1b7-1e8b-4467-bfdb-e01f9ab4f315/index.html",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/theescape.png",
+                image: theescapeProject,
                 description: "Trò chơi giải đố, thoát hiểm lồng ghép tư duy logic và kiến thức."
             },
 
@@ -219,44 +238,44 @@ export const projects = {
             {
                 id: 101, category: "gendemy", title: "Gendemy Ecosystem",
                 type: "website", url: "https://www.gendemyedu.com/",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/gendemy.png",
+                image: gendemyProject,
                 description: "A comprehensive digital education ecosystem aimed at developing self-directed learning skills."
             },
 
             {
                 id: 201, category: "tv", title: "New Generation Students 2023",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/sinhvienthehemoi.jpg",
+                image: sinhvienthehemoiProgram,
                 description: "Reality gameshow for university students nationwide."
             },
             {
                 id: 202, category: "tv", title: "12 Zodiacs 2024",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapgiapthin.JPG",
+                image: congiapgiapthinProgram,
                 description: "Special Lunar New Year entertainment show on VTV."
             },
             {
                 id: 203, category: "tv", title: "Under the Winning Flag",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/duoilacoquyetthang.jpg",
+                image: duoilacoquyetthangProgram,
                 description: "Program celebrating the 70th anniversary of the Dien Bien Phu victory."
             },
             {
                 id: 204, category: "tv", title: "Authentic Local Eateries",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/quanquenchinhgoc.jpg",
+                image: quanquenchinhgocProgram,
                 description: "Program exploring local cuisine and culture."
             },
             {
                 id: 205, category: "tv", title: "VTV Awards 2025",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vtvawards.jpg",
+                image: vtvawardsProgram,
                 description: "Annual television awards ceremony of VTV."
             },
             {
                 id: 206, category: "tv", title: "12 Zodiacs 2025",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapatty.jpg",
+                image: congiapattyProgram,
                 description: "Special Lunar New Year entertainment show on VTV."
             },
             {
@@ -274,68 +293,68 @@ export const projects = {
             {
                 id: 209, category: "tv", title: "Echoing the Victory Song",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vangmaikhuckhaihoan.jpg",
+                image: vangmaikhuckhaihoanProgram,
                 description: "Art program celebrating the 50th anniversary of the liberation of the South and national reunification."
             },
             {
                 id: 210, category: "tv", title: "Sparkling Summer",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/muahelaplanh.jpg",
+                image: muahelaplanhProgram,
                 description: "Children's music program for International Children's Day."
             },
             {
                 id: 211, category: "tv", title: "The Moneyverse 2025",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vutrudongtien.png",
+                image: vutrudongtienProgram,
                 description: "Financial education program for young people."
             },
             {
                 id: 212, category: "tv", title: "Road to Mt. Olympia",
                 type: "pdf", url: "https://drive.google.com/file/d/1oT9NasKDULGbSsf3_Sb9CboDP-flC5KQ/view?usp=sharing",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/duonglendinholympia.jpg",
+                image: duonglendinholympiaProgram,
                 description: "Intellectual television program for high school students."
             },
             {
                 id: 213, category: "tv", title: "Golden Opportunity",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/thoicovang.jpg",
+                image: thoicovangProgram,
                 description: "Program celebrating Vietnam's National Day."
             },
             {
                 id: 214, category: "tv", title: "Magical Little Things",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/dieunhobekydieu.png",
+                image: dieunhobekydieuProgram,
                 description: "A thoughtful TV program spreading human values and warming souls in modern life."
             },
             {
                 id: 215, category: "tv", title: "Healthy and Happy",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vuikhoecoich.png",
+                image: vuikhoecoichProgram,
                 description: "Health consultation and entertainment television program for the elderly."
             },
             {
                 id: 216, category: "tv", title: "12 Zodiacs 2026",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapbinhngo.jpg",
+                image: congiapbinhngoProgram,
                 description: "Special Lunar New Year entertainment show on VTV."
             },
 
             {
                 id: 301, category: "game", title: "Starseed",
                 type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/starseed.png",
+                image: starseedProject,
                 description: "Interactive educational game developed on GDevelop platform."
             },
             {
                 id: 302, category: "game", title: "Danny's Day",
                 type: "game", url: "https://games.gdevelop-app.com/game-bbb4de63-0786-4da9-bb55-4d54425c392b/index.html",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/danny'sday.png",
+                image: dannysdayProject,
                 description: "Adventure academic game addressing real-life interactive scenarios."
             },
             {
                 id: 303, category: "game", title: "The Escape Game",
                 type: "game", url: "https://games.gdevelop-app.com/game-be5ed1b7-1e8b-4467-bfdb-e01f9ab4f315/index.html",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/theescape.png",
+                image: theescapeProject,
                 description: "Puzzle escape game integrating logical thinking and educational knowledge."
             },
 
@@ -408,44 +427,44 @@ export const projects = {
             {
                 id: 101, category: "gendemy", title: "Gendemy 数字教育生态系统",
                 type: "website", url: "https://www.gendemyedu.com/",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/gendemy.png",
+                image: gendemyProject,
                 description: "全面集成AI和电子学习的数字教育生态系统，旨在培养自主学习能力。"
             },
 
             {
                 id: 201, category: "tv", title: "2023新一代学生",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/sinhvienthehemoi.jpg",
+                image: sinhvienthehemoiProgram,
                 description: "面向全国大学生的真人秀游戏节目。"
             },
             {
                 id: 202, category: "tv", title: "2024年12生肖",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapgiapthin.JPG",
+                image: congiapgiapthinProgram,
                 description: "VTV 上的特别农历新年娱乐节目。"
             },
             {
                 id: 203, category: "tv", title: "在决胜旗帜下",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/duoilacoquyetthang.jpg",
+                image: duoilacoquyetthangProgram,
                 description: "庆祝奠边府战役胜利70周年的节目。"
             },
             {
                 id: 204, category: "tv", title: "地道美食店",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/quanquenchinhgoc.jpg",
+                image: quanquenchinhgocProgram,
                 description: "探索当地美食和文化的节目。"
             },
             {
                 id: 205, category: "tv", title: "2025年VTV Awards",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vtvawards.jpg",
+                image: vtvawardsProgram,
                 description: "VTV 的年度电视颁奖典礼。"
             },
             {
                 id: 206, category: "tv", title: "2025年12生肖",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapatty.jpg",
+                image: congiapattyProgram,
                 description: "VTV 上的特别农历新年娱乐节目。"
             },
             {
@@ -463,68 +482,68 @@ export const projects = {
             {
                 id: 209, category: "tv", title: "凯旋曲永驻",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vangmaikhuckhaihoan.jpg",
+                image: vangmaikhuckhaihoanProgram,
                 description: "庆祝南方解放和国家统一50周年的艺术节目。"
             },
             {
                 id: 210, category: "tv", title: "闪耀的夏天",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/muahelaplanh.jpg",
+                image: muahelaplanhProgram,
                 description: "庆祝国际儿童节的儿童音乐节目。"
             },
             {
                 id: 211, category: "tv", title: "金钱宇宙 2025",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vutrudongtien.png",
+                image: vutrudongtienProgram,
                 description: "面向年轻人的金融教育节目。"
             },
             {
                 id: 212, category: "tv", title: "通往奥林匹亚峰之路",
                 type: "pdf", url: "https://drive.google.com/file/d/1oT9NasKDULGbSsf3_Sb9CboDP-flC5KQ/view?usp=sharing",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/duonglendinholympia.jpg",
+                image: duonglendinholympiaProgram,
                 description: "面向高中生的益智电视节目。"
             },
             {
                 id: 213, category: "tv", title: "黄金时机",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/thoicovang.jpg",
+                image: thoicovangProgram,
                 description: "庆祝越南国庆节的节目。"
             },
             {
                 id: 214, category: "tv", title: "奇妙的小事",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/dieunhobekydieu.png",
+                image: dieunhobekydieuProgram,
                 description: "这是一档引人深思的电视节目，在现代生活中传播人文价值，温暖心灵。"
             },
             {
                 id: 215, category: "tv", title: "健康快乐",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/vuikhoecoich.png",
+                image: vuikhoecoichProgram,
                 description: "面向老年人的健康咨询与娱乐电视节目。"
             },
             {
                 id: 216, category: "tv", title: "2026年12生肖",
                 type: "pdf", url: "",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/program/12congiapbinhngo.jpg",
+                image: congiapbinhngoProgram,
                 description: "VTV 上的特别农历新年娱乐节目。"
             },
 
             {
                 id: 301, category: "game", title: "Starseed",
                 type: "game", url: "https://gd.games/instant-builds/e8714d2a-3f8f-4d8d-91e7-f9c7e5548aba",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/starseed.png",
+                image: starseedProject,
                 description: "在GDevelop平台上开发的互动教育游戏。"
             },
             {
                 id: 302, category: "game", title: "Danny's Day",
                 type: "game", url: "https://games.gdevelop-app.com/game-bbb4de63-0786-4da9-bb55-4d54425c392b/index.html",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/danny'sday.png",
+                image: dannysdayProject,
                 description: "解决现实生活中互动场景的冒险学术游戏。"
             },
             {
                 id: 303, category: "game", title: "The Escape Game",
                 type: "game", url: "https://games.gdevelop-app.com/game-be5ed1b7-1e8b-4467-bfdb-e01f9ab4f315/index.html",
-                image: "https://jbzoqomwrkyhcstjaiby.supabase.co/storage/v1/object/public/Paodabeat/project/theescape.png",
+                image: theescapeProject,
                 description: "结合逻辑思维和教育知识的密室逃脱解谜游戏。"
             },
 
