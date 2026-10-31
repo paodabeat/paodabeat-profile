@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import { ArrowLeft, FileDown, Image as ImageIcon, Loader2, Sun, Moon } from "lucide-react";
 import { useTranslation } from 'react-i18next';
@@ -10,6 +10,10 @@ import { LanguageSwitch } from '../components/Navbar';
 import ScrollToTop from '../components/ScrollToTop';
 import { useTheme } from '../hooks/useTheme';
 import { useLanguage } from '../hooks/useLanguage';
+
+// Bề ngang chuẩn của tờ CV (210mm ở 96dpi). CV luôn dựng ở khổ này rồi thu nhỏ cả tờ
+// bằng transform khi màn hình hẹp, để bố cục hai cột không bị dồn lại hay tràn khung.
+const CV_WIDTH = 794;
 
 // Component Tiêu đề khối cho cột phải
 const RightColumnSectionTitle = ({ children }: { children: React.ReactNode }) => (
@@ -23,7 +27,29 @@ export default function CV() {
     const { theme, toggleTheme } = useTheme();
     const { currentLanguage, setLanguage } = useLanguage();
     const cvRef = useRef<HTMLDivElement>(null);
+    const frameRef = useRef<HTMLDivElement>(null);
     const [isExporting, setIsExporting] = useState(false);
+    const [scale, setScale] = useState(1);
+    const [frameHeight, setFrameHeight] = useState<number>();
+
+    // Tỉ lệ thu nhỏ = bề ngang khung hiện có / bề ngang chuẩn (không bao giờ phóng to quá 1)
+    useLayoutEffect(() => {
+        const frame = frameRef.current;
+        const cv = cvRef.current;
+        if (!frame || !cv) return;
+
+        const update = () => {
+            const next = Math.min(1, frame.clientWidth / CV_WIDTH);
+            setScale(next);
+            setFrameHeight(cv.offsetHeight * next);
+        };
+
+        const observer = new ResizeObserver(update);
+        observer.observe(frame);
+        observer.observe(cv);
+        update();
+        return () => observer.disconnect();
+    }, []);
 
     // Lấy dữ liệu đầy đủ từ i18n
     const experiencesData = (t('experience.list', { returnObjects: true }) as Array<{ year: string, company: string, role: string, description: string }>) || [];
@@ -177,24 +203,34 @@ export default function CV() {
             </div>
 
             {/* Khung viền mảnh bao ngoài tờ CV (nằm ngoài vùng chụp nên không lọt vào file PNG/PDF) */}
-            <div className="w-full max-w-[210mm] mx-auto border border-rule print:border-0 print:max-w-none">
+            <div
+                ref={frameRef}
+                className="w-full max-w-[210mm] mx-auto border border-rule overflow-hidden print:border-0 print:max-w-none print:overflow-visible print:h-auto!"
+                style={{ height: frameHeight }}
+            >
             {/* Vùng chứa CV - Đã gỡ print:min-h-[297mm] để CV rớt trang tự nhiên như ban đầu */}
             <div
                 ref={cvRef}
-                className="w-full bg-white overflow-hidden flex flex-col relative text-neutral-900 print:w-[210mm] print:m-0 print:overflow-visible"
-                style={{ printColorAdjust: 'exact', WebkitPrintColorAdjust: 'exact' }}
+                className="bg-white overflow-hidden flex flex-col relative text-neutral-900 print:m-0 print:overflow-visible print:w-[210mm]! print:transform-none!"
+                style={{
+                    width: CV_WIDTH,
+                    transform: `scale(${scale})`,
+                    transformOrigin: 'top left',
+                    printColorAdjust: 'exact',
+                    WebkitPrintColorAdjust: 'exact'
+                }}
             >
 
                 {/* Background Dots */}
                 <div className="absolute top-0 left-0 w-64 h-64 bg-[radial-gradient(var(--color-primary)_2px,transparent_2px)] bg-size-[16px_16px] opacity-20 pointer-events-none -translate-x-1/2 -translate-y-1/2 rounded-full"></div>
 
                 {/* --- HEADER --- */}
-                <header className="relative flex flex-col md:flex-row justify-between items-end p-6 md:p-10 border-b-4 border-cv-dark z-10 overflow-hidden min-h-64 print:flex-row print:min-h-55 print:p-8 print:overflow-visible">
+                <header className="relative flex flex-row justify-between items-end p-10 border-b-4 border-cv-dark z-10 overflow-hidden min-h-64 print:min-h-55 print:p-8 print:overflow-visible">
 
                     {/* Vùng chứa Ảnh */}
-                    <div className="absolute top-0 right-0 w-full md:w-[60%] h-full z-0 print:w-[60%]">
+                    <div className="absolute top-0 right-0 w-[60%] h-full z-0">
                         <div className="absolute inset-0 bg-[radial-gradient(var(--color-primary)_2px,transparent_2px)] bg-size-[12px_12px] opacity-40"></div>
-                        <div className="absolute top-6 bottom-6 right-6 left-6 md:left-10 print:left-10 overflow-hidden shadow-xl rounded-sm bg-neutral-200 print:shadow-md">
+                        <div className="absolute top-6 bottom-6 right-6 left-10 overflow-hidden shadow-xl rounded-sm bg-neutral-200 print:shadow-md">
                             <img
                                 src={coverImage}
                                 alt={t('profile.full')}
@@ -205,18 +241,18 @@ export default function CV() {
                     </div>
 
                     {/* Vùng Text */}
-                    <div className="text-center md:text-left mb-16 md:mb-0 print:mb-0 w-full relative z-20 pointer-events-none flex flex-col justify-end print:text-left">
-                        <div className="inline-block bg-white/70 md:bg-transparent print:bg-transparent backdrop-blur-sm md:backdrop-blur-none p-4 md:p-0 print:py-2 print:pr-2 rounded-lg w-fit">
+                    <div className="text-left mb-0 w-full relative z-20 pointer-events-none flex flex-col justify-end">
+                        <div className="inline-block bg-transparent p-0 print:py-2 print:pr-2 rounded-lg w-fit">
                             <h2 className="text-primary font-black text-lg tracking-widest leading-none print:leading-tight mb-1.5 pointer-events-auto">
                                 CURRICULUM <br /> VITAE
                             </h2>
                             <div className="w-12 h-1.5 bg-primary mb-4 mt-2 pointer-events-auto"></div>
 
-                            <h1 className="text-2xl md:text-3xl font-black leading-none print:leading-tight text-cv-dark tracking-tighter drop-shadow-sm pointer-events-auto print:text-3xl">
+                            <h1 className="text-3xl font-black leading-none print:leading-tight text-cv-dark tracking-tighter drop-shadow-sm pointer-events-auto">
                                 {t('profile.family').toUpperCase()}
                             </h1>
 
-                            <h1 className="text-6xl md:text-[4.5rem] font-black leading-none print:leading-normal text-primary tracking-tighter mt-1 drop-shadow-md pointer-events-auto print:text-[4.5rem] print:pb-2 print:pt-1">
+                            <h1 className="text-[4.5rem] font-black leading-none print:leading-normal text-primary tracking-tighter mt-1 drop-shadow-md pointer-events-auto print:pb-2 print:pt-1">
                                 {t('profile.given').toUpperCase()}
                             </h1>
                         </div>
@@ -231,10 +267,10 @@ export default function CV() {
                 </header>
 
                 {/* --- BODY --- */}
-                <div className="flex flex-col md:flex-row relative z-10 print:flex-row grow">
+                <div className="flex flex-row relative z-10 grow">
 
                     {/* CỘT TRÁI */}
-                    <div className="w-full md:w-[56%] p-6 md:p-8 bg-white print:w-[56%] print:p-6 print:pr-5 flex flex-col">
+                    <div className="w-[56%] p-8 bg-white print:p-6 print:pr-5 flex flex-col">
                         <section className="mb-6 print:mb-5">
                             <h2 className="text-lg font-black text-cv-dark mb-3 tracking-widest uppercase">{t('cv.contact')}</h2>
                             <div className="flex flex-col gap-2">
@@ -288,15 +324,10 @@ export default function CV() {
                     </div>
 
                     {/* CỘT PHẢI */}
-                    <div className="w-full md:w-[44%] bg-primary text-white p-6 md:p-8 flex flex-col gap-5 print:bg-primary print:text-white print:w-[44%] print:p-6 print:pl-5">
+                    <div className="w-[44%] bg-primary text-white p-8 flex flex-col gap-5 print:bg-primary print:text-white print:p-6 print:pl-5">
 
                         <section>
                             <RightColumnSectionTitle>{t('academic.education.title')}</RightColumnSectionTitle>
-                            <div className="text-left mb-3">
-                                <p className="font-bold text-[15px] mb-0.5 leading-tight">{t('academic.education.master.degree')}</p>
-                                <p className="text-xs font-medium opacity-90">{t('academic.education.master.track_label')}: {t('academic.education.master.track')}</p>
-                                <p className="text-xs font-medium opacity-90">{t('academic.education.master.school')}</p>
-                            </div>
                             <div className="text-left mb-3">
                                 <p className="font-bold text-[15px] mb-0.5 leading-tight">{t('academic.education.degree')}</p>
                                 <p className="text-xs font-medium opacity-90">{t('academic.education.university')}</p>

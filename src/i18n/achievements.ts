@@ -5,7 +5,8 @@
 export const achievements = {
     vi: [
         // Giải thưởng
-        { id: "27", type: "award", cv: true, title: "Giải Vàng (Gold Award) – Bảng Giáo dục Đại học, GCD4F lần thứ 9", issuer: "Global Competition on Design for Futures – Chung kết khu vực Đông Nam Á tại Malaysia (đội Gendemy)", year: "07/2026" },
+        { id: "28", type: "award", cv: true, title: "Giải Đồng (Bronze Award) Chung kết toàn cầu – Bảng Giáo dục Đại học, GCD4F lần thứ 9: Top 1 AI For Education, Top 4 Design for Futures", issuer: "Global Competition on Design for Futures – Chung kết toàn cầu (24 - 25/10/2026), đội Gendemy", year: "10/2026" },
+        { id: "27", type: "award", cv: true, title: "Giải Vàng (Gold Award) Chung kết khu vực Đông Nam Á – Bảng Giáo dục Đại học, GCD4F lần thứ 9", issuer: "Global Competition on Design for Futures – Chung kết khu vực Đông Nam Á tại Malaysia (đội Gendemy)", year: "07/2026" },
         { id: "04", type: "award", cv: true, title: "Giải Ba Sinh viên Nghiên cứu Khoa học cấp Đại học", issuer: "Giấy khen của Giám đốc Đại học Bách khoa Hà Nội", year: "2024 - 2025" },
         { id: "05", type: "award", cv: true, title: "Giải Poster Sinh viên Nghiên cứu Khoa học cấp Đại học", issuer: "Giấy khen của Giám đốc Đại học Bách khoa Hà Nội", year: "2024 - 2025" },
         { id: "09", type: "award", cv: true, title: "Giải Nhì cuộc thi bình chọn online BK.VIDEAS 2022 - 2023", issuer: "Đại học Bách khoa Hà Nội – Khối ngành Quản lý, Sư phạm, Ngoại ngữ và Lý luận chính trị", year: "06/2023" },
@@ -39,7 +40,8 @@ export const achievements = {
     ],
     en: [
         // Awards
-        { id: "27", type: "award", cv: true, title: "Gold Award, Higher Education Track – 9th Global Competition on Design for Futures (GCD4F)", issuer: "Southeast Asia Regional Finals in Malaysia – Team Gendemy (Beijing Normal University, UNESCO IITE, Open University Malaysia)", year: "07/2026" },
+        { id: "28", type: "award", cv: true, title: "Bronze Award, Global Finals – Higher Education Track, 9th GCD4F: Top 1 AI For Education, Top 4 Design for Futures", issuer: "Global Competition on Design for Futures – Global Finals (October 24 - 25, 2026), Team Gendemy", year: "10/2026" },
+        { id: "27", type: "award", cv: true, title: "Gold Award, Southeast Asia Regional Finals – Higher Education Track, 9th GCD4F", issuer: "Global Competition on Design for Futures – Malaysia, Team Gendemy (Beijing Normal University, UNESCO IITE, Open University Malaysia)", year: "07/2026" },
         { id: "04", type: "award", cv: true, title: "Third Prize, University-level Student Scientific Research", issuer: "Certificate of Merit from the President of HUST", year: "2024 - 2025" },
         { id: "05", type: "award", cv: true, title: "Poster Prize, University-level Student Scientific Research", issuer: "Certificate of Merit from the President of HUST", year: "2024 - 2025" },
         { id: "09", type: "award", cv: true, title: "Second Prize, BK.VIDEAS 2022 - 2023 Online Voting Contest", issuer: "Hanoi University of Science and Technology – Management, Pedagogy, Foreign Languages & Political Theory track", year: "06/2023" },
@@ -73,7 +75,8 @@ export const achievements = {
     ],
     zh: [
         // 奖项
-        { id: "27", type: "award", cv: true, title: "第九届未来设计全球大赛 (GCD4F) 高等教育赛道金奖", issuer: "东南亚区域决赛（马来西亚）· Gendemy 团队（北京师范大学、联合国教科文组织教育信息技术研究所、马来西亚开放大学）", year: "07/2026" },
+        { id: "28", type: "award", cv: true, title: "第九届未来设计全球大赛 (GCD4F) 全球总决赛高等教育赛道铜奖：AI For Education 第 1 名、Design for Futures 第 4 名", issuer: "未来设计全球大赛总决赛（2026年10月24 - 25日）· Gendemy 团队", year: "10/2026" },
+        { id: "27", type: "award", cv: true, title: "第九届未来设计全球大赛 (GCD4F) 东南亚区域决赛高等教育赛道金奖", issuer: "东南亚区域决赛（马来西亚）· Gendemy 团队（北京师范大学、联合国教科文组织教育信息技术研究所、马来西亚开放大学）", year: "07/2026" },
         { id: "04", type: "award", cv: true, title: "校级学生科研三等奖", issuer: "河内理工大学校长奖状", year: "2024 - 2025" },
         { id: "05", type: "award", cv: true, title: "校级学生科研海报奖", issuer: "河内理工大学校长奖状", year: "2024 - 2025" },
         { id: "09", type: "award", cv: true, title: "BK.VIDEAS 2022 - 2023 线上评选二等奖", issuer: "河内理工大学（管理、师范、外语及政治理论类）", year: "06/2023" },
