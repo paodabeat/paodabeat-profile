@@ -44,6 +44,39 @@ for (const { album, name, url } of trainingImages) {
     else (TRAINING_ALBUMS[album] ??= []).push(url);
 }
 
+// Ảnh đời thường cho khung ảnh xoay vòng ở đầu trang, khớp theo id trong i18n (photos.list).
+// Kích thước lấy từ manifest.json (tạo bằng: python scripts/optimize_images.py) để biết
+// ảnh ngang hay dọc mà cắt về khung vuông cho đúng.
+import photoManifest from '../../assets/photos/manifest.json';
+
+const photoModules = import.meta.glob('../../assets/photos/*.webp', { eager: true, import: 'default' }) as Record<string, string>;
+
+export interface Photo {
+    image: string;
+    ratio: number; // rộng / cao: > 1 là ảnh ngang
+}
+
+// Điểm nhắm của từng ảnh khi cắt về khung vuông (object-position: "ngang dọc").
+// Ảnh gốc dọc/ngang nên khung vuông luôn cắt bớt; chỉnh số ở đây để nhân vật chính
+// luôn lọt vào khung: giảm số thứ hai thì khung nhích lên trên, tăng thì xuống dưới;
+// số thứ nhất tương tự theo chiều ngang. Ảnh không khai báo thì lấy giữa ảnh.
+export const PHOTO_FOCUS: Record<string, string> = {
+    "01": "50% 18%",   // ảnh tốt nghiệp - lấy nửa trên cho rõ mặt
+    "02": "50% 30%",
+    "03": "58% 45%",   // ảnh ngang, nhân vật lệch phải
+    "04": "55% 30%",
+    "05": "50% 26%",
+    "06": "50% 40%",
+    "07": "100% 50%"   // ảnh ngang, nhân vật sát mép phải nên lấy hẳn phần bên phải
+};
+
+export const PHOTOS: Record<string, Photo> = {};
+for (const [path, url] of Object.entries(photoModules)) {
+    const id = path.split('/').pop()!.replace(/\.webp$/, '');
+    const size = (photoManifest as Record<string, { width: number; height: number }>)[id];
+    PHOTOS[id] = { image: url, ratio: size ? size.width / size.height : 3 / 4 };
+}
+
 // Ảnh trang đầu tiên của bài nghiên cứu cho gallery Nghiên cứu khoa học, khớp theo id trong i18n/academic.ts
 export const RESEARCH_IMAGES: Record<string, string> = mapByFileName(
     import.meta.glob('../../assets/research/*.{png,jpg,jpeg,webp}', { eager: true, import: 'default' })

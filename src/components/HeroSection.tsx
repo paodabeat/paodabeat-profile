@@ -6,7 +6,7 @@ import { ArrowRight, ArrowDown } from 'lucide-react';
 
 // Import Component
 import Typewriter from './Typewriter';
-import heroImage from '../../assets/hero-image.webp';
+import HeroCarousel from './HeroCarousel';
 
 export const SOCIAL_LINKS = [
     { label: "Facebook", href: "https://www.facebook.com/phungtrangiabao/" },
@@ -75,17 +75,7 @@ export default function HeroSection() {
                         transition={{ duration: 1, delay: 0.25 }}
                         className="lg:col-span-5 lg:order-last"
                     >
-                        <div className="bg-panel aspect-square overflow-hidden">
-                            <img
-                                src={heroImage}
-                                alt={t('profile.full')}
-                                className="w-full h-full object-contain"
-                            />
-                        </div>
-                        <figcaption className="flex justify-between gap-4 pt-3 text-xs text-muted">
-                            <span>Fig. 01</span>
-                            <span className="italic">{t('hero.caption')}</span>
-                        </figcaption>
+                        <HeroCarousel />
                     </motion.figure>
 
                     {/* CỘT PHẢI: GIỚI THIỆU & LIÊN KẾT */}

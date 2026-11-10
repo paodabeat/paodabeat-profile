@@ -12,9 +12,16 @@ Chuẩn bị ảnh cho web.
    Tên thư mục album dùng chữ không dấu, nối bằng "-" (ví dụ "lai-chau-7-12-2025") và khớp với
    trường "album" trong src/i18n/projects.ts. Ảnh album nên có cạnh dài khoảng 1800px.
 
+3. Khung ảnh xoay vòng ở đầu trang chủ: assets/photos/<id>.(png|jpg|jpeg|webp)
+   - assets/photos/<id>.webp     (ảnh hiển thị, cạnh dài tối đa 1600px)
+   - assets/photos/manifest.json (kích thước từng ảnh, để trang web biết ảnh ngang hay dọc)
+   Thêm ảnh mới: đặt file vào assets/photos/ với tên <id> rồi chạy lại script, sau đó
+   bổ sung chú thích theo <id> vào khối "photos.list" trong src/i18n/index.ts.
+
 Chỉ tạo lại khi ảnh nguồn mới hơn bản đã tạo. Cần Pillow: pip install pillow
 """
 
+import json
 from pathlib import Path
 
 from PIL import Image, ImageOps
@@ -25,6 +32,8 @@ ASSETS = Path(__file__).resolve().parent.parent / "assets"
 EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp"}
 
 CERTIFICATE_SIZES = {"web": (2000, 82), "thumb": (360, 75)}  # thư mục: (cạnh dài tối đa, chất lượng webp)
+
+PHOTO_MAX_SIDE = 1600   # cạnh dài của ảnh trong khung ảnh đầu trang
 
 # Ảnh bìa ghép cho album Đào tạo: ảnh chính (khung lớn bên trái) của từng album, mặc định là ảnh đầu tiên
 COLLAGE_MAIN = {
@@ -101,6 +110,45 @@ def build_collage(album: Path, main_stem: str | None) -> bool:
     return True
 
 
+def build_photos() -> list[str]:
+    """Ảnh đời thường: từ assets/photos/<id>.<ext> tạo <id>.webp và manifest.json.
+
+    manifest.json lưu kích thước từng ảnh để trang web biết ảnh nào ngang, ảnh nào dọc
+    mà cắt về khung vuông cho đúng (xem PHOTO_FOCUS trong src/data/portfolioData.tsx).
+    """
+    folder = ASSETS / "photos"
+    if not folder.exists():
+        return []
+
+    done: list[str] = []
+    manifest: dict[str, dict[str, int]] = {}
+
+    for source in images_in(folder):
+        display = folder / f"{source.stem}.webp"
+
+        with Image.open(source) as image:
+            image = ImageOps.exif_transpose(image).convert("RGB")
+
+            # Ảnh nguồn đã đúng khổ và đúng định dạng thì không ghi đè lên chính nó
+            stale = not display.exists() or display.stat().st_mtime < source.stat().st_mtime
+            if stale and not (display == source and max(image.size) <= PHOTO_MAX_SIDE):
+                copy = image.copy()
+                copy.thumbnail((PHOTO_MAX_SIDE, PHOTO_MAX_SIDE), Image.LANCZOS)
+                copy.save(display, "WEBP", quality=82, method=6)
+                done.append(f"photos/{display.name}")
+
+        with Image.open(display) as final:
+            manifest[source.stem] = {"width": final.width, "height": final.height}
+
+    target = folder / "manifest.json"
+    content = json.dumps(dict(sorted(manifest.items())), indent=2) + "\n"
+    if not target.exists() or target.read_text(encoding="utf-8") != content:
+        target.write_text(content, encoding="utf-8")
+        done.append("photos/manifest.json")
+
+    return done
+
+
 def main() -> None:
     certificates = ASSETS / "certificate"
     for source in images_in(certificates):
@@ -112,6 +160,9 @@ def main() -> None:
     for album in sorted(p for p in training.iterdir() if p.is_dir()) if training.exists() else []:
         if build_collage(album, COLLAGE_MAIN.get(album.name)):
             print(f"training/{album.name}/cover.webp")
+
+    for line in build_photos():
+        print(line)
 
 
 if __name__ == "__main__":

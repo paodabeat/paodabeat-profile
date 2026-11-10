@@ -18,6 +18,7 @@ import congiapbinhngoProgram from "../../assets/program/12congiapbinhngo.webp";
 import starseedProject from "../../assets/project/starseed.webp";
 import dannysdayProject from "../../assets/project/danny'sday.webp";
 import theescapeProject from "../../assets/project/theescape.webp";
+import jstProject from "../../assets/project/jst.webp";
 
 export const projects = {
     vi: {
@@ -196,7 +197,7 @@ export const projects = {
             // Social Media Content
             {
                 id: 501, category: "social", title: "TikTok Đại học Bách khoa Hà Nội",
-                type: "updating", url: "",
+                type: "website", url: "https://www.tiktok.com/@bachkhoahanoi_hust",
                 image: "https://picsum.photos/seed/social1/600/400",
                 description: "Sáng tạo nội dung video ngắn truyền thông thương hiệu HUST trên nền tảng TikTok."
             },
@@ -208,8 +209,8 @@ export const projects = {
             },
             {
                 id: 503, category: "social", title: "Tạp chí Khoa học và Công nghệ - JST",
-                type: "updating", url: "",
-                image: "https://picsum.photos/seed/social3/600/400",
+                type: "website", url: "https://www.facebook.com/jst.hust.edu.vn",
+                image: jstProject,
                 description: "Xây dựng nội dung truyền thông cho ấn phẩm nghiên cứu khoa học."
             },
 
@@ -415,7 +416,7 @@ export const projects = {
 
             {
                 id: 501, category: "social", title: "HUST TikTok Channel",
-                type: "updating", url: "",
+                type: "website", url: "https://www.tiktok.com/@bachkhoahanoi_hust",
                 image: "https://picsum.photos/seed/social1/600/400",
                 description: "Created short video content for HUST brand communication on TikTok."
             },
@@ -427,8 +428,8 @@ export const projects = {
             },
             {
                 id: 503, category: "social", title: "Journal of Science and Technology - JST",
-                type: "updating", url: "",
-                image: "https://picsum.photos/seed/social3/600/400",
+                type: "website", url: "https://www.facebook.com/jst.hust.edu.vn",
+                image: jstProject,
                 description: "Developed media content for scientific research publications."
             },
 
@@ -634,7 +635,7 @@ export const projects = {
 
             {
                 id: 501, category: "social", title: "HUST TikTok 频道",
-                type: "updating", url: "",
+                type: "website", url: "https://www.tiktok.com/@bachkhoahanoi_hust",
                 image: "https://picsum.photos/seed/social1/600/400",
                 description: "在TikTok平台上制作有关河内理工大学品牌传播的短视频内容。"
             },
@@ -646,8 +647,8 @@ export const projects = {
             },
             {
                 id: 503, category: "social", title: "科学与技术杂志 - JST",
-                type: "updating", url: "",
-                image: "https://picsum.photos/seed/social3/600/400",
+                type: "website", url: "https://www.facebook.com/jst.hust.edu.vn",
+                image: jstProject,
                 description: "为科学研究出版物开发媒体内容。"
             },
 

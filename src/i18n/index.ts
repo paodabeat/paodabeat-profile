@@ -31,8 +31,7 @@ const resources = {
                 quote: "\"Little strokes fell great oaks\"",
                 kicker: "Hồ sơ năng lực",
                 now: "Vai trò",
-                follow: "Theo dõi",
-                caption: "Phùng Trần Gia Bảo, Hà Nội"
+                follow: "Theo dõi"
             },
             common: {
                 prev: "Trước",
@@ -45,6 +44,18 @@ const resources = {
                 authors: "Tác giả",
                 abstract: "Tóm tắt (Abstract)",
                 published: "Công bố tại"
+            },
+            // Chú thích cho khung ảnh xoay vòng ở đầu trang (xem src/components/HeroCarousel.tsx)
+            photos: {
+                list: [
+                    { id: "01", title: "Lễ tốt nghiệp Cử nhân Công nghệ Giáo dục", meta: "ĐHBK Hà Nội", year: "2026" },
+                    { id: "02", title: "Bến Thượng Hải (The Bund)", meta: "Thượng Hải", year: "2025" },
+                    { id: "03", title: "Bờ sông Hoàng Phố", meta: "Thượng Hải", year: "2025" },
+                    { id: "04", title: "Ngoại Than nhìn sang Phố Đông", meta: "Thượng Hải", year: "2025" },
+                    { id: "05", title: "Tử Cấm Thành", meta: "Bắc Kinh", year: "2025" },
+                    { id: "06", title: "Đền Minh Trị (Meiji Jingū)", meta: "Tokyo", year: "2024" },
+                    { id: "07", title: "Trải nghiệm Yukata tại Shibaura Institute of Technology", meta: "Tokyo", year: "2024" }
+                ]
             },
             // Nhúng module tiếng Việt
             experience: experience.vi,
@@ -73,7 +84,14 @@ const resources = {
                 english: "Tiếng Anh",
                 chinese: "Tiếng Trung Quốc",
                 education_time: "Công nghệ Giáo dục",
-                qr_text: "Quét mã để xem Portfolio trực tuyến"
+                qr_text: "Quét mã để xem Portfolio trực tuyến",
+                website: "Website:",
+                headline: "Công nghệ Giáo dục · Sản xuất nội dung đa phương tiện",
+                objective: "Mục tiêu nghề nghiệp",
+                template_label: "Mẫu CV",
+                template_modern: "Hiện đại",
+                template_simple: "Đơn giản",
+                present: "nay"
             }
         }
     },
@@ -99,8 +117,7 @@ const resources = {
                 quote: "\"Little strokes fell great oaks\"",
                 kicker: "Portfolio",
                 now: "Currently",
-                follow: "Elsewhere",
-                caption: "Phung Tran Gia Bao, Hanoi"
+                follow: "Elsewhere"
             },
             common: {
                 prev: "Prev",
@@ -113,6 +130,17 @@ const resources = {
                 authors: "Authors",
                 abstract: "Abstract",
                 published: "Published in"
+            },
+            photos: {
+                list: [
+                    { id: "01", title: "Bachelor of Educational Technology graduation", meta: "HUST", year: "2026" },
+                    { id: "02", title: "The Bund", meta: "Shanghai", year: "2025" },
+                    { id: "03", title: "Huangpu riverfront", meta: "Shanghai", year: "2025" },
+                    { id: "04", title: "The Bund, looking across to Pudong", meta: "Shanghai", year: "2025" },
+                    { id: "05", title: "The Forbidden City", meta: "Beijing", year: "2025" },
+                    { id: "06", title: "Meiji Jingū Shrine", meta: "Tokyo", year: "2024" },
+                    { id: "07", title: "Yukata workshop at Shibaura Institute of Technology", meta: "Tokyo", year: "2024" }
+                ]
             },
             // Nhúng module tiếng Anh
             experience: experience.en,
@@ -141,7 +169,14 @@ const resources = {
                 english: "English",
                 chinese: "Chinese",
                 education_time: "Educational Technology",
-                qr_text: "Scan code to view Portfolio online"
+                qr_text: "Scan code to view Portfolio online",
+                website: "Website:",
+                headline: "Educational Technology · Multimedia Content Production",
+                objective: "Career Objective",
+                template_label: "Template",
+                template_modern: "Modern",
+                template_simple: "Simple",
+                present: "Present"
             }
         }
     },
@@ -167,8 +202,7 @@ const resources = {
                 quote: "\"滴水穿石\"",
                 kicker: "作品集",
                 now: "身份",
-                follow: "社交媒体",
-                caption: "冯陈家宝，河内"
+                follow: "社交媒体"
             },
             common: {
                 prev: "上一个",
@@ -181,6 +215,17 @@ const resources = {
                 authors: "作者",
                 abstract: "摘要 (Abstract)",
                 published: "发表于"
+            },
+            photos: {
+                list: [
+                    { id: "01", title: "教育技术学士毕业典礼", meta: "河内", year: "2026" },
+                    { id: "02", title: "外滩", meta: "上海", year: "2025" },
+                    { id: "03", title: "黄浦江畔", meta: "上海", year: "2025" },
+                    { id: "04", title: "外滩远眺浦东", meta: "上海", year: "2025" },
+                    { id: "05", title: "紫禁城", meta: "北京", year: "2025" },
+                    { id: "06", title: "明治神宫", meta: "东京", year: "2024" },
+                    { id: "07", title: "芝浦工业大学浴衣体验", meta: "东京", year: "2024" }
+                ]
             },
             // Nhúng module tiếng Trung
             experience: experience.zh,
@@ -209,7 +254,14 @@ const resources = {
                 english: "英语",
                 chinese: "中文",
                 education_time: "教育技术",
-                qr_text: "扫码在线查看作品集"
+                qr_text: "扫码在线查看作品集",
+                website: "网站：",
+                headline: "教育技术 · 多媒体内容制作",
+                objective: "职业目标",
+                template_label: "模板",
+                template_modern: "现代",
+                template_simple: "简约",
+                present: "至今"
             }
         }
     }
